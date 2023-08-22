@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import video from '../assets/2.mp4'
 
-const VideoPlayer = () => {
+function VideoPlayer() {
 	const vidRef = useRef<HTMLVideoElement>(null)
 
 	return (

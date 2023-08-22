@@ -1,5 +1,5 @@
 export default interface User {
-	name: string;
-	photo: string;
-	token: string;
+	name: string | null;
+	photo: string | null;
+	token: string | null;
 }
