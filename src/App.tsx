@@ -1,14 +1,11 @@
-import { useState } from 'react'
-
 import './App.css'
+import VideoPlayer from './components/VideoPlayer'
 
 function App() {
 
   return (
     <>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <VideoPlayer />
     </>
   )
 }
