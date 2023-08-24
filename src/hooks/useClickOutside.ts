@@ -1,26 +1,36 @@
 import { useEffect } from "react"
 
 
-// exceptions: elements in which 
+// exceptions: elements refs in which 
 //              a click don't call callback function
+// callback: use on outside exceptions
+// callbackInside: use on inside exceptions
 export default function useClickOutside(
   callback: CallableFunction, 
-  exceptions: React.RefObject<HTMLElement>[]
+  exceptions: React.RefObject<HTMLElement>[],
+  callbackInside?: CallableFunction,
+  container?: React.RefObject<HTMLElement>
 ) {
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    function handleClickOutside(event: Event) {
       const insideException = exceptions
         .find(e => e.current 
             && e.current.contains(event.target as Node))
-      if (exceptions[0].current
-          && !insideException) {
-          callback()
+      if (!exceptions[0].current) {
+        return
+      }
+      if (!insideException) {
+        callback()
+      } else {
+        callbackInside && callbackInside()
       }
     }
+
+    const cont = (container && container.current) || document
     
-    document.addEventListener("mousedown", handleClickOutside)
+    cont.addEventListener("mousedown", handleClickOutside)
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
+      cont.removeEventListener("mousedown", handleClickOutside)
     }
   }, [exceptions[0]])
 }
