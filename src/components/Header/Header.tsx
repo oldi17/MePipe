@@ -5,8 +5,9 @@ import { login } from "../../features/user/userSlice"
 import UserMenu from "../UserMenu/UserMenu"
 import Layout from "../../features/layout/Layout.interface"
 import { toggleUserMenu } from "../../features/layout/layoutSlice"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import './Header.css'
+import { Link, useNavigate } from "react-router-dom"
 
 function Header() {
 	// const user: User | undefined = undefined
@@ -15,26 +16,39 @@ function Header() {
   const layout: Layout = useSelector((state: RootState) => state.layout)
 
   const userImgRef = useRef(null);
+  
+  const [search, setSearch] = useState('')
+  const navigate = useNavigate()
 
+  function handleSearch() {
+    if (!search)
+      return
+    navigate('/results/' + search)
+  }
 
 	return (
 		<header
 			className="header"
 		>
-			<img 
-				className="header--logo"
-				src='logo+name.svg'
-			/>
+      <Link to='/'>
+        <img 
+          className="header--logo"
+          src='/logo+name.svg'
+        />
+      </Link>
 			<div
 				className="header--search"
 			>
 				<input 
 					className="header--search--input"
 					placeholder="Введите запрос"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
 				/>
 				<button 
 					type='button'
 					className="header--search-btn"
+          onClick={handleSearch}
 				/>
 			</div>
 			{ user.name && 

@@ -32,21 +32,21 @@ function UserMenu(props: any) {
 		<nav className="user-menu" ref={userMenuRef}>
       <ul className="user-menu--options">
         <li><Link to={'/@' + user.name}>
-          <img src='my-channel-icon.svg' />
+          <img src='/my-channel-icon.svg' />
           Мой канал</Link></li>
         {inCreatorMode 
           ? <li><Link to='/'>
-          <img src='logo-inline.svg' />
+          <img src='/logo-inline.svg' />
           Главная</Link></li>
           : <li><Link to='/creator'>
-          <img src='creator-icon.svg' />
+          <img src='/creator-icon.svg' />
           Творческая студия</Link></li>
         }
         <li><a 
           href='/logout'
           onClick={handleLogout}
         >
-          <img src='logout-icon.svg' />
+          <img src='/logout-icon.svg' />
           Выйти</a></li>
       </ul>
 		</nav>

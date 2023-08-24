@@ -8,6 +8,7 @@
   position: fixed;
   padding: 10px;
   top: 0;
+  z-index: 1;
 }
 
 .header--logo {
@@ -44,7 +45,7 @@
 .header--search-btn {
   border: 1px solid #ccc;
   border-radius: 0 40px 40px 0;
-  background-image:  url(search-icon.svg);
+  background-image:  url(/search-icon.svg);
 }
 
 .header--search-btn:hover {
@@ -94,7 +95,7 @@
 .header--logout-btn {
   border-radius: 40px;
   border: 0;
-  background-image: url(logout-icon.svg);
+  background-image: url(/logout-icon.svg);
 }
 
 .header--logout-btn:hover {
@@ -104,7 +105,7 @@
 .header--login-btn {
   border-radius: 40px;
   border: 1px solid #ccc;
-  background-image: url(login-icon.svg);
+  background-image: url(/login-icon.svg);
   height: 38px;
   width: 100px;
   min-height: 38px;

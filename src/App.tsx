@@ -5,14 +5,17 @@ import SideBar from './components/SideBar/SideBar'
 import Main from './components/Main/Main'
 import { useEffect } from 'react'
 import { setCurrentSideBarElement } from './features/layout/layoutSlice'
+import { useLocation } from 'react-router-dom'
 
 function App() {
   const dispatch = useDispatch()
+  const location = useLocation()
+
   useEffect(() => {
     dispatch(setCurrentSideBarElement({
-      url: window.location.pathname
+      url: location.pathname
     }))
-  }, [window.location.pathname])
+  }, [location])
 
   return (
     <>

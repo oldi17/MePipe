@@ -3,8 +3,8 @@ import User from './User.interface'
 
 const initialState: User = {
     name: null,
-	photo: null,
-	token: null,
+    photo: null,
+    token: null,
   }
 
 export const userSlice = createSlice({
@@ -14,7 +14,7 @@ export const userSlice = createSlice({
     login: (state) => {
       state = {
         name: 'oldi',
-        photo: 'photo.png',
+        photo: '/photo.png',
         token: 'null',
       }
       return state
