@@ -1,0 +1,67 @@
+.vc {
+  cursor:pointer;
+  width: 314px;
+}
+
+.vc--preview {
+  position: relative;
+}
+
+.vc--preview--img {
+  width: 314px;
+  border-radius: 10px;
+}
+
+.vc--preview--time {
+  position: absolute;
+  font-size: 14px;
+  color: white;
+  background-color: black;
+  padding: 2px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0;
+  bottom: 10px;
+  right: 10px;
+}
+
+.vc--info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 10px;
+}
+
+.vc--info--creator-photo {
+  width: 48px;
+  border-radius: 50%;
+}
+
+.vc--info--right {
+  width: 80%;
+}
+
+.vc--info--right p {
+  margin: 0;
+}
+
+.vc--info--right--title {
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 19px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vc--info--right--creator-name,
+  .vc--info--right--metrics {
+  color: grey;
+  font-size: 15px;
+}
+
+.vc--info--right--creator-name {
+  padding-top: 7px;
+}

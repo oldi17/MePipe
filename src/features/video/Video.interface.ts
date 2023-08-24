@@ -7,8 +7,10 @@ export default interface Video {
   description: string;
   url: string;
   img: string;
+  length: number;
   views: number;
-  likes: number;
-  dislikes: number;
+  createdAt: number;
+  likes?: number;
+  dislikes?: number;
   comments?: Array<VideoComment>;
 }

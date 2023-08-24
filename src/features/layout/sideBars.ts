@@ -29,7 +29,7 @@ const creatorSideBar: SideBar = {
   elements: [
     {
       id: 'main',
-      url: '/creator',
+      url: '/creator/main',
       img: 'cr-main',
       title: 'Главная',
     },

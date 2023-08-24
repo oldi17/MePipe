@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
-import User from "../features/user/User.interface"
+import User from "../../features/user/User.interface"
 import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../store"
-import { logout } from "../features/user/userSlice"
-import { setOffUserMenu } from "../features/layout/layoutSlice"
+import { RootState } from "../../store"
+import { logout } from "../../features/user/userSlice"
+import { setOffUserMenu } from "../../features/layout/layoutSlice"
 import { useRef } from "react"
-import useClickOutside from "../hooks/useClickOutside"
+import useClickOutside from "../../hooks/useClickOutside"
+import './UserMenu.css'
 
 function UserMenu(props: any) {
   const user = useSelector((state: RootState) => state.user)

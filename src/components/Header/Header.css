@@ -1,0 +1,120 @@
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  gap: 20px;
+  position: fixed;
+  padding: 10px;
+  top: 0;
+}
+
+.header--logo {
+  height: 25px;
+}
+
+.header--search {
+  height: 40px;
+  max-width: 640px;
+  display: grid;
+  grid: 40px / minmax(120px, 600px) 60px;
+  padding-left: 32px;
+}
+
+.header--search--input, .header--search-btn {
+  height: 95%;
+  box-sizing: border-box;
+}
+
+.header--search--input {
+  border: 1px solid #ccc;
+  border-right: 0;
+  padding-left: 15px;
+  border-radius: 40px 0 0 40px;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.header--search--input:focus {
+  outline: 1px solid rgb(46, 46, 236);
+  outline-offset: -1px;
+}
+
+.header--search-btn {
+  border: 1px solid #ccc;
+  border-radius: 0 40px 40px 0;
+  background-image:  url(search-icon.svg);
+}
+
+.header--search-btn:hover {
+  background-color: #e2e2e2;
+}
+
+.header--user {
+  display: grid;
+  grid: auto / minmax(30px, 100px) 40px;
+  align-items: center;
+  justify-content: right;
+  column-gap: 10px;
+  padding-left: 60px;
+}
+
+.header--user--info {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
+}
+
+.header--user--img {
+  width: 40px;
+  border-radius: 50%;
+  outline: 1px solid rgb(202, 202, 202);
+  outline-offset: -1px;
+}
+
+.header--user--name {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.header--logout-btn, .header--search-btn, .header--login-btn {
+  box-sizing: border-box;
+  height: 95%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 20px;
+}
+
+.header--logout-btn {
+  border-radius: 40px;
+  border: 0;
+  background-image: url(logout-icon.svg);
+}
+
+.header--logout-btn:hover {
+  background-color: rgb(202, 202, 202);
+}
+
+.header--login-btn {
+  border-radius: 40px;
+  border: 1px solid #ccc;
+  background-image: url(login-icon.svg);
+  height: 38px;
+  width: 100px;
+  min-height: 38px;
+  min-width: 100px;
+  background-size: auto 22px;
+  background-position: right 0 10px;
+  margin-right: 15px;
+}
+
+.header--login-btn:hover {
+  border: 0;
+  background-color: #A5CFF5;
+}

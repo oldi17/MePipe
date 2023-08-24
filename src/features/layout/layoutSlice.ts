@@ -2,11 +2,15 @@ import { createSlice } from '@reduxjs/toolkit'
 import Layout from './Layout.interface'
 import { creatorSideBar, viewerSideBar } from './sideBars'
 
+console.log(document.URL)
 
 const initialState: Layout = {
   isUserMenuVisible: false,
   inCreatorMode: false,
-  sideBar: viewerSideBar,
+  sideBar: {
+    ...viewerSideBar,
+    current: window.location.pathname,
+  },
 }
 
 export const layoutSlice = createSlice({
@@ -26,9 +30,7 @@ export const layoutSlice = createSlice({
       return state
     },
     setCurrentSideBarElement: (state, action) => {
-      const newCurrent = state.sideBar.elements
-        .find(e => e.id === action.payload.id)
-      state.sideBar.current = newCurrent ? newCurrent.id : state.sideBar.current
+      state.sideBar.current = action.payload.url
       return state
     },
     switchToViewerMode: (state) => {

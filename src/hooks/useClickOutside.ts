@@ -20,9 +20,9 @@ export default function useClickOutside(
         return
       }
       if (!insideException) {
-        callback()
+        callback(event)
       } else {
-        callbackInside && callbackInside()
+        callbackInside && callbackInside(event)
       }
     }
 

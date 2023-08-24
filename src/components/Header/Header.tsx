@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
-import User from "../features/user/User.interface"
-import { RootState } from '../store'
-import { login } from "../features/user/userSlice"
-import UserMenu from "./UserMenu"
-import Layout from "../features/layout/Layout.interface"
-import { toggleUserMenu } from "../features/layout/layoutSlice"
+import User from "../../features/user/User.interface"
+import { RootState } from '../../store'
+import { login } from "../../features/user/userSlice"
+import UserMenu from "../UserMenu/UserMenu"
+import Layout from "../../features/layout/Layout.interface"
+import { toggleUserMenu } from "../../features/layout/layoutSlice"
 import { useRef } from "react"
+import './Header.css'
 
 function Header() {
 	// const user: User | undefined = undefined
