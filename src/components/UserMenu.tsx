@@ -1,27 +1,46 @@
 import { Link } from "react-router-dom"
-import User from "../types/User"
+import User from "../features/user/User.interface"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../store"
-import { logout } from "../features/userSlice"
+import { logout } from "../features/user/userSlice"
+import { setOffUserMenu } from "../features/layout/layoutSlice"
+import { useRef } from "react"
+import useClickOutside from "../hooks/useClickOutside"
 
-function UserMenu() {
-  const user: User = useSelector((state: RootState) => state.user)
+function UserMenu(props: any) {
+  const user = useSelector((state: RootState) => state.user)
+  const inCreatorMode = useSelector((state: RootState) => 
+    state.layout.inCreatorMode)
   const dispatch = useDispatch()
 
   const handleLogout = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     dispatch(logout())
+    dispatch(setOffUserMenu())
   }
+
+  const userMenuRef = useRef(null)
+  
+  useClickOutside(
+    () => dispatch(setOffUserMenu()),
+    [userMenuRef, ...props.exceptionRefs],
+  )
+  
   
 	return (
-		<nav className="user-menu">
+		<nav className="user-menu" ref={userMenuRef}>
       <ul className="user-menu--options">
         <li><Link to={'/@' + user.name}>
           <img src='my-channel-icon.svg' />
           Мой канал</Link></li>
-        <li><Link to='/creator'>
+        {inCreatorMode 
+          ? <li><Link to='/'>
+          <img src='logo-inline.svg' />
+          Главная</Link></li>
+          : <li><Link to='/creator'>
           <img src='creator-icon.svg' />
           Творческая студия</Link></li>
+        }
         <li><a 
           href='/logout'
           onClick={handleLogout}

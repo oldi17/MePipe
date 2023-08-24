@@ -1,17 +1,20 @@
 import { useDispatch, useSelector } from "react-redux"
-import User from "../types/User"
-import { useState } from "react"
-import store, { RootState } from '../store'
-import { login } from "../features/userSlice"
+import User from "../features/user/User.interface"
+import { RootState } from '../store'
+import { login } from "../features/user/userSlice"
 import UserMenu from "./UserMenu"
-
+import Layout from "../features/layout/Layout.interface"
+import { toggleUserMenu } from "../features/layout/layoutSlice"
+import { useRef } from "react"
 
 function Header() {
 	// const user: User | undefined = undefined
 	const user: User = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
+  const layout: Layout = useSelector((state: RootState) => state.layout)
 
-	const [isUserMenuVisible, setIsUserMenuVisible] = useState(false)
+  const userImgRef = useRef(null);
+
 
 	return (
 		<header
@@ -41,10 +44,11 @@ function Header() {
 					<div
 						className="header--user--info"
 					>
-						<img 
+						<img
+              ref={userImgRef}
 							className="header--user--img"
 							src={user.photo || ''}
-							onClick={() => setIsUserMenuVisible(prev => !prev)}
+							onClick={() => dispatch(toggleUserMenu())}
 						/>
 						<h4
 							className="header--user--name"
@@ -53,7 +57,8 @@ function Header() {
 						</h4>
 					</div>
 				</div>
-				{isUserMenuVisible && <UserMenu />}
+				{layout.isUserMenuVisible && 
+          <UserMenu exceptionRefs={[userImgRef]} />}
         </>
 			}
 			{ !user.name && 

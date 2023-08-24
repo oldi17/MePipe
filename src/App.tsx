@@ -4,6 +4,7 @@ import Header from './components/Header'
 import VideoPlayer from './components/VideoPlayer'
 import { Provider } from 'react-redux'
 import store from './store'
+import SideBar from './components/SideBar'
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Header />
+        <SideBar />
         <VideoPlayer />
         <VideoPlayer />
       </BrowserRouter>
