@@ -6,7 +6,7 @@ console.log(document.URL)
 
 const initialState: Layout = {
   isUserMenuVisible: false,
-  inCreatorMode: false,
+  isCreatorMode: false,
   sideBar: {
     ...viewerSideBar,
     current: window.location.pathname,
@@ -34,13 +34,13 @@ export const layoutSlice = createSlice({
       return state
     },
     switchToViewerMode: (state) => {
-      state.sideBar = viewerSideBar
-      state.inCreatorMode = false
+      state.sideBar.elements = viewerSideBar.elements
+      state.isCreatorMode = false
       return state
     },
     switchToCreatorMode: (state) => {
-      state.sideBar = creatorSideBar
-      state.inCreatorMode = true
+      state.sideBar.elements = creatorSideBar.elements
+      state.isCreatorMode = true
       return state
     },
   },

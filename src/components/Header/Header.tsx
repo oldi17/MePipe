@@ -11,9 +11,14 @@ import { Link, useNavigate } from "react-router-dom"
 
 function Header() {
 	// const user: User | undefined = undefined
-	const user: User = useSelector((state: RootState) => state.user)
+	const user: User = useSelector(
+    (state: RootState) => state.user
+  )
   const dispatch = useDispatch()
   const layout: Layout = useSelector((state: RootState) => state.layout)
+  const isCreatorMode = useSelector(
+    (state: RootState) => state.layout.isCreatorMode
+  )
 
   const userImgRef = useRef(null);
   
@@ -23,7 +28,8 @@ function Header() {
   function handleSearch() {
     if (!search)
       return
-    navigate('/results/' + search)
+    const url = (isCreatorMode ? '/creator' : '') + '/results/' + search
+      navigate('/results/' + search)
   }
 
 	return (
@@ -33,7 +39,7 @@ function Header() {
       <Link to='/'>
         <img 
           className="header--logo"
-          src='/logo+name.svg'
+          src={isCreatorMode ? '/logo-creator.svg' : '/logo+name.svg'}
         />
       </Link>
 			<div

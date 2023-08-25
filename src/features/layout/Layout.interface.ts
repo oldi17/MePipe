@@ -11,6 +11,6 @@ export interface SideBarElement {
 
 export default interface Layout {
   isUserMenuVisible: boolean;
-  inCreatorMode: boolean;
+  isCreatorMode: boolean;
   sideBar: SideBar;
 }

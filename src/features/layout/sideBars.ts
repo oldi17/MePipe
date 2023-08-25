@@ -6,44 +6,44 @@ const viewerSideBar: SideBar = {
     {
       id: 'main',
       url: '/',
-      img: 'main',
+      img: '/main',
       title: 'Главная',
     },
     {
       id: 'subscriptions',
       url: '/subscriptions',
-      img: 'subscriptions',
+      img: '/subscriptions',
       title: 'Подписки',
     },
     {
       id: 'library',
       url: '/library',
-      img: 'library',
+      img: '/library',
       title: 'Библиотека',
     },
   ]
 }
 
 const creatorSideBar: SideBar = {
-  current: 'main',
+  current: '/creator/main',
   elements: [
     {
       id: 'main',
       url: '/creator/main',
-      img: 'cr-main',
+      img: '/cr-main',
       title: 'Главная',
     },
     {
       id: 'videos',
       url: '/creator/videos',
-      img: 'cr-videos',
+      img: '/cr-videos',
       title: 'Видео',
     },
     {
       id: 'settings',
       url: '/creator/settings',
-      img: 'cr-settings',
-      title: 'Настройки',
+      img: '/cr-settings',
+      title: 'Настройки канала',
     },
   ]
 }

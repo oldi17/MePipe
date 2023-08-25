@@ -25,3 +25,19 @@
 .sidebar-element--img {
   height: 20px;
 }
+
+.sidebar-element--title {
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.sidebar-element.creator-mode a {
+  padding: 0px 12px 0px 6px;
+  flex-direction: row;
+  gap: 15px;
+  justify-content: left;
+  border-radius: 0px;
+}
+a.creator-mode {
+  background-color: #e2e2e2;
+}
