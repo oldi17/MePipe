@@ -29,7 +29,7 @@ function Header() {
     if (!search)
       return
     const url = (isCreatorMode ? '/creator' : '') + '/results/' + search
-      navigate('/results/' + search)
+      navigate(url)
   }
 
 	return (

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import SideBar from './components/SideBar/SideBar'
 import Main from './components/Main/Main'
 import { useEffect } from 'react'
-import { setCurrentSideBarElement, switchToCreatorMode, switchToViewerMode } from './features/layout/layoutSlice'
+import { setCreatorMode, setCurrentPath } from './features/layout/layoutSlice'
 import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from './store'
@@ -17,14 +17,14 @@ function App() {
   )
 
   useEffect(() => {
-    dispatch(setCurrentSideBarElement({
+    dispatch(setCurrentPath({
       url: location.pathname
     }))
     const isCreatorUrl = location.pathname.startsWith('/creator')
     if (isCreatorUrl && !isCreatorMode)
-      dispatch(switchToCreatorMode())
+      dispatch(setCreatorMode({value: true}))
     else if (!isCreatorUrl && isCreatorMode)
-      dispatch(switchToViewerMode())
+    dispatch(setCreatorMode({value: false}))
   }, [location])
 
   return (

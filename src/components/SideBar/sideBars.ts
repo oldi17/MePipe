@@ -1,4 +1,4 @@
-import { SideBar } from "./Layout.interface";
+import { SideBar } from "./SideBar.interface"
 
 const viewerSideBar: SideBar = {
   current: 'main',

@@ -10,8 +10,8 @@ import './UserMenu.css'
 
 function UserMenu(props: any) {
   const user = useSelector((state: RootState) => state.user)
-  const inCreatorMode = useSelector((state: RootState) => 
-    state.layout.inCreatorMode)
+  const isCreatorMode = useSelector((state: RootState) => 
+    state.layout.isCreatorMode)
   const dispatch = useDispatch()
 
   const handleLogout = (e: React.MouseEvent<HTMLElement>) => {
@@ -34,11 +34,11 @@ function UserMenu(props: any) {
         <li><Link to={'/@' + user.name}>
           <img src='/my-channel-icon.svg' />
           Мой канал</Link></li>
-        {inCreatorMode 
+        {isCreatorMode 
           ? <li><Link to='/'>
           <img src='/logo-inline.svg' />
           Главная</Link></li>
-          : <li><Link to='/creator'>
+          : <li><Link to='/creator/main'>
           <img src='/creator-icon.svg' />
           Творческая студия</Link></li>
         }
