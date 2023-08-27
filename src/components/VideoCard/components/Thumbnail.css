@@ -1,0 +1,21 @@
+.vc--thumbnail {
+  position: relative;
+}
+
+.vc--thumbnail--img {
+  width: 314px;
+  border-radius: 10px;
+}
+
+.vc--thumbnail--time {
+  position: absolute;
+  font-size: 14px;
+  color: white;
+  background-color: black;
+  padding: 2px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0;
+  bottom: 10px;
+  right: 10px;
+}

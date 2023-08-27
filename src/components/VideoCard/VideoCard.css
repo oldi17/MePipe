@@ -8,28 +8,6 @@
   color: black;
 }
 
-.vc--preview {
-  position: relative;
-}
-
-.vc--preview--img {
-  width: 314px;
-  border-radius: 10px;
-}
-
-.vc--preview--time {
-  position: absolute;
-  font-size: 14px;
-  color: white;
-  background-color: black;
-  padding: 2px;
-  border-radius: 4px;
-  display: inline-block;
-  margin: 0;
-  bottom: 10px;
-  right: 10px;
-}
-
 .vc--info {
   display: flex;
   align-items: flex-start;
