@@ -39,7 +39,7 @@ function Header() {
       <Link to='/'>
         <img 
           className="header--logo"
-          src={isCreatorMode ? '/logo-creator.svg' : '/logo+name.svg'}
+          src={isCreatorMode ? '/static/logo-creator.svg' : '/static/logo+name.svg'}
         />
       </Link>
 			<div

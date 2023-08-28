@@ -10,7 +10,7 @@ const videosTest: Array<Video> = [
     description: 'Look at that\nqwredr',
     url: '2HDsah4U_3',
     length: 3741,
-    img: '/videoTest.jpg',
+    img: '/static/videoTest.jpg',
     views: 33,
     createdAt: 1692895256339,
     likes: 3,

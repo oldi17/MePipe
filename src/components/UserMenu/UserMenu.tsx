@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import User from "../../features/user/User.interface"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../store"
 import { logout } from "../../features/user/userSlice"
@@ -32,21 +31,21 @@ function UserMenu(props: any) {
 		<nav className="user-menu" ref={userMenuRef}>
       <ul className="user-menu--options">
         <li><Link to={'/@' + user.name}>
-          <img src='/my-channel-icon.svg' />
+          <img src='/static/my-channel-icon.svg' />
           Мой канал</Link></li>
         {isCreatorMode 
           ? <li><Link to='/'>
-          <img src='/logo-inline.svg' />
+          <img src='/static/logo-inline.svg' />
           Главная</Link></li>
           : <li><Link to='/creator/main'>
-          <img src='/creator-icon.svg' />
+          <img src='/static/creator-icon.svg' />
           Творческая студия</Link></li>
         }
         <li><a 
           href='/logout'
           onClick={handleLogout}
         >
-          <img src='/logout-icon.svg' />
+          <img src='/static/logout-icon.svg' />
           Выйти</a></li>
       </ul>
 		</nav>

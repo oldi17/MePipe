@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux"
 import Test from "../Test/Test"
-import VideoPlayer from "../VideoPlayer/VideoPlayer"
 import './Main.css'
 import { RootState } from "../../store"
 

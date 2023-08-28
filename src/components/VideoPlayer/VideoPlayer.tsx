@@ -4,7 +4,7 @@ import './VideoPlayer.css'
 
 function VideoPlayer(props: {url:string}) {
 	const vidRef = useRef<HTMLVideoElement>(null)
-
+  props
 	return (
 		<section
 			className="video-cont"

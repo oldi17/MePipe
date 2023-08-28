@@ -6,19 +6,19 @@ const viewerSideBar: SideBar = {
     {
       id: 'main',
       url: '/',
-      img: '/main',
+      img: '/static/main',
       title: 'Главная',
     },
     {
       id: 'subscriptions',
       url: '/subscriptions',
-      img: '/subscriptions',
+      img: '/static/subscriptions',
       title: 'Подписки',
     },
     {
       id: 'library',
       url: '/library',
-      img: '/library',
+      img: '/static/library',
       title: 'Библиотека',
     },
   ]
@@ -30,19 +30,19 @@ const creatorSideBar: SideBar = {
     {
       id: 'main',
       url: '/creator/main',
-      img: '/cr-main',
+      img: '/static/cr-main',
       title: 'Главная',
     },
     {
       id: 'videos',
       url: '/creator/videos',
-      img: '/cr-videos',
+      img: '/static/cr-videos',
       title: 'Видео',
     },
     {
       id: 'settings',
       url: '/creator/settings',
-      img: '/cr-settings',
+      img: '/static/cr-settings',
       title: 'Настройки канала',
     },
   ]

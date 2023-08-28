@@ -14,7 +14,7 @@ export const userSlice = createSlice({
     login: (state) => {
       state = {
         name: 'oldi',
-        photo: '/photo.png',
+        photo: '/static/photo.png',
         token: 'null',
       }
       return state

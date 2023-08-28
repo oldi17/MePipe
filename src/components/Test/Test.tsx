@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import videosTest from "../../testData/videosTest";
-import VideoCard from "../VideoCard/VideoCard";
 import './Test.css'
 import VideoViewer from "../VideoViewer/VideoViewer";
 

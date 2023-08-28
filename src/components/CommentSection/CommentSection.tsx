@@ -3,11 +3,12 @@ import { useEffect, useState } from "react"
 function CommentSection(props: {url:string}) {
   const [newComment, setNewComment] = useState('')
   const [comments, setComments] = useState(() => {
-
+    props
     return []
   })
 
   useEffect(() => {
+    setComments([])
     // finish it
   }, [])
 

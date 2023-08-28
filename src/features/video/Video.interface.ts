@@ -1,5 +1,5 @@
+import VideoComment from "../../components/CommentSection/VideoComment.interface";
 import User from "../user/User.interface";
-import VideoComment from "./VideoComment.interface";
 
 export default interface Video {
   owner: User;
