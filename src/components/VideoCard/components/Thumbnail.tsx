@@ -3,11 +3,12 @@ import './Thumbnail.css'
 function Thumbnail( props:{
   imgSrc: string;
   time: string;
+  classNames: string[];
 }) {
   return (
-    <div className="vc--thumbnail">
-      <img className="vc--thumbnail--img" src={props.imgSrc}/>
-      <p className="vc--thumbnail--time">
+    <div className={["thumbnail", ...props.classNames].join(' ')}>
+      <img className="thumbnail--img" src={props.imgSrc}/>
+      <p className="thumbnail--time">
         {props.time}
       </p>
     </div>

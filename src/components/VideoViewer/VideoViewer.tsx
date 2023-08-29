@@ -12,15 +12,15 @@ function VideoViewer(props: {video: Video}) {
     <>
     <div className="vv">
       <VideoPlayer
-        classNames={['vv__video-player']}
+        classNames={['vv--video-player']}
         url={props.video.url} 
       />
       <RecomendationsSideBar 
-        classNames={['vv__recomendations-sidebar']}
+        classNames={['vv--recomendations-sidebar']}
       />
     </div>
     <CommentSection 
-      classNames={['vv__comment-section']}
+      classNames={['vv--comment-section']}
       url={props.video.url} 
     />
     </>

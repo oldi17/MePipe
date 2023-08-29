@@ -1,13 +1,18 @@
-.vc--thumbnail {
+.thumbnail {
   position: relative;
+  aspect-ratio: 16 / 9;
+  min-width: 180px;
+  max-width: 314px;
+  display: flex;
+  align-items: flex-end;
 }
 
-.vc--thumbnail--img {
-  width: 314px;
+.thumbnail--img {
+  width: 100%;
   border-radius: 10px;
 }
 
-.vc--thumbnail--time {
+.thumbnail--time {
   position: absolute;
   font-size: 14px;
   color: white;

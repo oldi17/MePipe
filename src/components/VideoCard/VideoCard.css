@@ -1,11 +1,26 @@
 .vc {
-  cursor:pointer;
-  width: 314px;
-}
-
-.vc a {
+  padding: 10px;
   text-decoration: none;
   color: black;
+  cursor:pointer;
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+  max-width: 314px;
+  align-items: center;
+}
+
+.vc.vc_small {
+  flex-direction: row;
+  max-width: 100%;
+}
+
+.vc_small .vc--thumbnail {
+  max-width: 180px; 
+}
+
+.vc_small .vc--thumbnail img {
+  border-radius: 5px;
 }
 
 .vc--info {
@@ -15,13 +30,19 @@
   padding: 12px 10px;
 }
 
+.vc_small .vc--info {
+  max-width: fit-content; 
+}
+
 .vc--info--creator-photo {
-  width: 48px;
+  width: auto;
   border-radius: 50%;
+  min-width: 44px;
 }
 
 .vc--info--right {
-  width: 80%;
+  flex-grow: 4;
+  max-width: 365px;
 }
 
 .vc--info--right p {

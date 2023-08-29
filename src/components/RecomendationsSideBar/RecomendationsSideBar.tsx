@@ -14,6 +14,14 @@ function RecomendationsSideBar(props: {
         video={videosTest[0]} 
         isSmallSize={true}
         />
+      <VideoCard 
+        video={videosTest[0]} 
+        isSmallSize={true}
+        />
+      <VideoCard 
+        video={videosTest[0]} 
+        isSmallSize={true}
+        />
     </div>
   )
 }

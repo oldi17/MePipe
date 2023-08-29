@@ -12,11 +12,14 @@ function VideoCard(props: {
 }) {
 
   return (
-    <div className="vc">
-      <Link to={'/' + props.video.url}>
+    <Link 
+      to={'/' + props.video.url} 
+      className={"vc" + (props.isSmallSize ? ' vc_small' : '')}
+    >
       <Thumbnail 
         imgSrc={props.video.img}
         time={convertVideoLength(props.video.length)}
+        classNames={['vc--thumbnail']}
       />
       <div className="vc--info">
         { !props.isSmallSize &&
@@ -49,8 +52,7 @@ function VideoCard(props: {
           </p>
         </div>
       </div>
-      </Link>
-    </div>
+    </Link>
   )
 }
 
