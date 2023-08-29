@@ -2,17 +2,18 @@ import { useRef } from "react"
 import video from '../../assets/2.mp4'
 import './VideoPlayer.css'
 
-function VideoPlayer(props: {url:string}) {
+function VideoPlayer(props: {
+  classNames:string[];
+  url:string;
+}) {
 	const vidRef = useRef<HTMLVideoElement>(null)
   props
 	return (
 		<section
-			className="video-cont"
+			className={["video-cont", ...props.classNames].join(' ')}
 		>
 			<video 
 				className="video"
-				// width='1920'
-				// height='720'
 				ref={vidRef}
 				controls
 			>

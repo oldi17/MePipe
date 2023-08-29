@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 
-function CommentSection(props: {url:string}) {
+function CommentSection(props: {
+  classNames:string[];
+  url:string;
+}) {
   const [newComment, setNewComment] = useState('')
   const [comments, setComments] = useState(() => {
     props
@@ -19,7 +22,9 @@ function CommentSection(props: {url:string}) {
   }
 
   return (
-    <section>
+    <section
+      className={[...props.classNames].join(' ')}
+    >
       <p>
         Комментарии: {comments.length}
       </p>

@@ -1,11 +1,15 @@
 import videosTest from "../../testData/videosTest";
 import VideoCard from "../VideoCard/VideoCard";
 
-function RecomendationsSideBar() {
+function RecomendationsSideBar(props: {
+  classNames:string[];
+}) {
 
 
   return (
-    <div>
+    <div 
+      className={[...props.classNames].join(' ')}
+    >
       <VideoCard 
         video={videosTest[0]} 
         isSmallSize={true}
