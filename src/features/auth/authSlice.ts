@@ -1,25 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Auth, User } from '../../global.interface'
-import { current } from 'immer'
-
+import { Auth } from '../../global.interface'
 
 const initialUserJSON = localStorage.getItem('user')
 
-
-// const loggedOutUser: User = {
-//     email: '',
-//     username: '',
-//   }
-
-// const initialUser = initialUserJSON  ? JSON.parse(initialUserJSON) : loggedOutUser
-// const initialUser: User = {
-//   username: initialUserParsed.username,
-//   email: initialUserParsed.email,
-// }
-
 const initialState: Auth = {
   isLogged: initialUserJSON !== null,
-  // user: {...loggedOutUser},
   user: initialUserJSON ? JSON.parse(initialUserJSON) : {
     email: '',
     username: '',

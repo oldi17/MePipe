@@ -18,9 +18,7 @@ class AuthService {
     const response = await axios.post(AUTH_URL + "login/", { 'user': user })
 
     if (response.status === 200) {
-      Object.entries(response.data).forEach(([key, value]) => {
-        localStorage.setItem(key, JSON.stringify(value))
-      })
+      destructObjectToLocalStorage(response.data)
       this.dispatch(login(response.data))
     }
 
@@ -36,9 +34,10 @@ class AuthService {
 
   async register(user: User) {
     const formData = new FormData()
-    Object.entries(user).forEach(([key, value]) => {
-      formData.append(key, JSON.stringify(value))
-    })
+    destructObject(user, 
+      (key, value) => 
+      formData.append(key, value)
+    )
 
     return await axios.post(
       AUTH_URL + "reg/", 
@@ -61,14 +60,25 @@ class AuthService {
     )
 
     if (response.status === 200) {
-      Object.entries(response.data).forEach(([key, value]) => {
-        localStorage.setItem(key, JSON.stringify(value))
-      })
+      destructObjectToLocalStorage(response.data)
+      
       this.dispatch(changePair({...response.data}))
     }
 
   }
 }
 
+function destructObject(obj: Object, callback: (ker: string, value: any) => void) {
+  Object.entries(obj).forEach(([key, value]) => {
+    callback(key, value)
+  })
+}
+
+function destructObjectToLocalStorage(obj: Object) {
+  destructObject(obj, 
+    (key, value) => 
+      localStorage.setItem(key, JSON.stringify(value))
+  )
+}
 
 export default new AuthService()
