@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Video from '../../features/video/Video.interface'
+import Video from '../../../../features/video/Video.interface'
 import './VideoDescription.css'
 import PersonalizedDescription from './PersonalizedDescription.interface';
 

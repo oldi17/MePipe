@@ -1,8 +1,8 @@
 import Video from "../../features/video/Video.interface";
-import CommentSection from "../CommentSection/CommentSection";
-import RecomendationsSideBar from "../RecomendationsSideBar/RecomendationsSideBar";
-import VideoDescription from "../VideoDescription/VideoDescription";
-import VideoPlayer from "../VideoPlayer/VideoPlayer";
+import CommentSection from "./components/CommentSection/CommentSection";
+import RecomendationsSideBar from "./components/RecomendationsSideBar/RecomendationsSideBar";
+import VideoDescription from "./components/VideoDescription/VideoDescription";
+import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 
 import './VideoViewer.css'
 

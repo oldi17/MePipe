@@ -3,6 +3,7 @@ import { RootState } from "../../store"
 import { Link } from "react-router-dom"
 import './SideBar.css'
 import { creatorSideBar, viewerSideBar } from "./sideBars"
+import SideBarElement from "./SideBarElement/SideBarElement"
 
 function SideBar() {
   const isCreatorMode = useSelector(
@@ -16,19 +17,14 @@ function SideBar() {
   const sideBar = isCreatorMode ? creatorSideBar : viewerSideBar
 
   const elements = sideBar.elements.map(e => (
-    <div 
-      className={"sidebar-element" + (isCreatorMode ? ' creator-mode' : '')}
-    >
-      <Link to={e.url} className={currentSideBarElement === e.url ? 'creator-mode' : ''}>
-        <img 
-          src={e.img + (currentSideBarElement === e.url ? '-c' : '') + '.svg'}
-          className="sidebar-element--img"
-        />
-        <p className="sidebar-element--title">
-          {e.title}
-        </p>
-      </Link>
-    </div>
+    <SideBarElement 
+      key={e.url}
+      isCreatorMode={isCreatorMode}
+      isCurrent={currentSideBarElement === e.url}
+      url={e.url}
+      img={e.img}
+      title={e.title}
+    />
   ))
   return (
     <aside className="sidebar">

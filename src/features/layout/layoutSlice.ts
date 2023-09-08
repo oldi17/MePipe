@@ -4,7 +4,8 @@ import Layout from './Layout.interface'
 console.log(document.URL)
 
 const initialState: Layout = {
-  isUserMenuVisible: false,
+  isUserMenu: false,
+  isLoginForm: false,
   isCreatorMode: false,
   currentPath: window.location.pathname
 }
@@ -14,15 +15,15 @@ export const layoutSlice = createSlice({
   initialState,
   reducers: {
     toggleUserMenu: (state) => {
-      state.isUserMenuVisible = !state.isUserMenuVisible
+      state.isUserMenu = !state.isUserMenu
       return state
     },
-    setOnUserMenu: (state) => {
-      state.isUserMenuVisible = true
+    setUserMenu: (state, action) => {
+      state.isUserMenu = action.payload.isUserMenu
       return state
     },
-    setOffUserMenu: (state) => {
-      state.isUserMenuVisible = false
+    setLoginForm: (state, action) => {
+      state.isLoginForm = action.payload.isLoginForm
       return state
     },
     setCurrentPath: (state, action) => {
@@ -38,8 +39,8 @@ export const layoutSlice = createSlice({
 
 export const { 
   toggleUserMenu, 
-  setOnUserMenu,
-  setOffUserMenu,
+  setUserMenu,
+  setLoginForm,
   setCurrentPath,
   setCreatorMode,
 } = layoutSlice.actions

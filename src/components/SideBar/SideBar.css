@@ -38,6 +38,7 @@
   justify-content: left;
   border-radius: 0px;
 }
-a.creator-mode {
+
+.creator-mode a.current {
   background-color: #e2e2e2;
 }

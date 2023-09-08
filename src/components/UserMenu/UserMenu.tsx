@@ -1,28 +1,28 @@
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../store"
-import { logout } from "../../features/user/userSlice"
-import { setOffUserMenu } from "../../features/layout/layoutSlice"
+import { setUserMenu } from "../../features/layout/layoutSlice"
 import { useRef } from "react"
 import useClickOutside from "../../hooks/useClickOutside"
 import './UserMenu.css'
+import authService from "../../services/auth.service"
 
 function UserMenu(props: any) {
-  const user = useSelector((state: RootState) => state.user)
+  const user = useSelector((state: RootState) => state.auth.user)
   const isCreatorMode = useSelector((state: RootState) => 
     state.layout.isCreatorMode)
   const dispatch = useDispatch()
 
   const handleLogout = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
-    dispatch(logout())
-    dispatch(setOffUserMenu())
+    authService.logout()
+    dispatch(setUserMenu({'isUserMenu': false}))
   }
 
   const userMenuRef = useRef(null)
   
   useClickOutside(
-    () => dispatch(setOffUserMenu()),
+    () => dispatch(setUserMenu({'isUserMenu': false})),
     [userMenuRef, ...props.exceptionRefs],
   )
   
@@ -30,7 +30,7 @@ function UserMenu(props: any) {
 	return (
 		<nav className="user-menu" ref={userMenuRef}>
       <ul className="user-menu--options">
-        <li><Link to={'/@' + user.name}>
+        <li><Link to={'/@' + user.username}>
           <img src='/static/my-channel-icon.svg' />
           Мой канал</Link></li>
         {isCreatorMode 

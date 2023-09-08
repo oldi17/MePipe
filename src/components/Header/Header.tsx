@@ -1,19 +1,20 @@
 import { useDispatch, useSelector } from "react-redux"
-import User from "../../features/user/User.interface"
+import { Auth } from "../../global.interface"
 import { RootState } from '../../store'
-import { login } from "../../features/user/userSlice"
 import UserMenu from "../UserMenu/UserMenu"
 import Layout from "../../features/layout/Layout.interface"
-import { toggleUserMenu } from "../../features/layout/layoutSlice"
+import { setLoginForm, toggleUserMenu } from "../../features/layout/layoutSlice"
 import { useRef, useState } from "react"
 import './Header.css'
 import { Link, useNavigate } from "react-router-dom"
+import { MEDIA_PFP_URL,  } from "../../settings"
 
 function Header() {
-	// const user: User | undefined = undefined
-	const user: User = useSelector(
-    (state: RootState) => state.user
+	const {user, isLogged}: Auth = useSelector(
+    (state: RootState) => state.auth
   )
+
+
   const dispatch = useDispatch()
   const layout: Layout = useSelector((state: RootState) => state.layout)
   const isCreatorMode = useSelector(
@@ -29,7 +30,7 @@ function Header() {
     if (!search)
       return
     const url = (isCreatorMode ? '/creator' : '') + '/results/' + search
-      navigate(url)
+		navigate(url)
   }
 
 	return (
@@ -57,36 +58,34 @@ function Header() {
           onClick={handleSearch}
 				/>
 			</div>
-			{ user.name && 
+			{ isLogged ? 
 				<>
-        <div
-					className="header--user"
-				>
 					<div
-						className="header--user--info"
+						className="header--user"
 					>
-						<img
-              ref={userImgRef}
-							className="header--user--img"
-							src={user.photo || ''}
-							onClick={() => dispatch(toggleUserMenu())}
-						/>
-						<h4
-							className="header--user--name"
+						<div
+							className="header--user--info"
 						>
-							{user.name}
-						</h4>
+							<img
+								ref={userImgRef}
+								className="header--user--img"
+								src={MEDIA_PFP_URL + user.username + '.png'}
+								onClick={() => dispatch(toggleUserMenu())}
+							/>
+							<h4
+								className="header--user--name"
+							>
+								{user.username}
+							</h4>
+						</div>
 					</div>
-				</div>
-				{layout.isUserMenuVisible && 
-          <UserMenu exceptionRefs={[userImgRef]} />}
-        </>
-			}
-			{ !user.name && 
-					<button 
+					{layout.isUserMenu && 
+						<UserMenu exceptionRefs={[userImgRef]} />}
+				</>
+				:	<button 
 						type='button'
 						className="header--login-btn"
-            onClick={() => dispatch(login())}
+            onClick={() => dispatch(setLoginForm({'isLoginForm': true}))} //----------------------------------------------------------------------------------------
 					/>
 			}
 		</header>

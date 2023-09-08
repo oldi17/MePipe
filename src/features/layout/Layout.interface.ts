@@ -1,5 +1,6 @@
 export default interface Layout {
-  isUserMenuVisible: boolean;
+  isUserMenu: boolean;
+  isLoginForm: boolean;
   isCreatorMode: boolean;
   currentPath: string;
 }

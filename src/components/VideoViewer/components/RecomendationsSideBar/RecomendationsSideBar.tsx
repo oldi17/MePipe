@@ -1,5 +1,5 @@
-import videosTest from "../../testData/videosTest";
-import VideoCard from "../VideoCard/VideoCard";
+import videosTest from "../../../../testData/videosTest";
+import VideoCard from "../../../VideoCard/VideoCard";
 
 function RecomendationsSideBar(props: {
   classNames:string[];
