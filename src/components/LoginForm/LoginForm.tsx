@@ -14,6 +14,7 @@ export default function LoginForm(props:{classNames: string[]}) {
   }
 
   return (
+    <div className="login-cont">
     <form
       onSubmit={e => submit(e)}    
       className={["login", ...props.classNames].join(' ')}
@@ -24,7 +25,7 @@ export default function LoginForm(props:{classNames: string[]}) {
       <label 
         className="login--label"
         htmlFor="email"
-      >Введите e-mail</label>
+      >Введите e-mail
       <input 
         className="login--input-text"
         name="email"
@@ -34,12 +35,12 @@ export default function LoginForm(props:{classNames: string[]}) {
         placeholder="E-mail"
         onChange={e => setEmail(e.target.value)}
         required
-      />
+      /></label>
 
       <label 
         className="login--label"
         htmlFor="password"
-      >Введите пароль</label>
+      >Введите пароль
       <input 
         className="login--input-text"
         name="password"
@@ -50,13 +51,14 @@ export default function LoginForm(props:{classNames: string[]}) {
         minLength={8}
         onChange={e => setPassword(e.target.value)}
         required
-      />
+      /></label>
       <button
         className="login--button"
       >
         Войти
       </button>
     </form>
+    </div>
   )
 }
 
