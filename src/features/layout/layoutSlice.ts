@@ -5,7 +5,10 @@ console.log(document.URL)
 
 const initialState: Layout = {
   isUserMenu: false,
-  isLoginForm: false,
+  signForm: {
+    visible: false,
+    view: 'reg',
+  },
   isCreatorMode: false,
   currentPath: window.location.pathname
 }
@@ -19,15 +22,19 @@ export const layoutSlice = createSlice({
       return state
     },
     setUserMenu: (state, action) => {
-      state.isUserMenu = action.payload.isUserMenu
+      state.isUserMenu = action.payload.value
       return state
     },
-    setLoginForm: (state, action) => {
-      state.isLoginForm = action.payload.isLoginForm
+    setSignFormVisible: (state, action) => {
+      state.signForm.visible = action.payload.value
+      return state
+    },
+    setSignFormView: (state, action) => {
+      state.signForm.view = action.payload.value
       return state
     },
     setCurrentPath: (state, action) => {
-      state.currentPath = action.payload.url
+      state.currentPath = action.payload.value
       return state
     },
     setCreatorMode: (state, action) => {
@@ -40,7 +47,8 @@ export const layoutSlice = createSlice({
 export const { 
   toggleUserMenu, 
   setUserMenu,
-  setLoginForm,
+  setSignFormVisible,
+  setSignFormView,
   setCurrentPath,
   setCreatorMode,
 } = layoutSlice.actions

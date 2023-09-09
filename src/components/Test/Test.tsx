@@ -1,9 +1,15 @@
 import videosTest from "../../testData/videosTest";
 import './Test.css'
 import VideoViewer from "../VideoViewer/VideoViewer";
-import LoginForm from "../LoginForm/LoginForm";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import SignForm from "../SignForm/SignForm";
 
 export default function Test(){
+  const isSignFormVisible = useSelector(
+    (state: RootState) => state.layout.signForm.visible
+  )
+
   return (
     <div className="tesssst">
       {/* <VideoCard video={videosTest[0]} />
@@ -18,7 +24,7 @@ export default function Test(){
       <VideoCard video={videosTest[0]} />
       <VideoCard video={videosTest[0]} />
       <VideoViewer video={videosTest[0]}/> */}
-      <LoginForm classNames={[]}/>
+      {isSignFormVisible && <SignForm classNames={[]}/>}
     </div>
   )
 }

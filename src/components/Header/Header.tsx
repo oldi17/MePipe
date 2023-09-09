@@ -3,7 +3,7 @@ import { Auth } from "../../global.interface"
 import { RootState } from '../../store'
 import UserMenu from "../UserMenu/UserMenu"
 import Layout from "../../features/layout/Layout.interface"
-import { setLoginForm, toggleUserMenu } from "../../features/layout/layoutSlice"
+import { setSignFormView, setSignFormVisible, toggleUserMenu } from "../../features/layout/layoutSlice"
 import { useRef, useState } from "react"
 import './Header.css'
 import { Link, useNavigate } from "react-router-dom"
@@ -32,6 +32,11 @@ function Header() {
     const url = (isCreatorMode ? '/creator' : '') + '/results/' + search
 		navigate(url)
   }
+
+	function handleSignInClick() {
+		dispatch(setSignFormView({value: 'login'}))
+		dispatch(setSignFormVisible({value: true}))
+	}
 
 	return (
 		<header
@@ -85,7 +90,7 @@ function Header() {
 				:	<button 
 						type='button'
 						className="header--login-btn"
-            onClick={() => dispatch(setLoginForm({'isLoginForm': true}))} //----------------------------------------------------------------------------------------
+            onClick={handleSignInClick}
 					/>
 			}
 		</header>

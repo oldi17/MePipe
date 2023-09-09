@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     dispatch(setCurrentPath({
-      url: location.pathname
+      value: location.pathname
     }))
     const isCreatorUrl = location.pathname.startsWith('/creator')
     if (isCreatorUrl && !isCreatorMode)

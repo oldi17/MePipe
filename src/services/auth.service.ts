@@ -14,15 +14,17 @@ class AuthService {
   constructor() {
     this.dispatch = store.dispatch
   }
-  async login(user: UserLogin) {
-    const response = await axios.post(AUTH_URL + "login/", { 'user': user })
-
-    if (response.status === 200) {
-      destructObjectToLocalStorage(response.data)
-      this.dispatch(login(response.data))
-    }
-
-    return response
+  login(user: UserLogin) {
+    return axios.post(AUTH_URL + "login/", { 'user': user }).then(res => {
+      if (res.status === 200) {
+        destructObjectToLocalStorage(res.data)
+        this.dispatch(login(res.data))
+        return res
+      }
+      return Promise.reject(res)
+    }, err => {
+      return err
+    })
   }
 
   logout() {

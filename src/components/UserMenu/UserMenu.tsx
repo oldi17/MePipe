@@ -16,13 +16,13 @@ function UserMenu(props: any) {
   const handleLogout = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     authService.logout()
-    dispatch(setUserMenu({'isUserMenu': false}))
+    dispatch(setUserMenu({'value': false}))
   }
 
   const userMenuRef = useRef(null)
   
   useClickOutside(
-    () => dispatch(setUserMenu({'isUserMenu': false})),
+    () => dispatch(setUserMenu({'value': false})),
     [userMenuRef, ...props.exceptionRefs],
   )
   
