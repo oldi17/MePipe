@@ -1,7 +1,6 @@
 import axios from "axios"
 import { AUTH_URL } from '../settings'
 import { UserLogin, UserReg } from "../global.interface";
-import { useSelector } from "react-redux";
 import { changePair, login, logout } from "../features/auth/authSlice";
 import store, { RootState } from "../store";
 import authHeader from "./auth-header";
@@ -19,7 +18,7 @@ class AuthService {
       if (res.status === 200) {
         destructObjectToLocalStorage(res.data)
         this.dispatch(login(res.data))
-        return res //Promise.resolve(res)
+        return res
       }
       return Promise.reject(res)
     })
@@ -51,27 +50,26 @@ class AuthService {
     )
   }
 
-  async obtainPair() {
-    const refreshToken = useSelector(
-      (state: RootState) => state.auth.refresh
-    )
-
-    const response = await axios.post(
+  async refreshToken() {
+    const refreshToken = JSON.parse(localStorage.getItem('refresh') || '')
+    
+    const res = await axios.post(
       AUTH_URL + "token/refresh/", 
-      { refreshToken }, 
+      { 'refresh': refreshToken }, 
       { headers: authHeader()}
     )
 
-    if (response.status === 200) {
-      destructObjectToLocalStorage(response.data)
+    if (res.status === 200) {
+      destructObjectToLocalStorage(res.data)
       
-      this.dispatch(changePair({...response.data}))
+      this.dispatch(changePair({...res.data}))
+      return res
     }
-
+    this.logout()
   }
 }
 
-function destructObject(obj: Object, callback: (ker: string, value: any) => void) {
+export function destructObject(obj: Object, callback: (ker: string, value: any) => void) {
   Object.entries(obj).forEach(([key, value]) => {
     callback(key, value)
   })
@@ -85,3 +83,37 @@ function destructObjectToLocalStorage(obj: Object) {
 }
 
 export default new AuthService()
+
+export function createAxiosResponseInterceptor() {
+  const interceptor = axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        const originalConfig = error.config
+        console.log(originalConfig)
+
+        if (error.response.status !== 401 || originalConfig.headers._retry) {
+            return Promise.reject(error);
+        }
+
+        
+        const refreshToken = JSON.parse(localStorage.getItem('refresh') || '0')
+     
+        return axios.post(
+            AUTH_URL + "token/refresh/", 
+            { 'refresh': refreshToken }, 
+            { headers: {...authHeader(),
+              _retry: true
+            }}
+          ).then((res) => {
+            destructObjectToLocalStorage(res.data)
+            store.dispatch(changePair({...res.data}))
+            return axios(error.response.config)
+          })
+          .catch((error2) => {
+              (new AuthService()).logout()
+              return Promise.reject(error2)
+          })
+          .finally(() => createAxiosResponseInterceptor())
+    }
+);
+}
