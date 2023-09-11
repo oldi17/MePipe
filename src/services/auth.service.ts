@@ -1,6 +1,6 @@
 import axios from "axios"
 import { AUTH_URL } from '../settings'
-import { User, UserLogin } from "../global.interface";
+import { UserLogin, UserReg } from "../global.interface";
 import { useSelector } from "react-redux";
 import { changePair, login, logout } from "../features/auth/authSlice";
 import store, { RootState } from "../store";
@@ -19,11 +19,12 @@ class AuthService {
       if (res.status === 200) {
         destructObjectToLocalStorage(res.data)
         this.dispatch(login(res.data))
-        return res
+        return res //Promise.resolve(res)
       }
       return Promise.reject(res)
-    }, err => {
-      return err
+    })
+    .catch( err => {
+      return Promise.reject(err)
     })
   }
 
@@ -34,14 +35,14 @@ class AuthService {
     this.dispatch(logout())
   }
 
-  async register(user: User) {
+  register(user: UserReg) {
     const formData = new FormData()
     destructObject(user, 
       (key, value) => 
       formData.append(key, value)
     )
 
-    return await axios.post(
+    return axios.post(
       AUTH_URL + "reg/", 
       formData, 
       {

@@ -1,19 +1,19 @@
-import './LoginView.css'
 
 export default function LoginView(props: {
   email: string;
   setEmail: Function;
   password: string;
   setPassword: Function;
+  switchToReg: Function;
 }) {
   return (
     <>      
       <label 
-        className="login--label"
+        className="form--view--label"
         htmlFor="email"
       >Введите e-mail
       <input 
-        className="login--input-text"
+        className="form--view--input-text"
         name="email"
         id="email"
         type="email" 
@@ -24,11 +24,11 @@ export default function LoginView(props: {
       /></label>
 
       <label 
-        className="login--label"
+        className="form--view--label"
         htmlFor="password"
       >Введите пароль
       <input 
-        className="login--input-text"
+        className="form--view--input-text"
         name="password"
         id="password"
         type="password" 
@@ -38,12 +38,20 @@ export default function LoginView(props: {
         onChange={e => props.setPassword(e.target.value)}
         required
       /></label>
+      
       <button
-        className="login--button"
+        className="form--view--submit-button"
       >
         Вход
       </button>
-      <div></div>
+      <div>
+        <button
+          className="form--view--switch-to-button"
+          onClick={() => props.switchToReg()}
+        >
+          Регистрация...
+        </button>
+      </div>
     </>
   )
 }

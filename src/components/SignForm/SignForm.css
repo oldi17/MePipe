@@ -1,10 +1,10 @@
-.login-cont {
+.form-cont {
   position: absolute;
   left: 50%;
   backdrop-filter: blur(5px);
 }
 
-.login {
+.form {
   position: relative;
   left: -50%;
   display: flex;
@@ -15,60 +15,61 @@
   padding: 30px;
   border-radius: 3px;
   z-index: 1;
-  max-width: 240px;
+  min-width: 280px;
 }
 
-.login::backdrop {
-  background: rgba(255, 0, 0, 0.25);
-}
-
-.login--header {
+.form--header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.login--title {
+.form--title {
   margin-block: 5px;
   text-transform: uppercase;
 }
 
-.login--btn-close {
+.form--btn-close {
   border: 0;
   padding: 2px;
   background: none;
 }
 
-.login--btn-close:hover {
+.form--btn-close:hover {
   background-color: rgb(243, 126, 126);
 }
 
-.login--btn-close img {
-  max-width: 20px;
+.form--btn-close img {
+  max-width: 15px;
 }
 
-.httpError {
+.form--httpError {
   font-size: 12px;
   align-self: center;
   color: red;
   margin: 0;
+  white-space: pre-line;
 }
 
-.httpError::after {
+.form--httpError::after {
   content: '\00a0 '
 }
 
-.login label {
+.form--view--label {
   display: flex;
   flex-direction: column;
 }
 
-.login input:invalid {
+.form--view--input-text {
+  padding: 5px;
+}
+
+.form--view--input-text:invalid {
   outline: 2px solid rgb(219, 128, 128);
   border-radius: 2px;
 }
 
-.login--button {
+.form--view--submit-button {
   padding-block: 5px;
   border-radius: 5px;
   color: white;
@@ -77,6 +78,13 @@
   border: 2px solid black;
 }
 
-.login--button:hover {
+.form--view--submit-button:hover {
   background-color: rgb(29, 29, 29);
+}
+
+.form--view--switch-to-button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  color: rgb(65, 94, 255);
 }

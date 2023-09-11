@@ -2,14 +2,18 @@ import { useState } from "react"
 import './SignForm.css'
 import authService from "../../services/auth.service"
 import { useDispatch } from "react-redux"
-import { setSignFormVisible } from "../../features/layout/layoutSlice"
+import { setSignFormView, setSignFormVisible } from "../../features/layout/layoutSlice"
 import { useSelector } from "react-redux"
 import { RootState } from "../../store"
 import LoginView from "./LoginView/LoginView"
+import RegView from "./RegView/RegView"
+import { UserReg } from "../../global.interface"
 
 export default function SignForm(props:{classNames: string[]}) {
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [logo, setLogo] = useState<File>()
 
   const signForm = useSelector(
     (state: RootState) => state.layout.signForm
@@ -17,54 +21,98 @@ export default function SignForm(props:{classNames: string[]}) {
 
   const dispatch = useDispatch()
 
-  const [httpError, setHttpError] = useState(false)
+  const [httpError, setHttpError] = useState('')
+  const [regSuccess, setRegSuccess] = useState(false)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setHttpError(false)
-    authService.login({email, password}).then(res => {
-      if (res.status === 200) {
-        handleClose()
-        return res
-      }
-      setHttpError(true)
-      return Promise.reject(res)
-    }, () => {
-      setHttpError(true)
-    })
+    setHttpError('')
+    if (signForm.view == 'login') {
+      authService.login({email, password})
+        .then(() => {
+          handleClose()
+        })
+        .catch(() => {
+        setHttpError('Нет доступа к серверу')
+      })
+    } else if (signForm.view == 'reg') {
+      const user: UserReg = {username, email, password}
+      if (logo)
+        user['logo'] = logo
+      authService.register(user).then(res => {
+      
+        if (res.status === 201) {
+          setRegSuccess(true)
+          switchView('login')
+          return res
+        }
+      }, (err) => {
+        setHttpError(errorDataToText(err.response.data))
+      })
+    }
   }
 
   function handleClose() {
     dispatch(setSignFormVisible({'value': false}))
   }
 
+  function switchView(view: string) {
+    setUsername('')
+    setEmail('')
+    setPassword('')
+    setLogo(undefined)
+    dispatch(setSignFormView({'value': view}))
+  }
+
+  function getTitle() {
+    switch (signForm.view) {
+      case 'login':
+        return 'Авторизация'
+      case 'reg':
+        return 'Регистрация'
+      default:
+        return 'Форма'
+    }
+  }
+
   return (
     <>
-    <div className="login-cont">
+    <div className="form-cont">
     <form
       onSubmit={e => handleSubmit(e)}    
-      className={["login", ...props.classNames].join(' ')}
-      // onFocus={() => setHttpError(false)}
+      className={["form", ...props.classNames].join(' ')}
     >
-      <div className="login--header">
+      <div className="form--header">
         <span></span>
-        <h3 className="login--title">Авторизация</h3>
+        <h3 className="form--title">{getTitle()}</h3>
         <button 
           type="button"
-          className="login--btn-close"
+          className="form--btn-close"
           onClick={handleClose}
         >
           <img src="/static/btn-close.svg" />
         </button>
       </div>
-      
+      <p className="form--regSuccess">{regSuccess && 'Успешная регистрация!'}</p>
       {signForm.view == 'login' && <LoginView 
         email={email}
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
+        switchToReg={() => switchView('reg')}
       />}
-      <p className="httpError">{httpError && 'Неверные e-mail или пароль'}</p>
+      {signForm.view == 'reg' && <RegView
+        username={username}
+        setUsername={setUsername} 
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        logo={logo}
+        setLogo={setLogo}
+        switchToLogin={() => switchView('login')}
+      />}
+      <p className="form--httpError">{httpError}</p>
     </form>
     
     </div>
@@ -72,3 +120,26 @@ export default function SignForm(props:{classNames: string[]}) {
   )
 }
 
+function errorDataToText(data: Object) {
+  let text = ''
+  
+  if ('email' in data)
+    text += interpretateError(data['email'] as string[], 'E-mail')
+  if ('username' in data)
+    text += interpretateError(data['username'] as string[], 'Имя пользователя')
+  if ('logo' in data)
+    text += interpretateError(data['logo'] as string[], 'Изображение профиля')
+    console.log(text)
+  return text || 'Ошибка сервера'
+}
+
+function interpretateError(err: string[], prefix: string) {
+  let res = ''
+  err.map(e => {
+    if (e.includes('valid'))
+      res += prefix + ': Недопустимое значение\n'
+    else if (e.includes('exists'))
+      res += prefix + ': Уже существует\n'
+  })
+  return res
+}
