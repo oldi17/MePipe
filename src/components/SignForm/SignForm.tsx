@@ -1,6 +1,6 @@
 import { useState } from "react"
 import './SignForm.css'
-import authService from "../../services/auth.service"
+import {authLogin, authRegister} from "../../services/auth.service"
 import { useDispatch } from "react-redux"
 import { setSignFormView, setSignFormVisible } from "../../features/layout/layoutSlice"
 import { useSelector } from "react-redux"
@@ -28,7 +28,7 @@ export default function SignForm(props:{classNames: string[]}) {
     e.preventDefault()
     setHttpError('')
     if (signForm.view == 'login') {
-      authService.login({email, password})
+      authLogin({email, password})
         .then(() => {
           handleClose()
         })
@@ -39,7 +39,7 @@ export default function SignForm(props:{classNames: string[]}) {
       const user: UserReg = {username, email, password}
       if (logo)
         user['logo'] = logo
-      authService.register(user).then(res => {
+        authRegister(user).then(res => {
       
         if (res.status === 201) {
           setRegSuccess(true)
@@ -129,7 +129,6 @@ function errorDataToText(data: Object) {
     text += interpretateError(data['username'] as string[], 'Имя пользователя')
   if ('logo' in data)
     text += interpretateError(data['logo'] as string[], 'Изображение профиля')
-    console.log(text)
   return text || 'Ошибка сервера'
 }
 

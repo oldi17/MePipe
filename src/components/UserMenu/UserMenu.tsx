@@ -5,7 +5,7 @@ import { setUserMenu } from "../../features/layout/layoutSlice"
 import { useRef } from "react"
 import useClickOutside from "../../hooks/useClickOutside"
 import './UserMenu.css'
-import authService from "../../services/auth.service"
+import {authLogout} from "../../services/auth.service"
 
 function UserMenu(props: any) {
   const user = useSelector((state: RootState) => state.auth.user)
@@ -15,7 +15,7 @@ function UserMenu(props: any) {
 
   const handleLogout = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
-    authService.logout()
+    authLogout()
     dispatch(setUserMenu({'value': false}))
   }
 

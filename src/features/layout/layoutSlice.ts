@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Layout from './Layout.interface'
 
-console.log(document.URL)
 
 const initialState: Layout = {
   isUserMenu: false,

@@ -24,9 +24,23 @@ export interface UserPatch {
 
 export interface Creator {
 	name: string;
+	contacts: string;
+	description: string;
+	subscribers: number;
+}
+
+export interface CreatorAuthed extends Creator {
+	issubscribed: boolean;
+}
+
+export interface CreatorMe extends Creator {
+	views: number;
+}
+
+export interface CreatorPatch {
+	name?: string;
 	contacts?: string;
 	description?: string;
-	user_id?: number;
 	channel_background?: File;
 }
 

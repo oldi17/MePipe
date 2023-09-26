@@ -6,7 +6,6 @@ import VideoCard from "../VideoCard/VideoCard"
 import videosTest from "../../testData/videosTest"
 import SignForm from "../SignForm/SignForm"
 import { useEffect, useReducer } from "react"
-import { createAxiosResponseInterceptor } from "../../services/auth.service"
 
 function Main() {
   const isCreatorMode = useSelector(
@@ -16,8 +15,6 @@ function Main() {
   const isSignFormVisible = useSelector(
     (state: RootState) => state.layout.signForm.visible
   )
-
-  useEffect(() => createAxiosResponseInterceptor(), [])
 
   return (
     <main className={"main" + (isCreatorMode ? ' creator-mode' : '')}>

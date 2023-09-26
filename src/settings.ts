@@ -1,6 +1,7 @@
 export const BACKEND_URL = 'http://127.0.0.1:8000/'
 export const API_URL = BACKEND_URL + 'api/'
 export const AUTH_URL = BACKEND_URL + 'auth/'
+export const CREATOR_URL = API_URL + 'creator/'
 // export const APP_URL = BACKEND_URL + 'app/'
 export const STATIC_URL = BACKEND_URL + 'static/'
 export const MEDIA_URL = BACKEND_URL + 'media/'
