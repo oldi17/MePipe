@@ -2,8 +2,7 @@ import axios from "axios"
 import { AUTH_URL } from '../settings'
 import { UserLogin, UserReg } from "../global.interface";
 import { changePair, login, logout } from "../features/auth/authSlice";
-import store, { RootState } from "../store";
-import { Dispatch } from "@reduxjs/toolkit";
+import store from "../store";
 
 const dispatch = store.dispatch
 
@@ -11,7 +10,6 @@ export function authLogin(user: UserLogin) {
   return axios.post(AUTH_URL + "login/", { 'user': user })
   .then(res => {
     if (res.status === 200) {
-      console.log(res.data.access[0])
       destructObjectToLocalStorage(res.data)
       dispatch(login(res.data))
       return res

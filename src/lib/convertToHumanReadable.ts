@@ -10,10 +10,11 @@ export function convertVideoLength(len: number): string {
   return time
 }
 
-export function convertVideoCreatedAt(createdAt: number): string {
+export function convertVideoCreatedAt(createdAt: string): string {
   const now = Date.now()
+  const crAt = (new Date(createdAt)).getTime()
   const minuteDeclension = ['', 'а', 'ы', 'ы', 'ы', '', '', '', '', '']
-  const minutes = Math.floor((now - createdAt) / 60000)
+  const minutes = Math.floor((now - crAt) / 60000)
   if (minutes < 1) {
     return 'только что'
   }

@@ -50,3 +50,32 @@ export interface Auth {
   access: string;
   refresh: string;
 }
+
+export interface Video {
+  creator_name: string;
+  title: string;
+  description: string;
+  url: string;
+  duration: number;
+  views: number;
+  createdAt: string;
+  likes: number;
+  dislikes: number;
+}
+
+export interface VideoWithCommentsCount extends Video {
+	commentsCount?: number;
+}
+
+export interface Comment {
+	id: number;
+  user_username: string;
+  video_url: string;
+  owner: string;
+  content: string;
+  createdAt: number;
+  modified: boolean;
+  likes: number;
+  dislikes: number;
+  isliked: number;
+}
