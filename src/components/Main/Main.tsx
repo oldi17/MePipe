@@ -6,6 +6,8 @@ import VideoCard from "../VideoCard/VideoCard"
 import videosTest from "../../testData/videosTest"
 import SignForm from "../SignForm/SignForm"
 import { useEffect, useReducer } from "react"
+import { Route, Routes } from "react-router-dom"
+import CreatorHub from "../CreatorHub/CreatorHub"
 
 function Main() {
   const isCreatorMode = useSelector(
@@ -19,7 +21,10 @@ function Main() {
   return (
     <main className={"main" + (isCreatorMode ? ' creator-mode' : '')}>
       {/* <VideoPlayer /> */}
-      <Test />
+      {/* <Test /> */}
+      <Routes>
+        <Route path="/creator/*" element={<CreatorHub />} />
+      </Routes>
       {/* <VideoCard video={videosTest[0]} isSmallSize={true}/>
       <VideoCard video={videosTest[0]} /> */}
       {isSignFormVisible && <SignForm classNames={[]}/>}

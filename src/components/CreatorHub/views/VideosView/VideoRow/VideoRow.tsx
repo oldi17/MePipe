@@ -34,6 +34,7 @@ export default function VideoRow(props:{
           {props.video.description}
         </p>
       </div>
+      </div>
       <p
           className="video_row--date"
       >
@@ -49,7 +50,17 @@ export default function VideoRow(props:{
       >
         {props.video.commentsCount}
       </p>
-    </div>
+      <p
+          className="video_row--liked"
+      >
+        {props.video.likes}
+      </p>
+      <p
+          className="video_row--disliked"
+      >
+        {props.video.dislikes}
+      </p>
+    
     </div>
   )
 }

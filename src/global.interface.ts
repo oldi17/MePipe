@@ -37,6 +37,20 @@ export interface CreatorMe extends Creator {
 	views: number;
 }
 
+export interface CreatorReg {
+	name: string;
+	contacts: string;
+	description: string;
+}
+
+export interface CreatorMod {
+	name?: string;
+	contacts?: string;
+	description?: string;
+	subscribers?: number;
+  channel_background?: File;
+}
+
 export interface CreatorPatch {
 	name?: string;
 	contacts?: string;
