@@ -76,7 +76,6 @@ export default function SignForm(props:{classNames: string[]}) {
   }
 
   return (
-    <>
     <div className="form-cont">
     <form
       onSubmit={e => handleSubmit(e)}    
@@ -116,7 +115,6 @@ export default function SignForm(props:{classNames: string[]}) {
     </form>
     
     </div>
-    </>
   )
 }
 

@@ -1,9 +1,12 @@
+import { useState } from "react"
 import { CreatorMe } from "../../../../global.interface"
+import VideoForm from "../../../VideoForm/VideoForm"
 import './MainView.css'
 
 export default function MainView(props:{
   creator: CreatorMe
 }) {
+  const [visibility, setVisibility] = useState(false)
   return (
     <>
     <div
@@ -31,7 +34,7 @@ export default function MainView(props:{
       </p>
       <button 
         type="button" 
-        onClick={() => {}}
+        onClick={() => setVisibility(true)}
         className=""
       >
         Добавить видео
@@ -56,6 +59,7 @@ export default function MainView(props:{
         Просмотры: {props.creator.views}
       </p>
     </div>
+    {visibility && <VideoForm mode="create" setVisibility={setVisibility}/>}
     </>
   )
 }

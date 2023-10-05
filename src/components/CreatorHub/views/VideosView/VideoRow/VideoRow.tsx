@@ -6,6 +6,7 @@ import './VideoRow.css'
 
 export default function VideoRow(props:{
   video: VideoWithCommentsCount;
+  remover: Function;
 }) {
   return (
     <div
@@ -60,7 +61,11 @@ export default function VideoRow(props:{
       >
         {props.video.dislikes}
       </p>
-    
+      <button
+        className="video_row--remove_btn"
+        type="button"
+        onClick={() => props.remover()}
+      >X</button>
     </div>
   )
 }

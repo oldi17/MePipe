@@ -77,6 +77,19 @@ export interface Video {
   dislikes: number;
 }
 
+export interface VideoUpload {
+  title: string;
+  description: string;
+	file: File;
+	thumbnail: File;
+}
+
+export interface VideoMod {
+  title?: string;
+  description?: string;
+	thumbnail?: File;
+}
+
 export interface VideoWithCommentsCount extends Video {
 	commentsCount?: number;
 }

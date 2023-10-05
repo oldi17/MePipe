@@ -1,6 +1,6 @@
 .ch--videos--header {
   display: grid;
-  grid-template-columns: 2fr repeat(5, 1fr);
+  grid-template-columns: 2fr repeat(6, 1fr);
   grid-auto-rows: auto;
   grid-gap: 20px;
   padding: 10px;

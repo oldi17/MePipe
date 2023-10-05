@@ -6,7 +6,7 @@ import { modifyCreator, regCreator } from "../../../../services/user.service"
 export default function SettingsView(props:{
   creator: CreatorMe|undefined;
 }) {
-  const [newCreator, setNewCreator] = useState(props.creator || {
+  const [newCreator, setNewCreator] = useState({...props.creator} as CreatorMe || {
     name: '',
     description: '',
     contacts: '',

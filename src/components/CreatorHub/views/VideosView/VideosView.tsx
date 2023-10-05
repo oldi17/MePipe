@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { CreatorMe, Video, VideoWithCommentsCount } from "../../../../global.interface"
 import './VideosView.css'
-import { getCreatorVideo, getVideoComments } from "../../../../services/user.service"
+import { getCreatorVideo, getVideoComments, removeVideo } from "../../../../services/user.service"
 import VideoRow from "./VideoRow/VideoRow"
 
 export default function VideosView(props:{
@@ -34,8 +34,18 @@ export default function VideosView(props:{
         })
   }, [])
 
-  const videoCards = videos.map(v => <VideoRow video={v} key={v.url}/>)
-  const headerTitles = ['Видео', 'Дата', 'Просмотры', 'Комментарии', 'Нравиться', 'Не нравиться', ]
+  function handleRemove(url: string) {
+    removeVideo(url)
+    .then(res => {
+      setVideos(prev => {
+        const newVideos = [...prev].filter(e => e.url !== url)
+        return newVideos
+      })
+    })
+  }
+
+  const videoCards = videos.map(v => <VideoRow video={v} key={v.url} remover={() => handleRemove(v.url)}/>)
+  const headerTitles = ['Видео', 'Дата', 'Просмотры', 'Комментарии', 'Нравиться', 'Не нравиться', 'Удалить',]
   const headerItems = headerTitles.map(e => (
     <p
         className="ch--videos--header--item"
