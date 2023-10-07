@@ -4,6 +4,7 @@ import VideoViewer from "../VideoViewer/VideoViewer";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import SignForm from "../SignForm/SignForm";
+import CreatorHub from "../CreatorHub/CreatorHub";
 
 export default function Test(){
   const isSignFormVisible = useSelector(
@@ -24,7 +25,7 @@ export default function Test(){
       <VideoCard video={videosTest[0]} />
       <VideoCard video={videosTest[0]} />
       <VideoViewer video={videosTest[0]}/> */}
-      {isSignFormVisible && <SignForm classNames={[]}/>}
+      <CreatorHub />
     </div>
   )
 }

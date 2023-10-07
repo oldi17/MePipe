@@ -1,8 +1,6 @@
 .thumbnail {
   position: relative;
   aspect-ratio: 16 / 9;
-  min-width: 180px;
-  max-width: 314px;
   display: flex;
   align-items: flex-end;
 }

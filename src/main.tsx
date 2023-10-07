@@ -13,5 +13,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <App />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
+
+// ReactDOM.createRoot(document.getElementById('root')!).render(
+//   <Provider store={store}>
+//     <BrowserRouter>
+//       <App />
+//     </BrowserRouter>
+//   </Provider>
+// )

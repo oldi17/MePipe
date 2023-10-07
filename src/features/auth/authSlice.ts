@@ -42,10 +42,8 @@ export const authSlice = createSlice({
       return state
     },
     changePair: (state, action) => {
-      state = {
-        ...state,
-        ...action.payload,
-      }
+      state.access = action.payload.access
+      state.refresh = action.payload.refresh
       return state
     },
   },

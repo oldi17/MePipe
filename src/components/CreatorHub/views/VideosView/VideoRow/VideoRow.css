@@ -1,0 +1,16 @@
+.video_row--cont {
+  display: grid;
+  grid-template-columns: 2fr repeat(6, 1fr);
+  grid-auto-rows: repeat(auto);
+  grid-gap: 20px;
+  padding: 10px;
+}
+
+.video_row--thumb_cont {
+  display: flex;
+  gap: 10px;
+}
+
+.video_row--thumbnail {
+  max-width: 120px;
+}

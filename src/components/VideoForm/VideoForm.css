@@ -1,0 +1,10 @@
+.form_cont {
+  position: absolute;
+  left: 50%;
+}
+
+.video_form {
+  background-color: white;
+  position: relative;
+  left: -50%;
+}
