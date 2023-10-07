@@ -1,4 +1,5 @@
 export const BACKEND_URL = 'http://127.0.0.1:8000/'
+export const BACKEND_URL_WITHOUT_SLASH = 'http://127.0.0.1:8000'
 export const API_URL = BACKEND_URL + 'api/'
 export const AUTH_URL = BACKEND_URL + 'auth/'
 export const CREATOR_URL = API_URL + 'creator/'

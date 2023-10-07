@@ -7,6 +7,7 @@ import './VideoRow.css'
 export default function VideoRow(props:{
   video: VideoWithCommentsCount;
   remover: Function;
+  setCurrent: Function;
 }) {
   return (
     <div
@@ -14,9 +15,10 @@ export default function VideoRow(props:{
     >
     <div
       className="video_row--thumb_cont"
+      onClick={() => props.setCurrent()}
     >
       <Thumbnail 
-          imgSrc={MEDIA_THUMB_URL + props.video.url + '.jpg'}
+          imgSrc={MEDIA_THUMB_URL + props.video.url + '.jpg?' + new Date().getTime()}
           time={convertVideoLength(props.video.duration)}
           classNames={['video_row--thumbnail']}
           key={props.video.url}

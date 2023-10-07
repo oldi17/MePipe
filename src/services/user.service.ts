@@ -1,5 +1,5 @@
 import {instance as axios} from './auth.service'
-import { Creator, CreatorMod, CreatorReg, UserPatch, VideoUpload } from "../global.interface";
+import { Creator, CreatorMod, CreatorReg, UserPatch, VideoMod, VideoUpload } from "../global.interface";
 import { API_URL, AUTH_URL, COMMENT_URL, CREATOR_URL, VIDEO_URL } from "../settings";
 import { destructObject } from "./auth.service";
 
@@ -62,6 +62,10 @@ export async function getCreatorVideo(creatorName: string) {
   return await axios.get(VIDEO_URL + 'creator/' + creatorName)
 }
 
+export async function getQuery(url: string) {
+  return await axios.get(url)
+}
+
 export function createVideo(video: VideoUpload, onUploadProg: Function, ) {
   const formData = new FormData()
   destructObject(video, 
@@ -87,6 +91,19 @@ export function createVideo(video: VideoUpload, onUploadProg: Function, ) {
         onUploadProg(percent)
       }
   })}
+}
+
+export async function modifyVideo(video: VideoMod, videoUrl: string) {
+  const formData = new FormData()
+  destructObject(video, 
+    (key, value) => 
+    formData.append(key, value)
+  )
+  return await axios.patch(VIDEO_URL + 'modify/' + videoUrl, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    }
+  })
 }
 
 export async function removeVideo(videoUrl: string) {

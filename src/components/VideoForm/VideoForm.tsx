@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 import './VideoForm.css'
-import { Video, VideoUpload } from '../../global.interface';
+import { Video, VideoMod, VideoUpload } from '../../global.interface';
 import { MEDIA_THUMB_URL } from '../../settings';
-import { createVideo } from '../../services/user.service';
+import { createVideo, modifyVideo } from '../../services/user.service';
 
 export default function VideoForm(props: {
   mode: 'create' | 'edit';
   video?: Video;
-  setVisibility: Function;
+  handleClose: Function;
 }) {
   
   const [inputs, setInputs] = useState(props.video ? {
@@ -25,9 +25,19 @@ export default function VideoForm(props: {
   const [disabled, setDisabled] = useState(false)
 
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>, setter: Function) => {
+  const handleVideoFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setter(e.target.files[0])
+      setVideo(e.target.files[0])
+    }
+  }
+
+  const handleThumbFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setThumb(e.target.files[0])
+      const thumb = document.getElementById('thumb_preview') as HTMLImageElement
+      if (thumb) {
+        thumb.src = URL.createObjectURL(e.target.files[0])
+      }
     }
   }
 
@@ -49,14 +59,36 @@ export default function VideoForm(props: {
       const ret = createVideo(videoUp, onUploadProgress)
       ret.promise
       .then(res => {
-        props.setVisibility(false)
+        props.handleClose()
       })
       .catch(err => {
         console.log(err)
       })
       setHandleCancelUpload(() => () => ret.controller.abort())
     } else {
-      // modify video
+      const videoMod: VideoMod = {}
+      if (!props.video) {
+        return
+      }
+      if (props.video.title !== inputs.title) {
+        videoMod.title = inputs.title
+      }
+      if (props.video.description !== inputs.description) {
+        videoMod.description = inputs.description
+      }
+      if (thumb) {
+        videoMod.thumbnail = thumb
+      }
+      if (!videoMod) {
+        return
+      }
+      modifyVideo(videoMod, props.video.url)
+      .then(res => {
+        props.handleClose()
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 
@@ -79,7 +111,7 @@ export default function VideoForm(props: {
           return
         }
     }
-    props.setVisibility(false)
+    props.handleClose()
   }
   
   return (
@@ -129,8 +161,13 @@ export default function VideoForm(props: {
       {props.video && 
       <img 
         className='video_form--thumb' 
-        src={MEDIA_THUMB_URL + props.video.url + '.jpg'} 
+        src={MEDIA_THUMB_URL + props.video.url + '.jpg?' + new Date().getTime()} 
       />}
+
+      <img 
+        className='video_form--thumb_preview' 
+        id='thumb_preview'
+      />
 
       <label 
         className="video_form--label"
@@ -141,7 +178,7 @@ export default function VideoForm(props: {
         name="thumb"
         id="thumb"
         type="file" 
-        onChange={e => handleFileChange(e, setThumb)}
+        onChange={e => handleThumbFileChange(e)}
         accept='image/png, image/jpeg, image/webp'
         required={props.mode == 'create'}
         disabled={disabled}
@@ -157,13 +194,14 @@ export default function VideoForm(props: {
         name="video"
         id="video"
         type="file" 
-        onChange={e => handleFileChange(e, setVideo)}
+        onChange={e => handleVideoFileChange(e)}
         accept='video/mp4, video/x-msvideo'
         required
         disabled={disabled}
       /></label>}
       <button
         className='video_form--submit_btn'
+        disabled={disabled}
       >
         {props.mode == 'create' ? 'Загрузить' : 'Изменить'}
       </button>

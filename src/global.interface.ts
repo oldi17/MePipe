@@ -106,3 +106,16 @@ export interface Comment {
   dislikes: number;
   isliked: number;
 }
+
+export interface PaginatorValues {
+	count: number;
+	numpages: number;
+	firstlink: string;
+	nextlink: string;
+	prevlink: string;
+	lastlink: string;
+}
+
+export interface VideosResponse extends PaginatorValues {
+	videos: Video[];
+}

@@ -59,7 +59,7 @@ export default function MainView(props:{
         Просмотры: {props.creator.views}
       </p>
     </div>
-    {visibility && <VideoForm mode="create" setVisibility={setVisibility}/>}
+    {visibility && <VideoForm mode="create" handleClose={() => setVisibility(false)}/>}
     </>
   )
 }
