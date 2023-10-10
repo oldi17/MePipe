@@ -66,6 +66,14 @@ export async function getQuery(url: string) {
   return await axios.get(url)
 }
 
+export async function subCreator(creatorName: string) {
+  return await axios.post(CREATOR_URL + 'sub/' + creatorName)
+}
+
+export async function unsubCreator(creatorName: string) {
+  return await axios.post(CREATOR_URL + 'unsub/' + creatorName)
+}
+
 export function createVideo(video: VideoUpload, onUploadProg: Function, ) {
   const formData = new FormData()
   destructObject(video, 
@@ -108,6 +116,32 @@ export async function modifyVideo(video: VideoMod, videoUrl: string) {
 
 export async function removeVideo(videoUrl: string) {
   return await axios.delete(VIDEO_URL + 'del/' + videoUrl)
+}
+
+export async function getVideo(videoUrl: string) {
+  return await axios.get(VIDEO_URL + 'watch/' + videoUrl)
+}
+
+export async function likeVideo(videoUrl: string) {
+  return await axios.post(VIDEO_URL + 'like/' + videoUrl)
+}
+
+export async function unlikeVideo(videoUrl: string) {
+  return await axios.post(VIDEO_URL + 'unlike/' + videoUrl)
+}
+
+export async function dislikeVideo(videoUrl: string) {
+  return await axios.post(VIDEO_URL + 'dislike/' + videoUrl)
+}
+
+export async function setHistoryVideoTime(videoUrl: string, time: number) {
+  return await axios.post(VIDEO_URL + 'history/t/' + videoUrl, {
+    'time': time,
+  })
+}
+
+export async function getCreatorWithUsername(creatorName: string) {
+  return await axios.get(CREATOR_URL + 'username/' + creatorName)
 }
 
 export async function getVideoComments(videoUrl: string) {

@@ -1,13 +1,42 @@
-import { useRef } from "react"
-import video from '../../assets/2.mp4'
+import { useEffect, useRef, useState } from "react"
 import './VideoPlayer.css'
+import { Video } from "../../../../global.interface";
+import { MEDIA_VIDEO_URL } from "../../../../settings";
+import { setHistoryVideoTime } from "../../../../services/user.service";
 
 function VideoPlayer(props: {
-  classNames:string[];
-  url:string;
+  classNames: string[];
+  video: Video;
 }) {
 	const vidRef = useRef<HTMLVideoElement>(null)
-  props
+
+	useEffect(() => {
+		if (vidRef.current) {
+			const timestamp = props.video.timestamp || 0
+			vidRef.current.addEventListener('loadstart', function() {
+				this.currentTime = timestamp
+			})
+		}
+
+		localStorage.setItem('time', '' + props.video.timestamp)
+
+		const timerId = setInterval(() => {
+			if (vidRef.current){
+				const curr = Math.ceil(vidRef.current.currentTime)
+				const currLocal = +(localStorage.getItem('time') || 0)
+				if (curr !== currLocal) {
+					localStorage.setItem('time', '' + curr)
+					setHistoryVideoTime(props.video.url, curr)
+				}
+			}
+		}, 5000)
+		
+		return () => {
+			clearInterval(timerId)
+			localStorage.removeItem('time')
+		}
+	}, [vidRef])
+
 	return (
 		<section
 			className={["video-cont", ...props.classNames].join(' ')}
@@ -17,7 +46,7 @@ function VideoPlayer(props: {
 				ref={vidRef}
 				controls
 			>
-				<source src={video} type="video/mp4" />
+				<source src={MEDIA_VIDEO_URL + props.video.url + '.mp4'} type="video/mp4" />
 			</video>
 		</section>
 	)

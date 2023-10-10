@@ -37,6 +37,18 @@ export interface CreatorMe extends Creator {
 	views: number;
 }
 
+export interface CreatorWithUname extends Creator {
+	username: number;
+}
+
+export interface CreatorAuthedWithUname extends CreatorAuthed {
+	username: number;
+}
+
+export function isCreatorAuthed(creator: Creator): creator is CreatorAuthed {
+	return 'issubscribed' in creator
+}
+
 export interface CreatorReg {
 	name: string;
 	contacts: string;
@@ -75,6 +87,8 @@ export interface Video {
   createdAt: string;
   likes: number;
   dislikes: number;
+	isliked?: number;
+	timestamp?: number;
 }
 
 export interface VideoUpload {
