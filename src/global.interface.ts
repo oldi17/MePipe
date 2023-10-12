@@ -112,13 +112,12 @@ export interface Comment {
 	id: number;
   user_username: string;
   video_url: string;
-  owner: string;
   content: string;
-  createdAt: number;
+  createdAt: string;
   modified: boolean;
   likes: number;
   dislikes: number;
-  isliked: number;
+  isliked?: number;
 }
 
 export interface PaginatorValues {

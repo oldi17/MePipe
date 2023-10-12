@@ -36,13 +36,14 @@ function VideoViewer() {
       video={video}
       setVideo={setVideo}
     />
-    {/* <RecomendationsSideBar 
+    <RecomendationsSideBar 
       classNames={['vv--recomendations-sidebar']}
+      video={video}
     />
     <CommentSection 
       classNames={['vv--comment-section']}
-      url={video.url}
-    /> */}
+      video={video}
+    />
     </>
     }
   </div>

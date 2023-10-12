@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { CreatorMe, PaginatorValues, Video, VideoWithCommentsCount, VideosResponse } from "../../../../global.interface"
 import './VideosView.css'
-import { getCreatorVideo, getQuery, getVideoComments, removeVideo } from "../../../../services/user.service"
+import { getCreatorVideo, getQuery, getVideoCommentsCount, removeVideo } from "../../../../services/user.service"
 import VideoRow from "./VideoRow/VideoRow"
 import { BACKEND_URL_WITHOUT_SLASH } from "../../../../settings"
 import VideoForm from "../../../VideoForm/VideoForm"
@@ -50,7 +50,7 @@ export default function VideosView(props:{
         setVideos(res.data.videos)
 
         res.data.videos.map((v: Video) => {
-          getVideoComments(v.url)
+          getVideoCommentsCount(v.url)
             .then((res) => {
               setCommentCount(v, res.data)
             })

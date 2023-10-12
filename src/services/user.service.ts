@@ -144,6 +144,22 @@ export async function getCreatorWithUsername(creatorName: string) {
   return await axios.get(CREATOR_URL + 'username/' + creatorName)
 }
 
-export async function getVideoComments(videoUrl: string) {
+export async function getAllRecVideos(creatorName: string, page: number = 1) {
+  return await axios.get(VIDEO_URL + 'rec/all/' + creatorName + '?page=' + page)
+}
+
+export async function getAllComments(videoUrl: string, page: number = 1) {
+  return await axios.get(COMMENT_URL + 'all/' + videoUrl + '?page=' + page)
+}
+
+export async function createComment(videoUrl: string, content: string) {
+  return await axios.post(COMMENT_URL + 'add/' + videoUrl, {
+    'comment': {
+      'content': content,
+    },
+  })
+}
+
+export async function getVideoCommentsCount(videoUrl: string) {
   return await axios.get(COMMENT_URL + 'count/' + videoUrl)
 }
