@@ -14,7 +14,7 @@ function VideoCard(props: {
 
   return (
     <Link 
-      to={'/' + props.video.url} 
+      to={'/v/' + props.video.url} 
       className={"vc" + (props.isSmallSize ? ' vc_small' : '')}
     >
       <Thumbnail 

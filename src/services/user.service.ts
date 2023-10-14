@@ -160,6 +160,18 @@ export async function createComment(videoUrl: string, content: string) {
   })
 }
 
+export async function modifyComment(commentId: number, content: string) {
+  return await axios.patch(COMMENT_URL + 'modify/' + commentId, {
+    'comment': {
+      'content': content,
+    },
+  })
+}
+
 export async function getVideoCommentsCount(videoUrl: string) {
   return await axios.get(COMMENT_URL + 'count/' + videoUrl)
+}
+
+export async function getAllVideos(page: number = 1) {
+  return await axios.get(VIDEO_URL + 'all/' + '?page=' + page)
 }

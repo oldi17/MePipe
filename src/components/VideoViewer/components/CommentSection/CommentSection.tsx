@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import './CommentSection.css'
 import { Comment, Video } from "../../../../global.interface";
-import { createComment, getAllComments, getVideoCommentsCount } from "../../../../services/user.service";
+import { createComment, getAllComments, getVideoCommentsCount, modifyComment } from "../../../../services/user.service";
 import CommentRow from "./components/CommentRow";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
+import usePaginate from "../../../../hooks/usePaginate";
 
 function CommentSection(props: {
   classNames: string[];
@@ -14,39 +15,39 @@ function CommentSection(props: {
   const isLogged = useSelector(
     (state: RootState) => state.auth.isLogged
   )
+  const user = useSelector((state: RootState) => state.auth.user)
+
   const [commentsCount, setCommentsCount] = useState(0)
   
-  const [currPage, setCurrPage] = useState(1)
-  const [maxPage, setMaxPage] = useState(1)
   const [comments, setComments] = useState<Comment[]>([])
-  const [isLoadable, setIsLoadable] = useState(true)
+
+  const [getNextPage, isLoadable] = usePaginate<Comment>(
+    setComments,
+    (page?: number) => getAllComments(props.video.url, page),
+    (c1: Comment, c2: Comment) => c1.id === c2.id,
+    'comments'
+  )
 
   const commentRows = comments.map(c => 
-    <CommentRow comment={c} key={c.id} />)
+    <CommentRow 
+      comment={c} 
+      key={c.id} 
+      changer={(newContent: string) => changeComment(c.id, newContent)}
+      username={user.username}/>)
 
   useEffect(() => {
-    getNextPage()
     getCommentsCount()
   }, [])
 
-  function getNextPage() {
-    if (currPage > maxPage) {
-      return
-    }
-    const localCurrPage = currPage
-    setCurrPage(maxPage + 1)
-    getAllComments(props.video.url, currPage)
+  function changeComment(id: number, content: string) {
+    modifyComment(id, content)
     .then(res => {
-      setComments(prev => ([
-        ...prev,
-        ...res.data.comments.filter((c: Comment) => !prev.find(cc => cc.id === c.id)),
-      ]))
-      setCurrPage(localCurrPage + 1)
-      const max = +(((res.data.lastlink as string).match(/\d+$/) || [1] )[0])
-      setMaxPage(max)
-      if (localCurrPage == max) {
-        setIsLoadable(false)
-      }
+      setComments(prev => {
+        const newComments = [...prev]
+        const ind = newComments.findIndex(c => c.id === res.data.comment.id)
+        newComments[ind] = res.data.comment
+        return newComments
+      })
     })
   }
 
