@@ -74,7 +74,7 @@ function Header() {
 							<img
 								ref={userImgRef}
 								className="header--user--img"
-								src={MEDIA_PFP_URL + user.username + '.png'}
+								src={MEDIA_PFP_URL + user.username + '.png?' + new Date().getTime()}
 								onClick={() => dispatch(toggleUserMenu())}
 							/>
 							<h4

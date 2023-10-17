@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react"
 import { CreatorMe, CreatorMod } from "../../../../global.interface"
 import './SettingsView.css'
 import { modifyCreator, regCreator } from "../../../../services/user.service"
+import { MEDIA_CBG_URL, MEDIA_CPFP_URL } from "../../../../settings";
 
 export default function SettingsView(props:{
   creator: CreatorMe|undefined;
@@ -12,6 +13,7 @@ export default function SettingsView(props:{
     contacts: '',
   } as CreatorMe)
   const [background, setBackground] = useState<File>()
+  const [pfp, setPfp] = useState<File>()
   const [serverError, setServerError] = useState('')
 
 
@@ -20,9 +22,15 @@ export default function SettingsView(props:{
       setBackground(e.target.files[0])
     }
   }
+
+  function handlePfpChange(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.files) {
+      setPfp(e.target.files[0])
+    }
+  }
   
   function handleRegCreator() {
-    regCreator(newCreator, background)
+    regCreator(newCreator, background, pfp)
     .then(res => {
       window.location.href = window.location.origin + '/creator/main'
     })
@@ -37,6 +45,9 @@ export default function SettingsView(props:{
     const modCreator: CreatorMod = {}
     if (background) {
       modCreator.channel_background = background
+    }
+    if (pfp) {
+      modCreator.channel_pfp = pfp
     }
     if (props.creator.name !== newCreator.name) {
       modCreator.name = newCreator.name
@@ -62,7 +73,7 @@ export default function SettingsView(props:{
       <label 
         className=""
         htmlFor="name"
-      >Введите имя канала
+      >Введите имя канала <span className="required">*</span>
       <input 
         className=""
         name="name"
@@ -102,6 +113,21 @@ export default function SettingsView(props:{
         onChange={e => setNewCreator(prev => ({...prev, contacts: e.target.value}))}
       /></label>
 
+      <img src={MEDIA_CPFP_URL + props.creator?.name + '.png?' + new Date().getTime()} />
+      <label 
+        className=""
+        htmlFor="logo"
+      >Выберите изображение профиля канала (1 x 1)
+      <input 
+        className=""
+        name="pfp"
+        id="pfp"
+        type="file" 
+        onChange={handlePfpChange}
+        accept='image/png, image/jpeg, image/webp'
+      /></label>
+
+      <img src={MEDIA_CBG_URL + props.creator?.name + '.jpg?' + new Date().getTime()} />
       <label 
         className=""
         htmlFor="logo"

@@ -4,7 +4,7 @@ import { CreatorAuthedWithUname, CreatorWithUname, Video, isCreatorAuthed } from
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../store';
 import { dislikeVideo, getCreatorWithUsername, likeVideo, subCreator, unlikeVideo, unsubCreator } from '../../../../services/user.service';
-import { MEDIA_PFP_URL } from '../../../../settings';
+import { MEDIA_CPFP_URL } from '../../../../settings';
 import { convertVideoCreatedAt } from '../../../../lib/convertToHumanReadable';
 
 function VideoDescription(props: {
@@ -24,7 +24,7 @@ function VideoDescription(props: {
     getCreatorWithUsername(props.video.creator_name)
     .then(res => {
       setCreator(res.data.creator)
-      setPfp(res.data.creator.username + '.png')
+      setPfp(res.data.creator.name + '.png?' + new Date().getTime())
     })
   }, [])
 
@@ -75,7 +75,7 @@ function VideoDescription(props: {
         { creator &&
         <div>
           <div>
-            <img src={ MEDIA_PFP_URL + pfp} />
+            <img src={ MEDIA_CPFP_URL + pfp} />
             <span>{props.video.creator_name} </span>
             <span>Подписчики: {creator.subscribers}</span>
           </div>

@@ -4,7 +4,7 @@ import { convertVideoCreatedAt, convertVideoLength } from "../../lib/convertToHu
 import './VideoCard.css'
 import Thumbnail from "./components/Thumbnail";
 import { Video } from "../../global.interface";
-import { MEDIA_PFP_URL, MEDIA_THUMB_URL } from "../../settings";
+import { MEDIA_CPFP_URL, MEDIA_THUMB_URL } from "../../settings";
 
 
 function VideoCard(props: { 
@@ -27,7 +27,7 @@ function VideoCard(props: {
           <Link to={'/@' + props.video.creator_name}>
           <img 
             className="vc--info--creator-photo" 
-            src={MEDIA_PFP_URL + props.video.creator_name + '.jpg'}
+            src={MEDIA_CPFP_URL + props.video.creator_name + '.png?' + new Date().getTime()}
           />
           </Link>
         }

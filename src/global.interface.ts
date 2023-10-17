@@ -61,6 +61,7 @@ export interface CreatorMod {
 	description?: string;
 	subscribers?: number;
   channel_background?: File;
+  channel_pfp?: File;
 }
 
 export interface CreatorPatch {

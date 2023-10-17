@@ -28,15 +28,19 @@ export async function getMeCreator() {
   return await axios.get(CREATOR_URL + 'getMe/')
 }
 
-export async function regCreator(creator: CreatorReg, channel_background: File|undefined) {
+export async function regCreator(creator: CreatorReg, channel_background: File|undefined, channel_pfp: File|undefined) {
   const formData = new FormData()
   destructObject(creator, 
     (key, value) => 
     formData.append(key, value)
   )
 
-  if (channel_background)
+  if (channel_background) {
     formData.append('channel_background', channel_background)
+  }
+  if (channel_pfp) {
+    formData.append('channel_pfp', channel_pfp)
+  }
 
   return await axios.post(CREATOR_URL + 'reg/', formData, {
     headers: {
@@ -174,4 +178,12 @@ export async function getVideoCommentsCount(videoUrl: string) {
 
 export async function getAllVideos(page: number = 1) {
   return await axios.get(VIDEO_URL + 'all/' + '?page=' + page)
+}
+
+export async function getAllHistoryVideos(page: number = 1) {
+  return await axios.get(VIDEO_URL + 'history/all/' + '?page=' + page)
+}
+
+export async function getSubscriptionsVideos(page: number = 1) {
+  return await axios.get(VIDEO_URL + 'sub/all/' + '?page=' + page)
 }
