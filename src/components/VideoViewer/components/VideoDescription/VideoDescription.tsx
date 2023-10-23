@@ -35,8 +35,6 @@ function VideoDescription(props: {
     const promise = creator.issubscribed ? unsubCreator(creator.name) : subCreator(creator.name)
     promise.then(res => {
       setCreator(res.data.creator)
-      console.log(res.data.creator)
-
     })
   }
 
@@ -79,7 +77,7 @@ function VideoDescription(props: {
             <span>{props.video.creator_name} </span>
             <span>Подписчики: {creator.subscribers}</span>
           </div>
-          { isCreatorAuthed(creator) &&
+          { isLogged && isCreatorAuthed(creator) &&
           <input
             type='button'
             value={creator.issubscribed ? 'Вы уже подписаны' : 'Подписаться'}
@@ -89,7 +87,7 @@ function VideoDescription(props: {
         </div>
         }
         <div>
-        { creator && isCreatorAuthed(creator) &&
+        { creator && isLogged && isCreatorAuthed(creator) &&
           <>
           <input
             type='button'

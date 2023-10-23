@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import './VideosPanel.css'
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Video } from '../../global.interface';
 import VideoCard from '../VideoCard/VideoCard';
 import usePaginate from '../../hooks/usePaginate';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 export default function VideosPanel(props: {
   axiosGetter: (page?: number) => Promise<AxiosResponse<any, any>>;
 }) {
-  
   const [videos, setVideos] = useState<Video[]>([])
   const [getNextPage, isLoadable] = usePaginate<Video>(
     setVideos,
@@ -17,9 +18,13 @@ export default function VideosPanel(props: {
     'videos'
   )
 
+  const currentPath = useSelector(
+    (state: RootState) => state.layout.currentPath
+  )
+
   useEffect(() => {
-    getNextPage()
-  }, [])
+    getNextPage(1)
+  }, [currentPath])
 
   const videoCards = videos.map(v => <VideoCard video={v} key={v.url}/>) 
 

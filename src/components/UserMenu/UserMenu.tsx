@@ -30,7 +30,7 @@ function UserMenu(props: any) {
 	return (
 		<nav className="user-menu" ref={userMenuRef}>
       <ul className="user-menu--options">
-        <li><Link to={'/@' + user.username}>
+        <li><Link to={'/c/' + user.username}>
           <img src='/static/my-channel-icon.svg' />
           Мой канал</Link></li>
         {isCreatorMode 

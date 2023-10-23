@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import './SignForm.css'
 import {authLogin, authRegister} from "../../services/auth.service"
 import { useDispatch } from "react-redux"
@@ -23,6 +23,12 @@ export default function SignForm(props:{classNames: string[]}) {
 
   const [httpError, setHttpError] = useState('')
   const [regSuccess, setRegSuccess] = useState(false)
+
+  useEffect(() => {
+    const overflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {document.body.style.overflow = overflow}
+  }, [])
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -76,10 +82,15 @@ export default function SignForm(props:{classNames: string[]}) {
   }
 
   return (
-    <div className="form-cont">
+    <>
+    <div 
+      className="form-cont"
+      onClick={handleClose}
+    >
     <form
       onSubmit={e => handleSubmit(e)}    
       className={["form", ...props.classNames].join(' ')}
+      onClick={(e) => e.stopPropagation()}
     >
       <div className="form--header">
         <span></span>
@@ -115,6 +126,11 @@ export default function SignForm(props:{classNames: string[]}) {
     </form>
     
     </div>
+    <div 
+      id='black_screen'
+      onClick={handleClose}
+    ></div>
+    </>
   )
 }
 

@@ -10,8 +10,6 @@ export default function CommentRow(props: {
 }) {
   const [newContent, setNewContent] = useState<string>()
 
-  useEffect(() => {console.log(props.username, props.comment.user_username)}, [])
-
   function onClick() {
     if (newContent === undefined) {
       setNewContent(props.comment.content)

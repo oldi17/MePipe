@@ -15,13 +15,13 @@ export default function usePaginate<P>(
     getNextPage()
   }, [])
 
-  function getNextPage() {
+  function getNextPage(page?: number) {
     if (currPage > maxPage) {
       return
     }
-    const localCurrPage = currPage
+    const localCurrPage = page === undefined ? currPage : page
     setCurrPage(maxPage + 1)
-    axiosGetter(currPage)
+    axiosGetter(localCurrPage)
     .then(res => {
       setItems(prev => ([
         ...prev,

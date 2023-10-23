@@ -61,9 +61,6 @@ export default function VideoForm(props: {
       .then(res => {
         props.handleClose()
       })
-      .catch(err => {
-        console.log(err)
-      })
       setHandleCancelUpload(() => () => ret.controller.abort())
     } else {
       const videoMod: VideoMod = {}
@@ -85,9 +82,6 @@ export default function VideoForm(props: {
       modifyVideo(videoMod, props.video.url)
       .then(res => {
         props.handleClose()
-      })
-      .catch(err => {
-        console.log(err)
       })
     }
   }

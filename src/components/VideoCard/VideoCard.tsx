@@ -24,7 +24,7 @@ function VideoCard(props: {
       />
       <div className="vc--info">
         { !props.isSmallSize &&
-          <Link to={'/@' + props.video.creator_name}>
+          <Link to={'/c/' + props.video.creator_name}>
           <img 
             className="vc--info--creator-photo" 
             src={MEDIA_CPFP_URL + props.video.creator_name + '.png?' + new Date().getTime()}
@@ -38,7 +38,7 @@ function VideoCard(props: {
           >
             {props.video.title}
           </p>
-          <Link to={'/@' + props.video.creator_name}>
+          <Link to={'/c/' + props.video.creator_name}>
           <p 
             className="vc--info--right--creator-name"
             title={props.video.creator_name}

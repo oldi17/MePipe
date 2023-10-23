@@ -8,6 +8,7 @@ import VideoViewer from "../VideoViewer/VideoViewer"
 import VideosPanel from "../VideosPanel/VideosPanel"
 import { getAllHistoryVideos, getAllVideos, getSubscriptionsVideos } from "../../services/user.service"
 import NotLogged from "../NotLogged/NotLogged"
+import CreatorPage from "../CreatorPage/CreatorPage"
 
 function Main() {
   const isCreatorMode = useSelector(
@@ -26,10 +27,21 @@ function Main() {
     <main className={"main" + (isCreatorMode ? ' creator-mode' : '')}>
       <Routes>
         <Route path="/creator/*" element={isLogged ? <CreatorHub /> : <NotLogged />} />
-        <Route path="/v/*" element={<VideoViewer />} />
-        <Route path="" element={<VideosPanel axiosGetter={getAllVideos} />} />
-        <Route path="/subscriptions" element={isLogged ? <VideosPanel axiosGetter={getSubscriptionsVideos} /> : <NotLogged />} />
-        <Route path="/library" element={isLogged ? <VideosPanel axiosGetter={getAllHistoryVideos} /> : <NotLogged />} />
+        <Route path="/v/*" element={<VideoViewer key={location.pathname}  />} />
+        <Route path="/c/:creatorName/*" element={<CreatorPage key={location.pathname}  />} />
+        <Route path="" element={<VideosPanel key={location.pathname} axiosGetter={getAllVideos} />} />
+        <Route 
+          path="/subscriptions" 
+          element={isLogged 
+            ? <VideosPanel key={location.pathname} axiosGetter={getSubscriptionsVideos} /> 
+            : <NotLogged />} 
+          />
+        <Route 
+          path="/library" 
+          element={isLogged 
+            ? <VideosPanel key={location.pathname} axiosGetter={getAllHistoryVideos} /> 
+            : <NotLogged />} 
+          />
       </Routes>
       {isSignFormVisible && <SignForm classNames={[]}/>}
     </main>
