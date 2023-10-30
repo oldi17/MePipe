@@ -19,7 +19,7 @@ const viewerSideBar: SideBar = {
       id: 'library',
       url: '/library',
       img: '/static/library',
-      title: 'Библиотека',
+      title: 'История',
     },
   ]
 }

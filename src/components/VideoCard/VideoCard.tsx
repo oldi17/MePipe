@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-// import { useickOutside from "../../hooks/useClickOutside";
 import { convertVideoCreatedAt, convertVideoLength } from "../../lib/convertToHumanReadable";
 import './VideoCard.css'
 import Thumbnail from "./components/Thumbnail";

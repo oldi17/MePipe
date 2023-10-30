@@ -6,7 +6,7 @@ import { Route, Routes } from "react-router-dom"
 import CreatorHub from "../CreatorHub/CreatorHub"
 import VideoViewer from "../VideoViewer/VideoViewer"
 import VideosPanel from "../VideosPanel/VideosPanel"
-import { getAllHistoryVideos, getAllVideos, getSubscriptionsVideos } from "../../services/user.service"
+import { getAllHistoryVideos, getAllVideos, getSearchVideo, getSubscriptionsVideos } from "../../services/user.service"
 import NotLogged from "../NotLogged/NotLogged"
 import CreatorPage from "../CreatorPage/CreatorPage"
 
@@ -30,6 +30,12 @@ function Main() {
         <Route path="/v/*" element={<VideoViewer key={location.pathname}  />} />
         <Route path="/c/:creatorName/*" element={<CreatorPage key={location.pathname}  />} />
         <Route path="" element={<VideosPanel key={location.pathname} axiosGetter={getAllVideos} />} />
+        <Route path="results/*" element={<VideosPanel key={location.pathname} 
+          axiosGetter={(page?: number) => {
+            const queries = window.location.search.substring(1).split("&")[0].split('=')
+            const query = queries[queries.length - 1].replace('%20', ' ')
+            return getSearchVideo(query, page)
+          }} />} />
         <Route 
           path="/subscriptions" 
           element={isLogged 

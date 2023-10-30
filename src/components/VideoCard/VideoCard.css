@@ -1,4 +1,5 @@
 .vc {
+  flex: 1 1 180px;
   padding: 10px;
   text-decoration: none;
   color: black;
@@ -6,7 +7,7 @@
   display: flex;
   flex-direction: column;
   min-width: 180px;
-  max-width: 314px;
+  max-width: 350px;
   align-items: center;
 }
 
@@ -38,11 +39,12 @@
   width: auto;
   border-radius: 50%;
   min-width: 44px;
+  max-width: 64px;
 }
 
 .vc--info--right {
   flex-grow: 4;
-  max-width: 365px;
+  max-width: 245px;
 }
 
 .vc--info--right p {
@@ -57,6 +59,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+  word-wrap: break-word;
   text-overflow: ellipsis;
 }
 

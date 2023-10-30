@@ -1,6 +1,6 @@
 import {instance as axios} from './auth.service'
-import { Creator, CreatorMod, CreatorReg, UserPatch, VideoMod, VideoUpload } from "../global.interface";
-import { API_URL, AUTH_URL, COMMENT_URL, CREATOR_URL, VIDEO_URL } from "../settings";
+import { CreatorMod, CreatorReg, UserPatch, VideoMod, VideoUpload } from "../global.interface";
+import { AUTH_URL, COMMENT_URL, CREATOR_URL, VIDEO_URL } from "../settings";
 import { destructObject } from "./auth.service";
 
 export async function modifyUser(user: UserPatch = {}) {
@@ -64,6 +64,10 @@ export async function modifyCreator(creator: CreatorMod) {
 
 export async function getCreatorVideo(creatorName: string) {
   return await axios.get(VIDEO_URL + 'creator/' + creatorName)
+}
+
+export async function getSearchVideo(query: string, page: number = 1) {
+  return await axios.post(VIDEO_URL + 'search/' + '?page=' + page, {query})
 }
 
 export async function getQuery(url: string) {

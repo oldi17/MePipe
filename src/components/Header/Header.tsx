@@ -29,8 +29,8 @@ function Header() {
   function handleSearch() {
     if (!search)
       return
-    const url = (isCreatorMode ? '/creator' : '') + '/results/' + search
-		navigate(url)
+    const url = (isCreatorMode ? '/creator' : '') + '/results/?query=' + search
+		window.location.href = window.location.hostname + url
   }
 
 	function handleSignInClick() {

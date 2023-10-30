@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import './VideosPanel.css'
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { Video } from '../../global.interface';
 import VideoCard from '../VideoCard/VideoCard';
 import usePaginate from '../../hooks/usePaginate';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
 
 export default function VideosPanel(props: {
   axiosGetter: (page?: number) => Promise<AxiosResponse<any, any>>;
@@ -18,20 +16,30 @@ export default function VideosPanel(props: {
     'videos'
   )
 
-  const currentPath = useSelector(
-    (state: RootState) => state.layout.currentPath
-  )
+  function handleScroll() {
+    const cont = document.querySelector('.videos_panel--cont')
+    const load = document.querySelector('.videos_panel--load_btn') as HTMLElement
+    if (cont && load && (window.innerHeight + window.scrollY) >= cont.getBoundingClientRect().bottom) {
+      load.click()
+    }
+  }
 
   useEffect(() => {
-    getNextPage(1)
-  }, [currentPath])
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const videoCards = videos.map(v => <VideoCard video={v} key={v.url}/>) 
 
   return (
     <>
+    <div className='videos_panel--cont'>
       {videoCards}
-      {isLoadable && <button 
+      
+    </div>
+    {isLoadable && 
+      <button 
+        className='videos_panel--load_btn'
         type='button'
         onClick={() => getNextPage()}
       >+</button>}

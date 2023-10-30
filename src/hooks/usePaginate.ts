@@ -6,33 +6,32 @@ export default function usePaginate<P>(
     axiosGetter: (page?: number) => Promise<AxiosResponse<any, any>>,
     comparator: (p1: P, p2: P) => boolean,
     fieldName: string,
+    
   ) : [Function, boolean] {
-  const [currPage, setCurrPage] = useState(1)
-  const [maxPage, setMaxPage] = useState(1)
+  const [currPage, setCurrPage] = useState(0)
   const [isLoadable, setIsLoadable] = useState(true)
 
   useEffect(() => {
     getNextPage()
   }, [])
 
-  function getNextPage(page?: number) {
-    if (currPage > maxPage) {
+  function getNextPage() {
+    if (!isLoadable) {
       return
     }
-    const localCurrPage = page === undefined ? currPage : page
-    setCurrPage(maxPage + 1)
-    axiosGetter(localCurrPage)
+    setIsLoadable(false)
+    axiosGetter(currPage + 1)
     .then(res => {
       setItems(prev => ([
         ...prev,
         ...res.data[fieldName].filter((v: P) => !prev.find(vv => comparator(vv, v))),
       ]))
-      setCurrPage(localCurrPage + 1)
+      
       const max = +(((res.data.lastlink as string).match(/\d+$/) || [1] )[0])
-      setMaxPage(max)
-      if (localCurrPage == max) {
-        setIsLoadable(false)
+      if ((currPage + 1) <= max) {
+        setIsLoadable(true)
       }
+      setCurrPage(prev =>  prev + 1)     
     })
 
     

@@ -1,0 +1,15 @@
+.videos_panel--cont {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(180px, 350px));
+  gap: 15px;
+}
+
+.videos_panel--load_btn {
+
+}
+
+@media (max-width: 1000px){
+  .videos_panel--cont {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
