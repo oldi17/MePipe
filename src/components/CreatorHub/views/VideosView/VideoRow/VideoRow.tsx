@@ -9,6 +9,14 @@ export default function VideoRow(props:{
   remover: Function;
   setCurrent: Function;
 }) {
+  function handleRemove() {
+    const isCancel = confirm("Вы действительно хотите удалить это видео?")
+    if (!isCancel) {
+      return
+    }
+    props.remover()
+  }
+
   return (
     <div
       className="video_row--cont"
@@ -66,7 +74,7 @@ export default function VideoRow(props:{
       <button
         className="video_row--remove_btn"
         type="button"
-        onClick={() => props.remover()}
+        onClick={handleRemove}
       >X</button>
     </div>
   )

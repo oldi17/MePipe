@@ -29,6 +29,7 @@
   align-items: flex-start;
   gap: 10px;
   padding: 12px 10px;
+  max-width: 100%;
 }
 
 .vc_small .vc--info {
@@ -45,6 +46,7 @@
 .vc--info--right {
   flex-grow: 4;
   max-width: 245px;
+  max-width: 65%;
 }
 
 .vc--info--right p {
