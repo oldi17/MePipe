@@ -28,7 +28,7 @@ export default function usePaginate<P>(
       ]))
       
       const max = +(((res.data.lastlink as string).match(/\d+$/) || [1] )[0])
-      if ((currPage + 1) <= max) {
+      if ((currPage + 1) < max) {
         setIsLoadable(true)
       }
       setCurrPage(prev =>  prev + 1)     
