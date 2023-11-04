@@ -15,17 +15,28 @@ export default function SettingsView(props:{
   const [background, setBackground] = useState<File>()
   const [pfp, setPfp] = useState<File>()
   const [serverError, setServerError] = useState('')
+  const [cpfp, setCpfp] = useState(() => props.creator 
+  ? MEDIA_CPFP_URL + props.creator.name + '.png?' + new Date().getTime() 
+  : '/static/cpfp.png')
+
+  const [cbg, setCbg] = useState(() => props.creator 
+  ? MEDIA_CBG_URL + props.creator.name + '.png?' + new Date().getTime() 
+  : '/static/cpfp.png')
 
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
+    console.log(1)
     if (e.target.files) {
       setBackground(e.target.files[0])
+      setCbg(URL.createObjectURL(e.target.files[0]))
     }
   }
 
   function handlePfpChange(e: ChangeEvent<HTMLInputElement>) {
+    console.log(2)
     if (e.target.files) {
       setPfp(e.target.files[0])
+      setCpfp(URL.createObjectURL(e.target.files[0]))
     }
   }
   
@@ -68,14 +79,14 @@ export default function SettingsView(props:{
   }
 
   return (
-    <>  
+    <form className="ch--settings_cont">  
       {!props.creator && <p className="">У вас нет канала</p>}
       <label 
-        className=""
+        className="ch--settings--label"
         htmlFor="name"
-      >Введите имя канала <span className="required">*</span>
+      ><p>Введите имя канала <span className="required">*</span></p>
       <input 
-        className=""
+        className="ch--settings--input_name"
         name="name"
         id="name"
         type="text" 
@@ -87,39 +98,44 @@ export default function SettingsView(props:{
 
 
       <label 
-        className=""
+        className="ch--settings--label"
         htmlFor="description"
       >Введите описание канала
       <textarea 
-        className=""
+        className="ch--settings--input_desc"
         name="description"
         id="description"
         value={newCreator.description}
         placeholder="Описание канала"
+        rows={3}
         onChange={e => setNewCreator(prev => ({...prev, description: e.target.value}))}
       /></label>
 
       <label 
-        className=""
+        className="ch--settings--label"
         htmlFor="contacts"
       >Введите контактные данные канала
-      <input 
-        className=""
+      <textarea
+        className="ch--settings--input_contacts"
         name="contacts"
         id="contacts"
-        type="text" 
         value={newCreator.contacts}
         placeholder="Контактные данные канала"
+        rows={3}
         onChange={e => setNewCreator(prev => ({...prev, contacts: e.target.value}))}
       /></label>
 
-      <img src={MEDIA_CPFP_URL + props.creator?.name + '.png?' + new Date().getTime()} />
+      
       <label 
-        className=""
-        htmlFor="logo"
+        className="ch--settings--label"
+        htmlFor="pfp"
       >Выберите изображение профиля канала (1 x 1)
+      <img 
+        className="ch--settings--img_pfp"
+        src={cpfp} 
+      />
       <input 
-        className=""
+        className="ch--settings--input_pfp"
         name="pfp"
         id="pfp"
         type="file" 
@@ -127,13 +143,16 @@ export default function SettingsView(props:{
         accept='image/png, image/jpeg, image/webp'
       /></label>
 
-      <img src={MEDIA_CBG_URL + props.creator?.name + '.jpg?' + new Date().getTime()} />
+      
       <label 
-        className=""
+        className="ch--settings--label"
         htmlFor="logo"
       >Выберите фоновое изображение канала (6 x 1)
+      <img 
+        className="ch--settings--img_bg"
+        src={cbg} />
       <input 
-        className=""
+        className="ch--settings--input_bg"
         name="logo"
         id="logo"
         type="file" 
@@ -144,18 +163,18 @@ export default function SettingsView(props:{
         {props.creator
           ? <button
             type="button"
-            className=""
+            className="ch--settings--btn"
             onClick={handleModCreator}
           >Изменить</button> 
           : <button
             type="button"
-            className=""
+            className="ch--settings--btn"
             onClick={handleRegCreator}
           >Создать</button> }
       </div>
       <p
-        className=""
+        className="ch--settings--error"
       >{serverError}</p>
-    </>
+    </form>
   )
 }

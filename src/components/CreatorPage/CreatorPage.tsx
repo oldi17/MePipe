@@ -39,15 +39,26 @@ export default function CreatorPage() {
 
   return (
     <>
-    {creator && <>
-      <img src={MEDIA_CBG_URL + creator?.name + '.jpg'} />
+    {creator && <div
+      className=''
+    >
+      <img 
+        className=''
+        src={MEDIA_CBG_URL + creator?.name + '.png'} />
       <div>
-        <img src={MEDIA_CPFP_URL + creator?.name + '.png'} />
+        <img 
+          className=''
+          src={MEDIA_CPFP_URL + creator?.name + '.png'} />
         <div>
-          <p>{creator.name}</p>
-          <p>{creator.subscribers}</p>
+          <p
+            className=''
+          >{creator.name}</p>
+          <p
+            className=''
+          >Подписчики: {creator.subscribers}</p>
           {isLogged && 
             <input
+              className=''
               type='button'
               value={creator.issubscribed ? 'Вы уже подписаны' : 'Подписаться'}
               onClick={handleSubscribe}
@@ -55,16 +66,24 @@ export default function CreatorPage() {
           }
         </div>
       </div>
-      <div>
-        <Link to={'/c/' + params.creatorName + '/'}>Главная</Link>
-        <Link to={'/c/' + params.creatorName + '/about'}>О канале</Link>
+      <div
+        className=''
+      >
+        <Link 
+          className=''
+          to={'/c/' + creator.name + '/'}>Главная
+        </Link>
+        <Link 
+          className=''
+          to={'/c/' + creator.name + '/about'}>О канале
+        </Link>
       </div>
       <Routes>
         <Route path='' element={<VideosPanel key={location.pathname} axiosGetter={() => getCreatorVideo(params.creatorName || '')} />} />
         <Route path='about' element={<CreatorAbout creator={creator}/>} />
       </Routes>
       
-    </>}
+    </div>}
     </>
   )
 }

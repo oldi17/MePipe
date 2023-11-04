@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import './Main.css'
 import { RootState } from "../../store"
 import SignForm from "../SignForm/SignForm"
@@ -9,6 +9,8 @@ import VideosPanel from "../VideosPanel/VideosPanel"
 import { getAllHistoryVideos, getAllVideos, getSearchVideo, getSubscriptionsVideos } from "../../services/user.service"
 import NotLogged from "../NotLogged/NotLogged"
 import CreatorPage from "../CreatorPage/CreatorPage"
+import { useEffect } from "react"
+import { setUserMenu } from "../../features/layout/layoutSlice"
 
 function Main() {
   const isCreatorMode = useSelector(
@@ -22,6 +24,13 @@ function Main() {
   const isLogged = useSelector(
     (state: RootState) => state.auth.isLogged
   )
+  const currentPath = useSelector((state: RootState) => 
+    state.layout.currentPath)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setUserMenu({'value': false}))
+  }, [currentPath])
 
   return (
     <main className={"main" + (isCreatorMode ? ' creator-mode' : '')}>

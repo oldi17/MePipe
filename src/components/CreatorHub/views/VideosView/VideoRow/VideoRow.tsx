@@ -18,6 +18,7 @@ export default function VideoRow(props:{
   }
 
   return (
+    <div className="wrapper">
     <div
       className="video_row--cont"
     >
@@ -75,7 +76,8 @@ export default function VideoRow(props:{
         className="video_row--remove_btn"
         type="button"
         onClick={handleRemove}
-      >X</button>
+      >Удалить</button>
+    </div>
     </div>
   )
 }

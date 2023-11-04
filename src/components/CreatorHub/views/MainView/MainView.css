@@ -1,0 +1,27 @@
+.ch--main-cont {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ch--main--add_vid_cont,.ch--main--analy_cont {
+  max-width: 200px;
+  min-width: 200px;
+  border: 1px solid black;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ch--main--add_vid--btn {
+  padding-block: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+.ch--main--add_vid--btn:hover {
+  background-color: rgb(41, 41, 41);
+}
