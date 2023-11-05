@@ -24,6 +24,11 @@
   border-radius: 5px;
 }
 
+.vc_small .vc--thumbnail,
+.vc_small .vc--info {
+  width: 50%;
+}
+
 .vc--info {
   display: flex;
   align-items: flex-start;
@@ -47,6 +52,10 @@
   flex-grow: 4;
   max-width: 245px;
   max-width: 65%;
+}
+
+.vc_small .vc--info--right {
+  max-width: 100%;
 }
 
 .vc--info--right p {

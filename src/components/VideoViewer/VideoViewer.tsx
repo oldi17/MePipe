@@ -1,13 +1,13 @@
 
 import { useEffect, useState } from "react";
 import CommentSection from "./components/CommentSection/CommentSection";
-import RecomendationsSideBar from "./components/RecomendationsSideBar/RecomendationsSideBar";
 import VideoDescription from "./components/VideoDescription/VideoDescription";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 
 import './VideoViewer.css'
 import { Video } from "../../global.interface";
-import { getVideo } from "../../services/user.service";
+import { getAllRecVideos, getVideo } from "../../services/user.service";
+import VideosPanel from "../VideosPanel/VideosPanel";
 
 function VideoViewer() {
   const [video, setVideo] = useState<Video>()
@@ -36,10 +36,10 @@ function VideoViewer() {
       video={video}
       setVideo={setVideo}
     />
-    <RecomendationsSideBar 
-      classNames={['vv--recomendations-sidebar']}
-      video={video}
-    />
+    <VideosPanel 
+      axiosGetter={(page?: number) => getAllRecVideos(video.creator_name, page)}
+      isRowLayout={true}
+      classNames={['vv--recomendations-sidebar']} />
     <CommentSection 
       classNames={['vv--comment-section']}
       video={video}

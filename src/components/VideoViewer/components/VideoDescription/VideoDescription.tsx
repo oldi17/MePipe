@@ -64,54 +64,72 @@ function VideoDescription(props: {
 
   return (
     <section
-      className={['', ...props.classNames].join(' ')}
+      className={['vd--cont', ...props.classNames].join(' ')}
     >
-      <div>
-        <h3>
-          {props.video.title}
-        </h3>
+    <h3
+      className='vd--title'
+    >
+      {props.video.title}
+    </h3>
+    <div
+      className='vd--row'
+    >  
         { creator &&
-        <div>
-          <div>
-            <img src={ MEDIA_CPFP_URL + pfp} />
-            <span>{props.video.creator_name} </span>
-            <span>Подписчики: {creator.subscribers}</span>
+          <div
+          className='vd--row--creator'
+        > 
+          <img 
+            src={ MEDIA_CPFP_URL + pfp}
+            className='vd--row--creator--pfp'
+            />
+          <div className='vd--row--creator--texts_cont'>
+            <p className='vd--row--creator--texts--name'>{props.video.creator_name} </p>
+            <p className='vd--row--creator--texts--subs'>Подписчики: {creator.subscribers}</p>
           </div>
           { isLogged && isCreatorAuthed(creator) &&
           <input
+            className='vd--row--creator--sub_btn'
             type='button'
-            value={creator.issubscribed ? 'Вы уже подписаны' : 'Подписаться'}
+            value={creator.issubscribed ? 'Вы подписаны' : 'Подписаться'}
             onClick={handleSubscribe}
           />
           }
-        </div>
+          </div>
         }
-        <div>
         { creator && isLogged && isCreatorAuthed(creator) &&
-          <>
-          <input
-            type='button'
-            value={(props.video.isliked === 1 ? '+' : '') 
-                + props.video.likes}
-            onClick={() => handleLike('like')}
-          />
-          <input
-            type='button'
-            value={(props.video.isliked === -1 ? '-' : '') 
-            + props.video.dislikes}
-            onClick={() => handleLike('dislike')}
-
-          />
-          </>
+          <div
+            className='vd--row--likes'
+          >  
+            <button
+              type='button'
+              className={'vd--row--likes--like_btn' + 
+                (props.video.isliked === 1 ? ' vd--row--clicked' : '')}
+              onClick={() => handleLike('like')}
+            >
+              {props.video.likes}
+            </button>
+            <button
+              type='button'
+              className={'vd--row--likes--dislike_btn' + 
+                (props.video.isliked === -1 ? ' vd--row--clicked' : '')}
+              // value={(props.video.isliked === -1 ? '-' : '') 
+              // + props.video.dislikes}
+              onClick={() => handleLike('dislike')}
+            >
+              {props.video.dislikes}
+            </button>
+          </div>
         }
-          <input
+          <button
             type='button'
-            value='Share'
+            className='vd--creator--share_btn'
             onClick={handleShare}
-          />
-        </div>
+          >
+            Поделиться
+          </button>
       </div>
-      <div>
+    
+    <div>
         <p>
           Просмотры: {props.video.views} Создано: {convertVideoCreatedAt(props.video.createdAt) }
         </p>

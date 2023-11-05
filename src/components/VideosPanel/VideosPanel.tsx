@@ -7,6 +7,8 @@ import usePaginate from '../../hooks/usePaginate';
 
 export default function VideosPanel(props: {
   axiosGetter: (page?: number) => Promise<AxiosResponse<any, any>>;
+  isRowLayout?: boolean;
+  classNames?: [string];
 }) {
   const [videos, setVideos] = useState<Video[]>([])
   const [getNextPage, isLoadable] = usePaginate<Video>(
@@ -15,6 +17,12 @@ export default function VideosPanel(props: {
     (v1: Video, v2: Video) => v1.url === v2.url,
     'videos'
   )
+
+  const classNames = [
+    'videos_panel--cont',
+    (props.isRowLayout ? ' videos_panel--row_layout' : ''),
+    ...(props.classNames ? props.classNames : []),
+  ].join(' ')
 
   function handleScroll() {
     const cont = document.querySelector('.videos_panel--cont')
@@ -29,13 +37,13 @@ export default function VideosPanel(props: {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const videoCards = videos.map(v => <VideoCard video={v} key={v.url}/>) 
+  const videoCards = videos.map(v => <VideoCard video={v} key={v.url} isSmallSize={props.isRowLayout} />) 
 
   return (
     <>
-    <div className='videos_panel--cont'>
+    <div 
+      className={classNames}>
       {videoCards}
-      
     </div>
     {isLoadable && 
       <button 

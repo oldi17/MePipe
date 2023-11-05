@@ -28,11 +28,11 @@ export default function VideoForm(props: {
   ? MEDIA_THUMB_URL + props.video.url + '.jpg?' + new Date().getTime() 
   : '/static/file-preview.png')
 
-  useEffect(() => {
-    const overflow = document.body.style.overflow
-    document.body.style.overflow = "hidden"
-    return () => {document.body.style.overflow = overflow}
-  }, [])
+  // useEffect(() => {
+  //   const overflow = document.body.style.overflow
+  //   document.body.style.overflow = "hidden"
+  //   return () => {document.body.style.overflow = overflow}
+  // }, [])
 
   const handleVideoFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -208,7 +208,7 @@ export default function VideoForm(props: {
         className='video_form--video_load_btn'
         onClick={e => e.currentTarget.parentElement?.click()}
       >
-        {video ? 'Изменить' : 'Загрузить'} видео
+        {video ? 'Изменить' : 'Выбрать'} видео
       </button>
       <video 
         width="320" 
