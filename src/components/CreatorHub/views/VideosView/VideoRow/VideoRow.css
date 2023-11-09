@@ -3,6 +3,7 @@
   grid-template-columns: 310px repeat(6, minmax(110px, 1fr));
   grid-gap: 20px;
   padding: 10px;
+  cursor: pointer;
 }
 
 .video_row--cont:hover {
@@ -21,6 +22,10 @@
 
 .video_row--texts {
   max-width: 50%;
+  max-height: 88px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-line;
 }
 
 .video_row--texts>p {

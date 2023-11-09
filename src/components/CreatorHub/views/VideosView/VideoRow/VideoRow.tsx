@@ -18,13 +18,12 @@ export default function VideoRow(props:{
   }
 
   return (
-    <div className="wrapper">
     <div
       className="video_row--cont"
+      onClick={() => props.setCurrent()}
     >
     <div
       className="video_row--thumb_cont"
-      onClick={() => props.setCurrent()}
     >
       <Thumbnail 
           imgSrc={MEDIA_THUMB_URL + props.video.url + '.jpg?' + new Date().getTime()}
@@ -75,9 +74,11 @@ export default function VideoRow(props:{
       <button
         className="video_row--remove_btn"
         type="button"
-        onClick={handleRemove}
+        onClick={e => {
+          e.stopPropagation()
+          handleRemove()
+        }}
       >Удалить</button>
-    </div>
     </div>
   )
 }

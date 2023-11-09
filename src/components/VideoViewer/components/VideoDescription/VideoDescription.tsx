@@ -6,6 +6,8 @@ import { RootState } from '../../../../store';
 import { dislikeVideo, getCreatorWithUsername, likeVideo, subCreator, unlikeVideo, unsubCreator } from '../../../../services/user.service';
 import { MEDIA_CPFP_URL } from '../../../../settings';
 import { convertVideoCreatedAt } from '../../../../lib/convertToHumanReadable';
+import { Link } from 'react-router-dom';
+import ReadMore from '../../../ReadMore/ReadMore';
 
 function VideoDescription(props: {
   video: Video;
@@ -17,10 +19,13 @@ function VideoDescription(props: {
     (state: RootState) => state.auth.isLogged
   )
 
+  const [isReadMore, setIsReadMore] = useState(false)
+
   const [creator, setCreator] = useState<CreatorAuthedWithUname|CreatorWithUname>()
   const [pfp, setPfp] = useState('')
 
   useEffect(() => {
+    console.log(props.video)
     getCreatorWithUsername(props.video.creator_name)
     .then(res => {
       setCreator(res.data.creator)
@@ -78,6 +83,7 @@ function VideoDescription(props: {
           <div
           className='vd--row--creator'
         > 
+          <Link to={'/c/' + props.video.creator_name} >
           <img 
             src={ MEDIA_CPFP_URL + pfp}
             className='vd--row--creator--pfp'
@@ -86,6 +92,7 @@ function VideoDescription(props: {
             <p className='vd--row--creator--texts--name'>{props.video.creator_name} </p>
             <p className='vd--row--creator--texts--subs'>Подписчики: {creator.subscribers}</p>
           </div>
+          </Link>
           { isLogged && isCreatorAuthed(creator) &&
           <input
             className='vd--row--creator--sub_btn'
@@ -129,13 +136,20 @@ function VideoDescription(props: {
           </button>
       </div>
     
-    <div>
-        <p>
-          Просмотры: {props.video.views} Создано: {convertVideoCreatedAt(props.video.createdAt) }
+    <div
+      className='vd--description'
+      onClick={() => setIsReadMore(prev => !prev)}
+    >
+        <p className='vd--description--metrics'>
+          <span className='vd--description--metrics--views'>Просмотры: {props.video.views} </span>
+          <span className='vd--description--metrics--created'>Создано: {convertVideoCreatedAt(props.video.createdAt) }</span>
         </p>
-        <p>
+        <ReadMore 
+          className='vd--description--content'
+          state={[isReadMore, setIsReadMore]}
+        >
           {props.video.description}
-        </p>
+        </ReadMore>
       </div>
     </section>
   )

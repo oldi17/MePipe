@@ -1,5 +1,5 @@
 .vd--title {
-  margin-block: 5px;
+  margin: 5px 0 15px 0;
 }
 
 .vd--row {
@@ -15,9 +15,12 @@
   }
 }
 
-.vd--row--creator {
+.vd--row--creator,
+.vd--row--creator>a {
   display: flex;
   gap: 5px;
+  text-decoration: none;
+  color: black;
 }
 
 .vd--row--creator--pfp {
@@ -29,6 +32,11 @@
 .vd--row--creator--texts--name,
 .vd--row--creator--texts--subs {
   margin: 0;
+}
+
+.vd--row--creator--texts--subs {
+  color: grey;
+  font-size: smaller;
 }
 
 .vd--row--creator--sub_btn {
@@ -89,4 +97,28 @@
 
 .vd--creator--share_btn:active {
   background-color: rgba(0, 0, 0, 0.486);
+}
+
+.vd--description {
+  padding: 15px;
+  border-radius: 15px;
+  margin-block: 10px;
+  background-color: #e2e2e2;
+  cursor: pointer;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.vd--description:hover {
+  background-color: #a7a7a7;
+}
+
+.vd--description--metrics,
+.vd--description--content {
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+.vd--description--metrics--created {
+  padding-left: 15px;
 }
