@@ -1,13 +1,16 @@
-import { useSelector } from "react-redux"
-import Test from "../Test/Test"
+import { useDispatch, useSelector } from "react-redux"
 import './Main.css'
 import { RootState } from "../../store"
-import VideoCard from "../VideoCard/VideoCard"
-import videosTest from "../../testData/videosTest"
 import SignForm from "../SignForm/SignForm"
-import { useEffect, useReducer } from "react"
 import { Route, Routes } from "react-router-dom"
 import CreatorHub from "../CreatorHub/CreatorHub"
+import VideoViewer from "../VideoViewer/VideoViewer"
+import VideosPanel from "../VideosPanel/VideosPanel"
+import { getAllHistoryVideos, getAllVideos, getSearchVideo, getSubscriptionsVideos } from "../../services/user.service"
+import NotLogged from "../NotLogged/NotLogged"
+import CreatorPage from "../CreatorPage/CreatorPage"
+import { useEffect } from "react"
+import { setUserMenu } from "../../features/layout/layoutSlice"
 
 function Main() {
   const isCreatorMode = useSelector(
@@ -18,15 +21,43 @@ function Main() {
     (state: RootState) => state.layout.signForm.visible
   )
 
+  const isLogged = useSelector(
+    (state: RootState) => state.auth.isLogged
+  )
+  const currentPath = useSelector((state: RootState) => 
+    state.layout.currentPath)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setUserMenu({'value': false}))
+  }, [currentPath])
+
   return (
     <main className={"main" + (isCreatorMode ? ' creator-mode' : '')}>
-      {/* <VideoPlayer /> */}
-      {/* <Test /> */}
       <Routes>
-        <Route path="/creator/*" element={<CreatorHub />} />
+        <Route path="/creator/*" element={isLogged ? <CreatorHub /> : <NotLogged />} />
+        <Route path="/v/*" element={<VideoViewer key={location.pathname}  />} />
+        <Route path="/c/:creatorName/*" element={<CreatorPage key={location.pathname}  />} />
+        <Route path="" element={<VideosPanel key={location.pathname} axiosGetter={getAllVideos} />} />
+        <Route path="results/*" element={<VideosPanel key={location.pathname} 
+          axiosGetter={(page?: number) => {
+            const queries = window.location.search.substring(1).split("&")[0].split('=')
+            const query = queries[queries.length - 1].replace('%20', ' ')
+            return getSearchVideo(query, page)
+          }} />} />
+        <Route 
+          path="/subscriptions" 
+          element={isLogged 
+            ? <VideosPanel key={location.pathname} axiosGetter={getSubscriptionsVideos} /> 
+            : <NotLogged />} 
+          />
+        <Route 
+          path="/library" 
+          element={isLogged 
+            ? <VideosPanel key={location.pathname} axiosGetter={getAllHistoryVideos} /> 
+            : <NotLogged />} 
+          />
       </Routes>
-      {/* <VideoCard video={videosTest[0]} isSmallSize={true}/>
-      <VideoCard video={videosTest[0]} /> */}
       {isSignFormVisible && <SignForm classNames={[]}/>}
     </main>
   )

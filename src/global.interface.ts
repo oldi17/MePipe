@@ -37,6 +37,18 @@ export interface CreatorMe extends Creator {
 	views: number;
 }
 
+export interface CreatorWithUname extends Creator {
+	username: number;
+}
+
+export interface CreatorAuthedWithUname extends CreatorAuthed {
+	username: number;
+}
+
+export function isCreatorAuthed(creator: Creator): creator is CreatorAuthed {
+	return 'issubscribed' in creator
+}
+
 export interface CreatorReg {
 	name: string;
 	contacts: string;
@@ -49,6 +61,7 @@ export interface CreatorMod {
 	description?: string;
 	subscribers?: number;
   channel_background?: File;
+  channel_pfp?: File;
 }
 
 export interface CreatorPatch {
@@ -75,6 +88,8 @@ export interface Video {
   createdAt: string;
   likes: number;
   dislikes: number;
+	isliked?: number;
+	timestamp?: number;
 }
 
 export interface VideoUpload {
@@ -98,13 +113,12 @@ export interface Comment {
 	id: number;
   user_username: string;
   video_url: string;
-  owner: string;
   content: string;
-  createdAt: number;
+  createdAt: string;
   modified: boolean;
   likes: number;
   dislikes: number;
-  isliked: number;
+  isliked?: number;
 }
 
 export interface PaginatorValues {

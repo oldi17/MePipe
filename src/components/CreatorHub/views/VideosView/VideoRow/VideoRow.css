@@ -1,9 +1,13 @@
 .video_row--cont {
   display: grid;
-  grid-template-columns: 2fr repeat(6, 1fr);
-  grid-auto-rows: repeat(auto);
+  grid-template-columns: 310px repeat(6, minmax(110px, 1fr));
   grid-gap: 20px;
   padding: 10px;
+  cursor: pointer;
+}
+
+.video_row--cont:hover {
+  background-color: grey;
 }
 
 .video_row--thumb_cont {
@@ -12,5 +16,27 @@
 }
 
 .video_row--thumbnail {
-  max-width: 120px;
+  min-width: 120px;
+  max-width: 50%;
+}
+
+.video_row--texts {
+  max-width: 50%;
+  max-height: 88px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+}
+
+.video_row--texts>p {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video_row--remove_btn {
+  margin-block: 16px;
+  font-size: large;
+  align-self: flex-start;
+  justify-self: center;
 }

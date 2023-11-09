@@ -1,7 +1,9 @@
 .ch--videos--header {
   display: grid;
-  grid-template-columns: 2fr repeat(6, 1fr);
+  grid-template-columns: 310px repeat(6, minmax(110px, 1fr));
   grid-auto-rows: auto;
   grid-gap: 20px;
   padding: 10px;
+  min-width: 1090px;
+  overflow: scroll;
 }

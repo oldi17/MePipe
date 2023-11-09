@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-// import { useickOutside from "../../hooks/useClickOutside";
 import { convertVideoCreatedAt, convertVideoLength } from "../../lib/convertToHumanReadable";
 import './VideoCard.css'
 import Thumbnail from "./components/Thumbnail";
 import { Video } from "../../global.interface";
-import { MEDIA_PFP_URL, MEDIA_THUMB_URL } from "../../settings";
+import { MEDIA_CPFP_URL, MEDIA_THUMB_URL } from "../../settings";
 
 
 function VideoCard(props: { 
@@ -14,7 +13,7 @@ function VideoCard(props: {
 
   return (
     <Link 
-      to={'/' + props.video.url} 
+      to={'/v/' + props.video.url} 
       className={"vc" + (props.isSmallSize ? ' vc_small' : '')}
     >
       <Thumbnail 
@@ -24,10 +23,10 @@ function VideoCard(props: {
       />
       <div className="vc--info">
         { !props.isSmallSize &&
-          <Link to={'/@' + props.video.creator_name}>
+          <Link to={'/c/' + props.video.creator_name}>
           <img 
             className="vc--info--creator-photo" 
-            src={MEDIA_PFP_URL + props.video.creator_name + '.jpg'}
+            src={MEDIA_CPFP_URL + props.video.creator_name + '.png?' + new Date().getTime()}
           />
           </Link>
         }
@@ -38,7 +37,7 @@ function VideoCard(props: {
           >
             {props.video.title}
           </p>
-          <Link to={'/@' + props.video.creator_name}>
+          <Link to={'/c/' + props.video.creator_name}>
           <p 
             className="vc--info--right--creator-name"
             title={props.video.creator_name}

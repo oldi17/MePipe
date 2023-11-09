@@ -29,8 +29,8 @@ function Header() {
   function handleSearch() {
     if (!search)
       return
-    const url = (isCreatorMode ? '/creator' : '') + '/results/' + search
-		navigate(url)
+    const url = '/results/?query=' + search
+		window.location.href = window.location.origin + url
   }
 
 	function handleSignInClick() {
@@ -42,7 +42,7 @@ function Header() {
 		<header
 			className="header"
 		>
-      <Link to='/'>
+      <Link to={isCreatorMode ? '/creator/main' : '/'}>
         <img 
           className="header--logo"
           src={isCreatorMode ? '/static/logo-creator.svg' : '/static/logo+name.svg'}
@@ -74,7 +74,7 @@ function Header() {
 							<img
 								ref={userImgRef}
 								className="header--user--img"
-								src={MEDIA_PFP_URL + user.username + '.png'}
+								src={MEDIA_PFP_URL + user.username + '.png?' + new Date().getTime()}
 								onClick={() => dispatch(toggleUserMenu())}
 							/>
 							<h4

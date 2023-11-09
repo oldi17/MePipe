@@ -1,6 +1,6 @@
 import {instance as axios} from './auth.service'
-import { Creator, CreatorMod, CreatorReg, UserPatch, VideoMod, VideoUpload } from "../global.interface";
-import { API_URL, AUTH_URL, COMMENT_URL, CREATOR_URL, VIDEO_URL } from "../settings";
+import { CreatorMod, CreatorReg, UserPatch, VideoMod, VideoUpload } from "../global.interface";
+import { AUTH_URL, COMMENT_URL, CREATOR_URL, VIDEO_URL } from "../settings";
 import { destructObject } from "./auth.service";
 
 export async function modifyUser(user: UserPatch = {}) {
@@ -28,15 +28,19 @@ export async function getMeCreator() {
   return await axios.get(CREATOR_URL + 'getMe/')
 }
 
-export async function regCreator(creator: CreatorReg, channel_background: File|undefined) {
+export async function regCreator(creator: CreatorReg, channel_background: File|undefined, channel_pfp: File|undefined) {
   const formData = new FormData()
   destructObject(creator, 
     (key, value) => 
     formData.append(key, value)
   )
 
-  if (channel_background)
+  if (channel_background) {
     formData.append('channel_background', channel_background)
+  }
+  if (channel_pfp) {
+    formData.append('channel_pfp', channel_pfp)
+  }
 
   return await axios.post(CREATOR_URL + 'reg/', formData, {
     headers: {
@@ -62,8 +66,20 @@ export async function getCreatorVideo(creatorName: string) {
   return await axios.get(VIDEO_URL + 'creator/' + creatorName)
 }
 
+export async function getSearchVideo(query: string, page: number = 1) {
+  return await axios.post(VIDEO_URL + 'search/' + '?page=' + page, {query})
+}
+
 export async function getQuery(url: string) {
   return await axios.get(url)
+}
+
+export async function subCreator(creatorName: string) {
+  return await axios.post(CREATOR_URL + 'sub/' + creatorName)
+}
+
+export async function unsubCreator(creatorName: string) {
+  return await axios.post(CREATOR_URL + 'unsub/' + creatorName)
 }
 
 export function createVideo(video: VideoUpload, onUploadProg: Function, ) {
@@ -110,6 +126,68 @@ export async function removeVideo(videoUrl: string) {
   return await axios.delete(VIDEO_URL + 'del/' + videoUrl)
 }
 
-export async function getVideoComments(videoUrl: string) {
+export async function getVideo(videoUrl: string) {
+  return await axios.get(VIDEO_URL + 'watch/' + videoUrl)
+}
+
+export async function likeVideo(videoUrl: string) {
+  return await axios.post(VIDEO_URL + 'like/' + videoUrl)
+}
+
+export async function unlikeVideo(videoUrl: string) {
+  return await axios.post(VIDEO_URL + 'unlike/' + videoUrl)
+}
+
+export async function dislikeVideo(videoUrl: string) {
+  return await axios.post(VIDEO_URL + 'dislike/' + videoUrl)
+}
+
+export async function setHistoryVideoTime(videoUrl: string, time: number) {
+  return await axios.post(VIDEO_URL + 'history/t/' + videoUrl, {
+    'time': time,
+  })
+}
+
+export async function getCreatorWithUsername(creatorName: string) {
+  return await axios.get(CREATOR_URL + 'username/' + creatorName)
+}
+
+export async function getAllRecVideos(creatorName: string, page: number = 1) {
+  return await axios.get(VIDEO_URL + 'rec/all/' + creatorName + '?page=' + page)
+}
+
+export async function getAllComments(videoUrl: string, page: number = 1) {
+  return await axios.get(COMMENT_URL + 'all/' + videoUrl + '?page=' + page)
+}
+
+export async function createComment(videoUrl: string, content: string) {
+  return await axios.post(COMMENT_URL + 'add/' + videoUrl, {
+    'comment': {
+      'content': content,
+    },
+  })
+}
+
+export async function modifyComment(commentId: number, content: string) {
+  return await axios.patch(COMMENT_URL + 'modify/' + commentId, {
+    'comment': {
+      'content': content,
+    },
+  })
+}
+
+export async function getVideoCommentsCount(videoUrl: string) {
   return await axios.get(COMMENT_URL + 'count/' + videoUrl)
+}
+
+export async function getAllVideos(page: number = 1) {
+  return await axios.get(VIDEO_URL + 'all/' + '?page=' + page)
+}
+
+export async function getAllHistoryVideos(page: number = 1) {
+  return await axios.get(VIDEO_URL + 'history/all/' + '?page=' + page)
+}
+
+export async function getSubscriptionsVideos(page: number = 1) {
+  return await axios.get(VIDEO_URL + 'sub/all/' + '?page=' + page)
 }

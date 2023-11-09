@@ -9,13 +9,21 @@ export default function VideoRow(props:{
   remover: Function;
   setCurrent: Function;
 }) {
+  function handleRemove() {
+    const isCancel = confirm("Вы действительно хотите удалить это видео?")
+    if (!isCancel) {
+      return
+    }
+    props.remover()
+  }
+
   return (
     <div
       className="video_row--cont"
+      onClick={() => props.setCurrent()}
     >
     <div
       className="video_row--thumb_cont"
-      onClick={() => props.setCurrent()}
     >
       <Thumbnail 
           imgSrc={MEDIA_THUMB_URL + props.video.url + '.jpg?' + new Date().getTime()}
@@ -66,8 +74,11 @@ export default function VideoRow(props:{
       <button
         className="video_row--remove_btn"
         type="button"
-        onClick={() => props.remover()}
-      >X</button>
+        onClick={e => {
+          e.stopPropagation()
+          handleRemove()
+        }}
+      >Удалить</button>
     </div>
   )
 }

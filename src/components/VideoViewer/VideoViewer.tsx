@@ -1,31 +1,51 @@
-import Video from "../../features/video/Video.interface";
+
+import { useEffect, useState } from "react";
 import CommentSection from "./components/CommentSection/CommentSection";
-import RecomendationsSideBar from "./components/RecomendationsSideBar/RecomendationsSideBar";
 import VideoDescription from "./components/VideoDescription/VideoDescription";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 
 import './VideoViewer.css'
+import { Video } from "../../global.interface";
+import { getAllRecVideos, getVideo } from "../../services/user.service";
+import VideosPanel from "../VideosPanel/VideosPanel";
 
-function VideoViewer(props: {video: Video}) {
-
+function VideoViewer() {
+  const [video, setVideo] = useState<Video>()
+  useEffect(() => {
+    const videoUrl = window.location.pathname.replace(/(\/v\/)/, '')
+    const time = (new URL(window.location.href)).searchParams.get('t')
+    getVideo(videoUrl)
+    .then(res => {
+      setVideo({
+        ...res.data.video,
+        ...time ? {timestamp:time} : {}
+      })
+    })
+  }, [])
 
   return (
   <div className="vv">
+    { video &&
+    <>
     <VideoPlayer
       classNames={['vv--video-player']}
-      url={props.video.url} 
+      video={video} 
     />
     <VideoDescription
       classNames={['vv--video-description']}
-      video={props.video} 
+      video={video}
+      setVideo={setVideo}
     />
-    <RecomendationsSideBar 
-      classNames={['vv--recomendations-sidebar']}
-    />
+    <VideosPanel 
+      axiosGetter={(page?: number) => getAllRecVideos(video.creator_name, page)}
+      isRowLayout={true}
+      classNames={['vv--recomendations-sidebar']} />
     <CommentSection 
       classNames={['vv--comment-section']}
-      url={props.video.url} 
+      video={video}
     />
+    </>
+    }
   </div>
   )
 }
