@@ -12,8 +12,11 @@ export default function ReadMore(props: {
   linesNum?: number;
 }) {
   const [isReadMore, setIsReadMore] = props.state || useState(false)
-  const symbolsNum = props.symbolsNum || 2
+  const symbolsNum = props.symbolsNum || 150
   const linesNum = props.linesNum || 2
+  const isReadMoreable = props.children.length > symbolsNum 
+    || props.children.split('\n').length > linesNum
+  console.log(props.children, isReadMoreable)
   
   function getContent() {
     const lines = props.children.split('\n')
@@ -25,15 +28,29 @@ export default function ReadMore(props: {
     }
     return props.children
   }
+
+  function handleMore() {
+    if (!isReadMoreable || props.state || isReadMore) {
+      return
+    }
+    setIsReadMore(true)
+  }
+
+  function handleLess() {
+    if (!isReadMoreable || !isReadMore) {
+      return
+    }
+    setIsReadMore(false)
+  }
   
   return (
     <p 
       className={props.className}
-      onClick={!props.state ? () => setIsReadMore(prev => !prev) : () => ''}
     >
       {isReadMore ? props.children : getContent()} 
-      {props.children.length > symbolsNum && 
-      <b>{isReadMore ? '...меньше' : '...еще'}</b>}
+      {isReadMoreable && (!isReadMore 
+      ? <b onClick={handleMore}>{'\n'}...еще</b>
+      : <b onClick={handleLess}>{'\n'}Свернуть</b>)}
     </p>
   )
 }

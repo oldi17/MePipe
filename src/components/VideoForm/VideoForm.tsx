@@ -205,7 +205,7 @@ export default function VideoForm(props: {
       >Выберите видео
       <button
         type='button'
-        className='video_form--video_load_btn'
+        className='video_form--video_load_btn btn'
         onClick={e => e.currentTarget.parentElement?.click()}
       >
         {video ? 'Изменить' : 'Выбрать'} видео
@@ -228,7 +228,7 @@ export default function VideoForm(props: {
         disabled={disabled}
       /></label>}
       <button
-        className='video_form--submit_btn'
+        className='video_form--submit_btn btn'
         disabled={disabled}
       >
         {props.mode == 'create' ? 'Загрузить' : 'Изменить'}

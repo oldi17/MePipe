@@ -61,19 +61,6 @@
   resize: none;
 }
 
-.video_form--submit_btn {
-  padding-block: 5px;
-  border-radius: 5px;
-  color: white;
-  background-color: black;
-  cursor: pointer;
-  border: 2px solid black;
-}
-
-.video_form--submit_btn:hover {
-  background-color: rgb(41, 41, 41);
-}
-
 .video_form--progress {
   white-space: pre-line;
 }
@@ -96,19 +83,6 @@
   z-index: -10;
   font-size: 0px;
   padding-bottom: -22px;
-}
-
-.video_form--video_load_btn {
-  padding-block: 5px;
-  border-radius: 5px;
-  color: white;
-  background-color: black;
-  cursor: pointer;
-  border: 2px solid black;
-}
-
-.video_form--video_load_btn:hover {
-  background-color: rgb(41, 41, 41);
 }
 
 #video_preview {

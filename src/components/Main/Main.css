@@ -5,3 +5,31 @@
 .main.creator-mode {
   margin-left: 184px;
 }
+
+.btn {
+  padding-block: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+.btn:hover {
+  background-color: rgb(41, 41, 41);
+}
+
+.btn:disabled {
+  background-color: rgb(129, 129, 129);
+  border: 2px solid rgb(129, 129, 129);
+  color: rgb(206, 206, 206);
+  cursor: auto;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.bold {
+  font-weight: bold;
+}

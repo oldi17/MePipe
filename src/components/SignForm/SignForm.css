@@ -80,19 +80,6 @@
   border-radius: 2px;
 }
 
-.form--view--submit-button {
-  padding-block: 5px;
-  border-radius: 5px;
-  color: white;
-  background-color: black;
-  cursor: pointer;
-  border: 2px solid black;
-}
-
-.form--view--submit-button:hover {
-  background-color: rgb(29, 29, 29);
-}
-
 .form--view--switch-to-button {
   cursor: pointer;
   background: none;

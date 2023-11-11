@@ -45,7 +45,6 @@ function VideoPlayer(props: {
 				className="video"
 				ref={vidRef}
 				controls
-				autoPlay
 			>
 				<source src={MEDIA_VIDEO_URL + props.video.url + '.mp4'} type="video/mp4" />
 			</video>

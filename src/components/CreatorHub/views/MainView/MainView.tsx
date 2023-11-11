@@ -34,7 +34,7 @@ export default function MainView(props:{
       <button 
         type="button" 
         onClick={() => setVisibility(true)}
-        className="ch--main--add_vid--btn"
+        className="ch--main--add_vid--btn btn"
       >
         Добавить видео
       </button>

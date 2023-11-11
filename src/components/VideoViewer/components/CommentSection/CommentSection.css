@@ -1,0 +1,27 @@
+.cs--comments_count {
+  font-weight: bold;
+}
+
+.cs--new {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+}
+
+.cs--new--text_input {
+  resize: none;
+  overflow: hidden;
+  border: 0;
+  border-bottom: 2px solid rgb(179, 179, 179);
+}
+
+.cs--new--text_input:focus {
+  outline: 0;
+  border-bottom: 2px solid black;
+}
+
+.cs--new--buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}

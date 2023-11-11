@@ -82,7 +82,7 @@ export default function RegView(props: {
       
       
       <button
-        className="form--view--submit-button"
+        className="form--view--submit-btn btn"
       >
         Регистрация
       </button>

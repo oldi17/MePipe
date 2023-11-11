@@ -25,7 +25,6 @@ function VideoDescription(props: {
   const [pfp, setPfp] = useState('')
 
   useEffect(() => {
-    console.log(props.video)
     getCreatorWithUsername(props.video.creator_name)
     .then(res => {
       setCreator(res.data.creator)
@@ -36,6 +35,12 @@ function VideoDescription(props: {
   function handleSubscribe() {
     if (!creator || !isCreatorAuthed(creator)) {
       return
+    }
+    if (creator.issubscribed) {
+      const isCancel = confirm("Вы действительно хотите отписаться от этого канала?")
+      if (!isCancel) {
+        return
+      }
     }
     const promise = creator.issubscribed ? unsubCreator(creator.name) : subCreator(creator.name)
     promise.then(res => {
@@ -65,6 +70,7 @@ function VideoDescription(props: {
     navigator.clipboard.writeText(
       window.location.href
     )
+    alert('Ссылка сохранена в буфер обмена')
   }
 
   return (
@@ -95,7 +101,7 @@ function VideoDescription(props: {
           </Link>
           { isLogged && isCreatorAuthed(creator) &&
           <input
-            className='vd--row--creator--sub_btn'
+            className={'vd--row--creator--sub_btn' + (creator.issubscribed ? '' : ' not_subbed_btn')}
             type='button'
             value={creator.issubscribed ? 'Вы подписаны' : 'Подписаться'}
             onClick={handleSubscribe}
@@ -119,8 +125,6 @@ function VideoDescription(props: {
               type='button'
               className={'vd--row--likes--dislike_btn' + 
                 (props.video.isliked === -1 ? ' vd--row--clicked' : '')}
-              // value={(props.video.isliked === -1 ? '-' : '') 
-              // + props.video.dislikes}
               onClick={() => handleLike('dislike')}
             >
               {props.video.dislikes}
@@ -137,8 +141,8 @@ function VideoDescription(props: {
       </div>
     
     <div
-      className='vd--description'
-      onClick={() => setIsReadMore(prev => !prev)}
+      className={'vd--description' + (isReadMore ? ' readmored' : '')}
+      onClick={() => !isReadMore && setIsReadMore(prev => !prev)}
     >
         <p className='vd--description--metrics'>
           <span className='vd--description--metrics--views'>Просмотры: {props.video.views} </span>

@@ -18,6 +18,7 @@ function CommentSection(props: {
   const user = useSelector((state: RootState) => state.auth.user)
 
   const [commentsCount, setCommentsCount] = useState(0)
+  const [isVisibleNewComment, setIsVisibleNewComment] = useState(false)
   
   const [comments, setComments] = useState<Comment[]>([])
 
@@ -33,7 +34,9 @@ function CommentSection(props: {
       comment={c} 
       key={c.id} 
       changer={(newContent: string) => changeComment(c.id, newContent)}
-      username={user.username}/>)
+      isOwn={user.username === c.user_username}
+      isLogged={isLogged}  
+    />)
 
   useEffect(() => {
     getCommentsCount()
@@ -57,9 +60,7 @@ function CommentSection(props: {
   }
 
   function sendComment() {
-    if (newComment == '') {
-      return
-    }
+    handleFocus(false)
     const localNewComment = newComment
     setNewComment('')
     createComment(props.video.url, localNewComment)
@@ -72,26 +73,57 @@ function CommentSection(props: {
     })
   }
 
+  function adjustTextArea(el: HTMLTextAreaElement) {
+    el.style.height = "1px"
+    el.style.height = (el.scrollHeight) + "px"
+  }
+
+  function handleFocus(isFocused: boolean) {
+    setIsVisibleNewComment(isFocused)
+  }
+
   return (
     <section
-      className={[...props.classNames].join(' ')}
+      className={["cs", ...props.classNames].join(' ')}
     >
-      <p>
+      <p className="cs--comments_count">
         Комментарии: {commentsCount}
       </p>
       {isLogged &&
-      <div>
+      <div className="cs--new">
         <textarea 
-          placeholder="Введите свой комментарий"
+          className="cs--new--text_input"
+          placeholder="Введите комментарий"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
+          onKeyUp={e => adjustTextArea(e.currentTarget)}
+          onFocus={() => handleFocus(true)}
+          rows={1}
+          maxLength={255}
         />
-        <button 
-          type="button"
-          onClick={sendComment}
-        >
-          Отправить комментарий
-        </button>
+        {isVisibleNewComment &&
+        <div className="cs--new--buttons">
+          <button 
+            className="cs--new--btn_cancel btn"
+            type="button"
+            onClick={() => {
+              setNewComment('')
+              const el = document.querySelector('.cs--new--text_input') as HTMLTextAreaElement
+              el.style.height = "25px"
+              handleFocus(false)
+            }}
+          >
+            Отмена
+          </button>
+          <button 
+            className="cs--new--btn_send btn"
+            type="button"
+            onClick={sendComment}
+            disabled={newComment.length < 1}
+          >
+            Отправить комментарий
+          </button>
+        </div>}
       </div>}
       {commentRows}
       {isLoadable && 

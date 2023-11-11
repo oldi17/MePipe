@@ -58,8 +58,8 @@
   background-repeat: no-repeat;
   background-position: left 10px center;
   padding: 0px 17px 7px 40px;
-  font-size: 1.2rem;
   font-weight: 500;
+  /* line-height: 40px; */
   border: 1px solid black;
   background-color: white;
 }
@@ -73,12 +73,14 @@
 .vd--row--likes--like_btn {
   background-image: url(/static/like.svg);
   border-radius: 30px 0 0 30px;
+  font-size: large;
 }
 
 .vd--row--likes--dislike_btn {
   background-image: url(/static/dislike.svg);
   border-radius: 0 30px 30px 0;
   border-left: 0;
+  font-size: large;
 }
 
 .vd--row--likes--like_btn.vd--row--clicked {
@@ -121,4 +123,23 @@
 
 .vd--description--metrics--created {
   padding-left: 15px;
+}
+
+.not_subbed_btn {
+  padding-block: 5px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+}
+
+.not_subbed_btn:hover {
+  background-color: rgb(41, 41, 41);
+}
+
+.readmored {
+  cursor: auto;
+}
+
+.readmored:hover {
+  background-color: #e2e2e2;
 }

@@ -40,7 +40,7 @@ export default function LoginView(props: {
       /></label>
       
       <button
-        className="form--view--submit-button"
+        className="form--view--submit-btn btn"
       >
         Вход
       </button>
