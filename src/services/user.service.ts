@@ -176,6 +176,10 @@ export async function modifyComment(commentId: number, content: string) {
   })
 }
 
+export async function removeComment(commentId: number) {
+  return await axios.delete(COMMENT_URL + 'del/' + commentId)
+}
+
 export async function likeComment(commentId: number) {
   return await axios.post(COMMENT_URL + 'like/' + commentId)
 }

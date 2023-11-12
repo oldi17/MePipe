@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import './CommentSection.css'
 import { Comment, Video } from "../../../../global.interface";
-import { createComment, dislikeComment, getAllComments, getVideoCommentsCount, likeComment, modifyComment, unlikeComment } from "../../../../services/user.service";
+import { createComment, dislikeComment, getAllComments, getVideoCommentsCount, likeComment, modifyComment, removeComment, unlikeComment } from "../../../../services/user.service";
 import CommentRow from "./components/CommentRow";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
@@ -35,6 +35,7 @@ function CommentSection(props: {
       key={c.id} 
       handleChange={(newContent: string) => changeComment(c.id, newContent)}
       handleLike={(like: 'like' | 'dislike') => handleLike(like, c.id)}
+      handleRemove={() => handleRemove(c.id)}
       isOwn={user.username === c.user_username}
       isLogged={isLogged}  
     />)
@@ -105,6 +106,28 @@ function CommentSection(props: {
         const newComments = [...prev]
         newComments[newComments.findIndex(e => e.id === commentId)] = res.data.comment
         return newComments
+      })
+    })
+  }
+
+  function handleRemove(commentId: number) {
+    if (!isLogged) {
+      return
+    }
+    const comment = comments.find(e => e.id === commentId)
+    if (!comment || comment.user_username !== user.username) {
+      return
+    }
+
+    const isCancel = confirm("Вы действительно хотите удалить этот комментарий?")
+    if (!isCancel) {
+      return
+    }
+
+    removeComment(commentId)
+    .then(() => {
+      setComments(prev => {
+        return prev.filter(e => e.id !== commentId)
       })
     })
   }

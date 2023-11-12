@@ -9,6 +9,7 @@ export default function CommentRow(props: {
   comment: Comment;
   handleChange: Function;
   handleLike: Function;
+  handleRemove: Function;
   isOwn: boolean;
   isLogged: boolean;
 }) {
@@ -90,13 +91,23 @@ export default function CommentRow(props: {
             </p> 
           </div>}
           {props.isOwn && 
+          <>
           <button
             type='button'
             onClick={handleChange}
             className='comment_row--change_btn btn'
           >
             Изменить
-          </button>}
+          </button>
+          <button
+            type='button'
+            onClick={() => props.handleRemove()}
+            className='comment_row--remove_btn btn'
+          >
+            Удалить
+          </button>
+          </>
+          }
         </div>
         </>}
         

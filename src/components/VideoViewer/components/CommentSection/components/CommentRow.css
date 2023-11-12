@@ -63,6 +63,11 @@
   padding: 15px;
 }
 
+.comment_row--buttons--likes--like_btn:hover,
+.comment_row--buttons--likes--dislike_btn:hover {
+  background-color: #e2e2e2;
+}
+
 .comment_row--buttons--likes--like_btn {
   background-image: url(/static/like.svg);
 }
