@@ -38,12 +38,52 @@
 .comment_row--header--changed {
   font-size: smaller;
   align-self: flex-end;
+  color: grey;
 }
 
 .comment_row--buttons {
   padding-top: 10px;
   display: flex;
   gap: 10px;
+}
+
+.comment_row--buttons--likes {
+  display: flex;
+  align-items: center;
+}
+
+.comment_row--buttons--likes--like_btn,
+.comment_row--buttons--likes--dislike_btn {
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 0;
+  border-radius: 10px;
+  background-color: white;
+  padding: 15px;
+}
+
+.comment_row--buttons--likes--like_btn {
+  background-image: url(/static/like.svg);
+}
+
+.comment_row--buttons--likes--dislike_btn {
+  margin-left: 10px;
+  background-image: url(/static/dislike.svg);
+}
+
+.comment_row--buttons--likes--like_btn.comment_row--clicked {
+  background-image: url(/static/like-c.svg);
+}
+
+.comment_row--buttons--likes--dislike_btn.comment_row--clicked {
+  background-image: url(/static/dislike-c.svg);
+}
+
+.comment_row--buttons--likes--like_count,
+.comment_row--buttons--likes--dislike_count {
+  color: grey;
+  font-size: smaller;
 }
 
 .comment_row--changer {
@@ -62,4 +102,8 @@
 .comment_row--changer--text_input:focus {
   outline: 0;
   border-bottom: 2px solid black;
+}
+
+.comment_row--save_btn {
+  align-self: flex-end;
 }

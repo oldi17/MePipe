@@ -7,7 +7,8 @@ import ReadMore from '../../../../ReadMore/ReadMore';
 
 export default function CommentRow(props: {
   comment: Comment;
-  changer: Function;
+  handleChange: Function;
+  handleLike: Function;
   isOwn: boolean;
   isLogged: boolean;
 }) {
@@ -23,7 +24,7 @@ export default function CommentRow(props: {
 
   function handleSave() {
     if(newContent != props.comment.content) {
-      props.changer(newContent?.replace('\r', '\n'))
+      props.handleChange(newContent?.replace('\r', '\n'))
       setNewContent(undefined)
     } else {
       setNewContent(undefined)
@@ -67,7 +68,27 @@ export default function CommentRow(props: {
           {props.comment.content}
         </ReadMore>
         <div className='comment_row--buttons'>
-          {props.isLogged && <p className='btn'>like</p>}
+          {props.isLogged && 
+          <div className='comment_row--buttons--likes'>
+            <button 
+              type='button'
+              className={'comment_row--buttons--likes--like_btn' + 
+                (props.comment.isliked === 1 ? ' comment_row--clicked' : '')}
+              onClick={() => props.handleLike('like')}
+            />
+            <p className='comment_row--buttons--likes--like_count'>
+              {props.comment.likes}  
+            </p>
+            <button 
+              type='button'
+              className={'comment_row--buttons--likes--dislike_btn' + 
+                (props.comment.isliked === -1 ? ' comment_row--clicked' : '')}
+              onClick={() => props.handleLike('dislike')}
+            />
+            <p className='comment_row--buttons--likes--dislike_count'>
+              {props.comment.dislikes}  
+            </p> 
+          </div>}
           {props.isOwn && 
           <button
             type='button'

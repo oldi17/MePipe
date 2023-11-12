@@ -176,6 +176,18 @@ export async function modifyComment(commentId: number, content: string) {
   })
 }
 
+export async function likeComment(commentId: number) {
+  return await axios.post(COMMENT_URL + 'like/' + commentId)
+}
+
+export async function dislikeComment(commentId: number) {
+  return await axios.post(COMMENT_URL + 'dislike/' + commentId)
+}
+
+export async function unlikeComment(commentId: number) {
+  return await axios.post(COMMENT_URL + 'unlike/' + commentId)
+}
+
 export async function getVideoCommentsCount(videoUrl: string) {
   return await axios.get(COMMENT_URL + 'count/' + videoUrl)
 }

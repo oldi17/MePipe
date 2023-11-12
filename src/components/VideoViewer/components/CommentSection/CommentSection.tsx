@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import './CommentSection.css'
 import { Comment, Video } from "../../../../global.interface";
-import { createComment, getAllComments, getVideoCommentsCount, modifyComment } from "../../../../services/user.service";
+import { createComment, dislikeComment, getAllComments, getVideoCommentsCount, likeComment, modifyComment, unlikeComment } from "../../../../services/user.service";
 import CommentRow from "./components/CommentRow";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
@@ -33,7 +33,8 @@ function CommentSection(props: {
     <CommentRow 
       comment={c} 
       key={c.id} 
-      changer={(newContent: string) => changeComment(c.id, newContent)}
+      handleChange={(newContent: string) => changeComment(c.id, newContent)}
+      handleLike={(like: 'like' | 'dislike') => handleLike(like, c.id)}
       isOwn={user.username === c.user_username}
       isLogged={isLogged}  
     />)
@@ -80,6 +81,32 @@ function CommentSection(props: {
 
   function handleFocus(isFocused: boolean) {
     setIsVisibleNewComment(isFocused)
+  }
+
+  function handleLike(like: 'like' | 'dislike', commentId: number) {
+    if (!isLogged) {
+      return
+    }
+    const comment = comments.find(e => e.id === commentId)
+    if (!comment) {
+      return
+    }
+    const isliked = comment.isliked
+    let promise
+    if (isliked === 1 && like === 'like' || isliked === -1 && like === 'dislike') {
+      promise = unlikeComment(comment.id)
+    } else if(like === 'like') {
+      promise = likeComment(comment.id)
+    } else {
+      promise = dislikeComment(comment.id)
+    }
+    promise.then(res => {
+      setComments(prev => {
+        const newComments = [...prev]
+        newComments[newComments.findIndex(e => e.id === commentId)] = res.data.comment
+        return newComments
+      })
+    })
   }
 
   return (
