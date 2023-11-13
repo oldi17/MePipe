@@ -26,7 +26,7 @@ function VideoCard(props: {
           <Link to={'/c/' + props.video.creator_name}>
           <img 
             className="vc--info--creator-photo" 
-            src={MEDIA_CPFP_URL + props.video.creator_name + '.png?' + new Date().getTime()}
+            src={MEDIA_CPFP_URL + props.video.creator_name + '.png?'}
           />
           </Link>
         }

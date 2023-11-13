@@ -7,23 +7,23 @@
 }
 
 .btn {
-  padding-block: 5px;
-  border-radius: 5px;
-  color: white;
-  background-color: black;
-  cursor: pointer;
-  border: 2px solid black;
+  padding-block: 5px !important;
+  border-radius: 5px !important;
+  color: white !important;
+  background-color: black !important;
+  cursor: pointer !important;
+  border: 1px solid black !important;
 }
 
 .btn:hover {
-  background-color: rgb(41, 41, 41);
+  background-color: rgb(41, 41, 41) !important;
 }
 
 .btn:disabled {
-  background-color: rgb(129, 129, 129);
-  border: 2px solid rgb(129, 129, 129);
-  color: rgb(206, 206, 206);
-  cursor: auto;
+  background-color: rgb(129, 129, 129) !important;
+  border: 1px solid rgb(129, 129, 129) !important;
+  color: rgb(206, 206, 206) !important;
+  cursor: auto !important;
 }
 
 .hidden {

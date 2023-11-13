@@ -31,6 +31,12 @@ export default function CreatorPage() {
     if (!creator || !isLogged) {
       return
     }
+    if (creator.issubscribed) {
+      const isCancel = confirm("Вы действительно хотите отписаться от этого канала?")
+      if (!isCancel) {
+        return
+      }
+    }
     const promise = creator.issubscribed ? unsubCreator(creator.name) : subCreator(creator.name)
     promise.then(res => {
       setCreator(res.data.creator)
@@ -58,7 +64,7 @@ export default function CreatorPage() {
           >Подписчики: {creator.subscribers}</p>
           {isLogged && 
             <input
-              className={'' + (creator.issubscribed ? '' : ' btn')}
+              className={'cp--sub_btn' + (creator.issubscribed ? '' : ' btn')}
               type='button'
               value={creator.issubscribed ? 'Вы подписаны' : 'Подписаться'}
               onClick={handleSubscribe}

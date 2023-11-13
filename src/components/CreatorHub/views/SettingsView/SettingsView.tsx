@@ -16,11 +16,11 @@ export default function SettingsView(props:{
   const [pfp, setPfp] = useState<File>()
   const [serverError, setServerError] = useState('')
   const [cpfp, setCpfp] = useState(() => props.creator 
-  ? MEDIA_CPFP_URL + props.creator.name + '.png?' + new Date().getTime() 
+  ? MEDIA_CPFP_URL + props.creator.name + '.png?' 
   : '/static/cpfp.png')
 
   const [cbg, setCbg] = useState(() => props.creator 
-  ? MEDIA_CBG_URL + props.creator.name + '.png?' + new Date().getTime() 
+  ? MEDIA_CBG_URL + props.creator.name + '.png?' 
   : '/static/cpfp.png')
 
 

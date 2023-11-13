@@ -26,7 +26,7 @@ export default function VideoRow(props:{
       className="video_row--thumb_cont"
     >
       <Thumbnail 
-          imgSrc={MEDIA_THUMB_URL + props.video.url + '.jpg?' + new Date().getTime()}
+          imgSrc={MEDIA_THUMB_URL + props.video.url + '.jpg?'}
           time={convertVideoLength(props.video.duration)}
           classNames={['video_row--thumbnail']}
           key={props.video.url}

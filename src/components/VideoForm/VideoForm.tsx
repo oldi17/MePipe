@@ -25,7 +25,7 @@ export default function VideoForm(props: {
   const [disabled, setDisabled] = useState(false)
 
   const [thumbSrc, setThumbSrc] = useState(() => props.video 
-  ? MEDIA_THUMB_URL + props.video.url + '.jpg?' + new Date().getTime() 
+  ? MEDIA_THUMB_URL + props.video.url + '.jpg?' 
   : '/static/file-preview.png')
 
   useEffect(() => {
