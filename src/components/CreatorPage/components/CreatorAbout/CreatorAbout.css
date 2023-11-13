@@ -1,0 +1,7 @@
+.about {
+  width: 100%
+}
+
+.about>p {
+  padding-left: 10px;
+}

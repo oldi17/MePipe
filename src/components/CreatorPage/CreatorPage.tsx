@@ -38,43 +38,43 @@ export default function CreatorPage() {
   }
 
   return (
-    <>
+    <div className='outer'>
     {creator && <div
-      className=''
+      className='cp'
     >
       <img 
-        className=''
+        className='cp--cbg'
         src={MEDIA_CBG_URL + creator?.name + '.png'} />
-      <div>
+      <div className='cp--info'>
         <img 
-          className=''
+          className='cp--cpfp'
           src={MEDIA_CPFP_URL + creator?.name + '.png'} />
-        <div>
-          <p
+        <div className='cp--info--texts'>
+          <h1
             className=''
-          >{creator.name}</p>
+          >{creator.name}</h1>
           <p
             className=''
           >Подписчики: {creator.subscribers}</p>
           {isLogged && 
             <input
-              className=''
+              className={'' + (creator.issubscribed ? '' : ' btn')}
               type='button'
-              value={creator.issubscribed ? 'Вы уже подписаны' : 'Подписаться'}
+              value={creator.issubscribed ? 'Вы подписаны' : 'Подписаться'}
               onClick={handleSubscribe}
             />
           }
         </div>
       </div>
       <div
-        className=''
+        className='cp--links'
       >
         <Link 
-          className=''
-          to={'/c/' + creator.name + '/'}>Главная
+          className={location.pathname.split('/')[3] ? '' : 'current'}
+          to={'/c/' + creator.name + '/'}>Видео
         </Link>
         <Link 
-          className=''
+          className={location.pathname.split('/')[3] == 'about' ? 'current' : ''}
           to={'/c/' + creator.name + '/about'}>О канале
         </Link>
       </div>
@@ -84,6 +84,6 @@ export default function CreatorPage() {
       </Routes>
       
     </div>}
-    </>
+    </div>
   )
 }
