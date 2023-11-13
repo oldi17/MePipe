@@ -25,7 +25,6 @@ export default function SettingsView(props:{
 
 
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
-    console.log(1)
     if (e.target.files) {
       setBackground(e.target.files[0])
       setCbg(URL.createObjectURL(e.target.files[0]))
@@ -33,7 +32,6 @@ export default function SettingsView(props:{
   }
 
   function handlePfpChange(e: ChangeEvent<HTMLInputElement>) {
-    console.log(2)
     if (e.target.files) {
       setPfp(e.target.files[0])
       setCpfp(URL.createObjectURL(e.target.files[0]))

@@ -16,7 +16,6 @@ export default function ReadMore(props: {
   const linesNum = props.linesNum || 2
   const isReadMoreable = props.children.length > symbolsNum 
     || props.children.split('\n').length > linesNum
-  console.log(props.children, isReadMoreable)
   
   function getContent() {
     const lines = props.children.split('\n')

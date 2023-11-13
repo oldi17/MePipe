@@ -78,22 +78,34 @@ instance.interceptors.response.use(
     const originalConfig = err.config
     if (err.response) {
       if (err.response.status === 401 && !originalConfig._retry) {
-        originalConfig._retry = true
-
-        try {
-          const rs = await axios.post(AUTH_URL + "token/refresh/", {
-            refresh: JSON.parse(localStorage.getItem('refresh') || '0'),
-          })
-          destructObjectToLocalStorage(rs.data)
-          dispatch(changePair(rs.data))
-          return instance(originalConfig)
-        } catch (_error) {
-          authLogout()
-          return Promise.reject(_error)
-        }
+        originalConfig._retry = 1
+        return refresh(originalConfig)
       }
     }
 
     return Promise.reject(err)
   }
 )
+
+async function refresh(originalConfig: any) {
+  try {
+    const rs = await axios.post(AUTH_URL + "token/refresh/", {
+      refresh: JSON.parse(localStorage.getItem('refresh') || '0'),
+    })
+    destructObjectToLocalStorage(rs.data)
+    dispatch(changePair(rs.data))
+    return instance(originalConfig)
+  } catch (_error) {
+    if (originalConfig._retry < 5) {
+      wait(2000)
+      return refresh(originalConfig)
+    } else {
+      authLogout()
+      return Promise.reject(_error)
+    }
+  }
+}
+
+function wait(milliseconds: number) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
