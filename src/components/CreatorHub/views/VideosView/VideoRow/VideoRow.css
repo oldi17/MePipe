@@ -38,5 +38,5 @@
   margin-block: 16px;
   font-size: large;
   align-self: flex-start;
-  justify-self: center;
+  justify-self: flex-start;
 }

@@ -7,7 +7,7 @@ import { CreatorMe } from '../../global.interface'
 import MainView from './views/MainView/MainView'
 import VideosView from './views/VideosView/VideosView'
 import SettingsView from './views/SettingsView/SettingsView'
-import { Route, Routes, useParams } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 export default function CreatorHub() {
   const [creator, setCreator] = useState<CreatorMe>()
@@ -24,7 +24,7 @@ export default function CreatorHub() {
       .then((res) => {
         setCreator(res.data.creator)
       })
-      .catch((err) => setCreator(undefined))
+      .catch(() => setCreator(undefined))
   }, [isLogged])
 
   return (

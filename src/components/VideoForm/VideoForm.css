@@ -31,6 +31,10 @@
   #video_preview {
     display: none;
   }
+
+  .form_cont {
+    top: 10px;
+  }
 }
 
 .video_form--exit_btn {

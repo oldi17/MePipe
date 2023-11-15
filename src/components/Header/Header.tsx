@@ -6,7 +6,7 @@ import Layout from "../../features/layout/Layout.interface"
 import { setSignFormView, setSignFormVisible, toggleUserMenu } from "../../features/layout/layoutSlice"
 import { useRef, useState } from "react"
 import './Header.css'
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { MEDIA_PFP_URL,  } from "../../settings"
 
 function Header() {
@@ -24,7 +24,7 @@ function Header() {
   const userImgRef = useRef(null);
   
   const [search, setSearch] = useState('')
-  const navigate = useNavigate()
+  
 
   function handleSearch() {
     if (!search)
@@ -74,7 +74,7 @@ function Header() {
 							<img
 								ref={userImgRef}
 								className="header--user--img"
-								src={MEDIA_PFP_URL + user.username + '.png?'}
+								src={MEDIA_PFP_URL + user.username + '.png'}
 								onClick={() => dispatch(toggleUserMenu())}
 							/>
 							<h4

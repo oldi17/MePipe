@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import './VideoPlayer.css'
 import { Video } from "../../../../global.interface";
 import { MEDIA_VIDEO_URL } from "../../../../settings";

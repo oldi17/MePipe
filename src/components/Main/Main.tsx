@@ -30,6 +30,9 @@ function Main() {
 
   useEffect(() => {
     dispatch(setUserMenu({'value': false}))
+    if (!isLogged && localStorage.getItem('user')) {
+      window.location.reload()
+    }
   }, [currentPath])
 
   return (

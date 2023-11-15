@@ -7,4 +7,7 @@ export default defineConfig({
   build: {
     assetsDir:'static',
   },
+  server: {
+    port: 5174,
+  },
 })

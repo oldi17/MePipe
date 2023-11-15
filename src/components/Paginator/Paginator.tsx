@@ -43,43 +43,47 @@ export default function Paginator(props: {
     >
       <button
         type='button'
-        className=''
+        className='btn'
         onClick={handleFirst}
+        disabled={props.count === 1}
       >
         {'<<'}
       </button>
       
       <button
         type='button'
-        className=''
+        className='btn'
         onClick={handlePrev}
+        disabled={props.max === 1}
       >
         {'<'}
       </button>
       
-      <span
+      <p
         className=''
-      >{props.count}</span>
+      >{props.count}</p>
 
       <button
         type='button'
-        className=''
+        className='btn'
         onClick={handleNext}
+        disabled={props.max === 1}
       >
         {'>'}
       </button>
       
       <button
         type='button'
-        className=''
+        className='btn'
         onClick={handleLast}
+        disabled={props.count === props.max}
       >
         {'>>'}
       </button>
       
-      <span
+      <p
         className=''
-      >{props.max}</span>
+      >...{props.max}</p>
       
     </div>
   )

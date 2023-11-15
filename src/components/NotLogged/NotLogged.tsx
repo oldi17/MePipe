@@ -14,6 +14,7 @@ export default function NotLogged() {
     <>
       <p>Войдите, чтобы увидеть</p>
       <button
+        className='btn'
         type='button'
         onClick={handleSignInClick}
       >Войти</button>

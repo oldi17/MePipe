@@ -16,12 +16,14 @@ export default function SettingsView(props:{
   const [pfp, setPfp] = useState<File>()
   const [serverError, setServerError] = useState('')
   const [cpfp, setCpfp] = useState(() => props.creator 
-  ? MEDIA_CPFP_URL + props.creator.name + '.png?' 
+  ? MEDIA_CPFP_URL + props.creator.name + '.png' 
   : '/static/cpfp.png')
 
   const [cbg, setCbg] = useState(() => props.creator 
-  ? MEDIA_CBG_URL + props.creator.name + '.png?' 
-  : '/static/cpfp.png')
+  ? MEDIA_CBG_URL + props.creator.name + '.png' 
+  : '/static/cbg.png')
+
+  const [disabled, setDisabled] = useState(false)
 
 
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
@@ -39,8 +41,9 @@ export default function SettingsView(props:{
   }
   
   function handleRegCreator() {
+    setDisabled(true)
     regCreator(newCreator, background, pfp)
-    .then(res => {
+    .then(() => {
       window.location.href = window.location.origin + '/creator/main'
     })
     .catch(err => {
@@ -51,6 +54,7 @@ export default function SettingsView(props:{
   function handleModCreator() {
     if (!props.creator) return
 
+    setDisabled(true)
     const modCreator: CreatorMod = {}
     if (background) {
       modCreator.channel_background = background
@@ -68,7 +72,7 @@ export default function SettingsView(props:{
       modCreator.contacts = newCreator.contacts
     }
     modifyCreator(modCreator)
-    .then(res => {
+    .then(() => {
       window.location.href = window.location.origin + '/creator/main'
     })
     .catch(err => {
@@ -78,7 +82,7 @@ export default function SettingsView(props:{
 
   return (
     <form className="ch--settings_cont">  
-      {!props.creator && <p className="">У вас нет канала</p>}
+      {!props.creator && <p className=""><b>У вас нет канала</b></p>}
       <label 
         className="ch--settings--label"
         htmlFor="name"
@@ -138,6 +142,7 @@ export default function SettingsView(props:{
         id="pfp"
         type="file" 
         onChange={handlePfpChange}
+        disabled={disabled}
         accept='image/png, image/jpeg, image/webp'
       /></label>
 
@@ -155,6 +160,7 @@ export default function SettingsView(props:{
         id="logo"
         type="file" 
         onChange={handleFileChange}
+        disabled={disabled}
         accept='image/png, image/jpeg, image/webp'
       /></label>
       <div>
@@ -168,6 +174,7 @@ export default function SettingsView(props:{
             type="button"
             className="ch--settings--btn"
             onClick={handleRegCreator}
+            disabled={disabled}
           >Создать</button> }
       </div>
       <p

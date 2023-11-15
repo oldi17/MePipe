@@ -71,7 +71,7 @@ export default function VideoForm(props: {
       }
       const ret = createVideo(videoUp, onUploadProgress)
       ret.promise
-      .then(res => {
+      .then(() => {
         props.handleClose()
       })
       setHandleCancelUpload(() => () => ret.controller.abort())
@@ -93,7 +93,7 @@ export default function VideoForm(props: {
         return
       }
       modifyVideo(videoMod, props.video.url)
-      .then(res => {
+      .then(() => {
         props.handleClose()
       })
     }
@@ -214,7 +214,7 @@ export default function VideoForm(props: {
         width="320" 
         height="180" 
         id='video_preview'
-        controls>
+        controls={!disabled && !!video}>
         Your browser does not support the video tag.
       </video>
       <input 

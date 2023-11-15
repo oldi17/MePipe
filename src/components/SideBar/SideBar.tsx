@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../../store"
-import { Link } from "react-router-dom"
 import './SideBar.css'
 import { creatorSideBar, viewerSideBar } from "./sideBars"
 import SideBarElement from "./SideBarElement/SideBarElement"

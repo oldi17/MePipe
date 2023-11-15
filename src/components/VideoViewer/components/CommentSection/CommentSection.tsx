@@ -127,6 +127,7 @@ function CommentSection(props: {
     removeComment(commentId)
     .then(() => {
       setComments(prev => {
+        setCommentsCount(prev => prev - 1)
         return prev.filter(e => e.id !== commentId)
       })
     })

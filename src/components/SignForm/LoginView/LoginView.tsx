@@ -19,6 +19,7 @@ export default function LoginView(props: {
         type="email" 
         value={props.email}
         placeholder="E-mail"
+        autoComplete="username"
         onChange={e => props.setEmail(e.target.value)}
         required
       /></label>

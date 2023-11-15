@@ -88,9 +88,14 @@ instance.interceptors.response.use(
 )
 
 async function refresh(originalConfig: any) {
+  const refreshToken = localStorage.getItem('refresh')
+  if (!refreshToken) {
+    authLogout()
+    return Promise.reject()
+  }
   try {
     const rs = await axios.post(AUTH_URL + "token/refresh/", {
-      refresh: JSON.parse(localStorage.getItem('refresh') || '0'),
+      refresh: JSON.parse(refreshToken),
     })
     destructObjectToLocalStorage(rs.data)
     dispatch(changePair(rs.data))

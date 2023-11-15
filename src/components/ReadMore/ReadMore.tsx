@@ -48,8 +48,8 @@ export default function ReadMore(props: {
     >
       {isReadMore ? props.children : getContent()} 
       {isReadMoreable && (!isReadMore 
-      ? <b onClick={handleMore}>{'\n'}...еще</b>
-      : <b onClick={handleLess}>{'\n'}Свернуть</b>)}
+      ? <b className='rm--bold' onClick={handleMore}>{'\n'}...еще</b>
+      : <b className='rm--bold' onClick={handleLess}>{'\n'}Свернуть</b>)}
     </p>
   )
 }

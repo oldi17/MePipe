@@ -1,0 +1,19 @@
+.paginator {
+  padding-top: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: bold;
+  font-size: large;
+}
+
+.paginator button {
+  width: fit-content;
+  font-weight: bold;
+  font-size: large;
+}
+
+.paginator p {
+  margin: 0;
+}

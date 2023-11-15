@@ -1,10 +1,5 @@
 import { useEffect } from "react"
 
-
-// exceptions: elements refs in which 
-//              a click don't call callback function
-// callback: use on outside exceptions
-// callbackInside: use on inside exceptions
 export default function useClickOutside(
   callback: CallableFunction, 
   exceptions: React.RefObject<HTMLElement>[],

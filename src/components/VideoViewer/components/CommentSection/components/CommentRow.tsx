@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Comment } from '../../../../../global.interface'
 import { convertVideoCreatedAt } from '../../../../../lib/convertToHumanReadable';
 import './CommentRow.css'

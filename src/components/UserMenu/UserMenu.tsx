@@ -32,7 +32,7 @@ function UserMenu(props: any) {
       .then((res) => {
         setCreator(res.data.creator)
       })
-      .catch((err) => setCreator(undefined))
+      .catch(() => setCreator(undefined))
   }, [])
 
   const userMenuRef = useRef(null)

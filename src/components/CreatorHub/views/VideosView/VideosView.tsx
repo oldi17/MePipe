@@ -71,7 +71,7 @@ export default function VideosView(props:{
 
   function handleRemove(url: string) {
     removeVideo(url)
-    .then(res => {
+    .then(() => {
       setVideos(prev => {
         const newVideos = [...prev].filter(e => e.url !== url)
         return newVideos

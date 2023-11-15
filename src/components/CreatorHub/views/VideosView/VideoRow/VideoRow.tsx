@@ -72,7 +72,7 @@ export default function VideoRow(props:{
         {props.video.dislikes}
       </p>
       <button
-        className="video_row--remove_btn"
+        className="video_row--remove_btn btn"
         type="button"
         onClick={e => {
           e.stopPropagation()

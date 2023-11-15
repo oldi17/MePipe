@@ -28,7 +28,7 @@ function VideoDescription(props: {
     getCreatorWithUsername(props.video.creator_name)
     .then(res => {
       setCreator(res.data.creator)
-      setPfp(res.data.creator.name + '.png?')
+      setPfp(res.data.creator.name + '.png')
     })
   }, [])
 
