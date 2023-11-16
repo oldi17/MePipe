@@ -82,11 +82,17 @@
   border:5px solid rgb(156, 156, 156);
 }
 
-.video_form--input-file {
+.video_form--input--file,
+.video_form--input--video {
   position: relative;
   z-index: -10;
   font-size: 0px;
   padding-bottom: -22px;
+}
+
+.video_form--video_load_btn {
+  width: fit-content;
+  padding: 5px;
 }
 
 #video_preview {

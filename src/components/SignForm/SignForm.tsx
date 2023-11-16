@@ -8,6 +8,7 @@ import { RootState } from "../../store"
 import LoginView from "./LoginView/LoginView"
 import RegView from "./RegView/RegView"
 import { UserReg } from "../../global.interface"
+import { useNavigate } from "react-router-dom"
 
 export default function SignForm(props:{classNames: string[]}) {
   const [username, setUsername] = useState('')
@@ -30,13 +31,15 @@ export default function SignForm(props:{classNames: string[]}) {
     return () => {document.body.style.overflow = overflow}
   }, [])
 
+  const navigate = useNavigate()
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setHttpError('')
     if (signForm.view == 'login') {
       authLogin({email, password})
         .then(() => {
-          handleClose()
+          navigate(0)
         })
         .catch(() => {
         setHttpError('Нет доступа к серверу')

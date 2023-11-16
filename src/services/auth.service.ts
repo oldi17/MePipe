@@ -26,6 +26,7 @@ export function authLogout() {
   localStorage.removeItem("access")
   localStorage.removeItem("refresh")
   dispatch(logout())
+  window.location.reload()
 }
 
 export function authRegister(user: UserReg) {

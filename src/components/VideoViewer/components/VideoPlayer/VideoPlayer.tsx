@@ -3,37 +3,44 @@ import './VideoPlayer.css'
 import { Video } from "../../../../global.interface";
 import { MEDIA_VIDEO_URL } from "../../../../settings";
 import { setHistoryVideoTime } from "../../../../services/user.service";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
 
 function VideoPlayer(props: {
   classNames: string[];
   video: Video;
 }) {
 	const vidRef = useRef<HTMLVideoElement>(null)
+	let currPrev = props.video.timestamp || 0
+
+	const isLogged = useSelector(
+    (state: RootState) => state.auth.isLogged
+  )
 
 	useEffect(() => {
-		if (vidRef.current) {
-			const timestamp = props.video.timestamp || 0
-			vidRef.current.addEventListener('loadstart', function() {
-				this.currentTime = timestamp
-			})
+
+		function setCurr(this: HTMLVideoElement) {
+			this.currentTime = currPrev
 		}
 
-		localStorage.setItem('time', '' + props.video.timestamp)
+		if (vidRef.current) {
+			vidRef.current.addEventListener('loadedmetadata', setCurr, false)
+		}
 
 		const timerId = setInterval(() => {
-			if (vidRef.current){
-				const curr = Math.ceil(vidRef.current.currentTime)
-				const currLocal = +(localStorage.getItem('time') || 0)
-				if (curr !== currLocal) {
-					localStorage.setItem('time', '' + curr)
+			if (vidRef.current && isLogged){
+				const curr = Math.floor(vidRef.current.currentTime)
+				if (curr !== currPrev) {
+					currPrev = curr
 					setHistoryVideoTime(props.video.url, curr)
+					.then(e => console.log(e.data))
 				}
 			}
 		}, 5000)
 		
 		return () => {
 			clearInterval(timerId)
-			localStorage.removeItem('time')
+			vidRef.current?.removeEventListener('loadedmetadata', setCurr)
 		}
 	}, [vidRef])
 

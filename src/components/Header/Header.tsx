@@ -56,6 +56,11 @@ function Header() {
 					placeholder="Введите запрос"
           value={search}
           onChange={e => setSearch(e.target.value)}
+					onKeyUp={e => {
+						if (e.key == 'Enter') {
+							handleSearch()
+						}
+					}}
 				/>
 				<button 
 					type='button'
@@ -68,21 +73,12 @@ function Header() {
 					<div
 						className="header--user"
 					>
-						<div
-							className="header--user--info"
-						>
 							<img
 								ref={userImgRef}
 								className="header--user--img"
 								src={MEDIA_PFP_URL + user.username + '.png'}
 								onClick={() => dispatch(toggleUserMenu())}
 							/>
-							<h4
-								className="header--user--name"
-							>
-								{user.username}
-							</h4>
-						</div>
 					</div>
 					{layout.isUserMenu && 
 						<UserMenu exceptionRefs={[userImgRef]} />}

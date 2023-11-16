@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import './VideoDescription.css'
-import { CreatorAuthedWithUname, CreatorWithUname, Video, isCreatorAuthed } from '../../../../global.interface';
-import { useSelector } from 'react-redux';
+import { CreatorWithUname, Video } from '../../../../global.interface';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store';
 import { dislikeVideo, getCreatorWithUsername, likeVideo, subCreator, unlikeVideo, unsubCreator } from '../../../../services/user.service';
 import { MEDIA_CPFP_URL } from '../../../../settings';
 import { convertVideoCreatedAt } from '../../../../lib/convertToHumanReadable';
 import { Link } from 'react-router-dom';
 import ReadMore from '../../../ReadMore/ReadMore';
+import { setSignFormView, setSignFormVisible } from '../../../../features/layout/layoutSlice';
 
 function VideoDescription(props: {
   video: Video;
@@ -21,7 +22,7 @@ function VideoDescription(props: {
 
   const [isReadMore, setIsReadMore] = useState(false)
 
-  const [creator, setCreator] = useState<CreatorAuthedWithUname|CreatorWithUname>()
+  const [creator, setCreator] = useState<CreatorWithUname>()
   const [pfp, setPfp] = useState('')
 
   useEffect(() => {
@@ -32,8 +33,19 @@ function VideoDescription(props: {
     })
   }, [])
 
+  const dispatch = useDispatch()
+
+  function handleSignInClick() {
+		dispatch(setSignFormView({value: 'login'}))
+		dispatch(setSignFormVisible({value: true}))
+	}
+
   function handleSubscribe() {
-    if (!creator || !isCreatorAuthed(creator)) {
+    if (!creator) {
+      return
+    }
+    if (!isLogged) {
+      handleSignInClick()
       return
     }
     if (creator.issubscribed) {
@@ -49,7 +61,11 @@ function VideoDescription(props: {
   }
 
   function handleLike(like: 'like' | 'dislike') {
-    if (!creator || !isCreatorAuthed(creator)) {
+    if (!creator) {
+      return
+    }
+    if (!isLogged) {
+      handleSignInClick()
       return
     }
     const isliked = props.video.isliked
@@ -86,6 +102,7 @@ function VideoDescription(props: {
       className='vd--row'
     >  
         { creator &&
+        <>
           <div
           className='vd--row--creator'
         > 
@@ -99,17 +116,17 @@ function VideoDescription(props: {
             <p className='vd--row--creator--texts--subs'>Подписчики: {creator.subscribers}</p>
           </div>
           </Link>
-          { isLogged && isCreatorAuthed(creator) &&
+          
           <input
             className={'vd--row--creator--sub_btn' + (creator.issubscribed ? '' : ' not_subbed_btn')}
             type='button'
             value={creator.issubscribed ? 'Вы подписаны' : 'Подписаться'}
             onClick={handleSubscribe}
           />
-          }
+
           </div>
-        }
-        { creator && isLogged && isCreatorAuthed(creator) &&
+        
+        
           <div
             className='vd--row--likes'
           >  
@@ -130,7 +147,6 @@ function VideoDescription(props: {
               {props.video.dislikes}
             </button>
           </div>
-        }
           <button
             type='button'
             className='vd--creator--share_btn'
@@ -138,8 +154,9 @@ function VideoDescription(props: {
           >
             Поделиться
           </button>
-      </div>
-    
+      </>
+    }
+    </div>
     <div
       className={'vd--description' + (isReadMore ? ' readmored' : '')}
       onClick={() => !isReadMore && setIsReadMore(prev => !prev)}

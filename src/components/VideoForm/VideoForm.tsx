@@ -3,6 +3,7 @@ import './VideoForm.css'
 import { Video, VideoMod, VideoUpload } from '../../global.interface';
 import { MEDIA_THUMB_URL } from '../../settings';
 import { createVideo, modifyVideo } from '../../services/user.service';
+import preventClickOutsideLabelElements from '../../lib/preventClickOutsideLabelElements';
 
 export default function VideoForm(props: {
   mode: 'create' | 'edit';
@@ -181,6 +182,11 @@ export default function VideoForm(props: {
       <label 
         className="video_form--label"
         htmlFor="thumb"
+        onClick={e => {
+          preventClickOutsideLabelElements(e, 
+            '.video_form--thumb_preview', 
+            '.video_form--input--file')
+        }}
       >Выберите изображение видео
       <img
         className='video_form--thumb_preview'
@@ -188,7 +194,7 @@ export default function VideoForm(props: {
         src={thumbSrc}
       />
       <input 
-        className="video_form--input-file"
+        className="video_form--input--file"
         name="thumb"
         id="thumb"
         type="file" 
@@ -202,14 +208,17 @@ export default function VideoForm(props: {
       <label 
         className="video_form--label"
         htmlFor="video"
+        onClick={e => {
+          preventClickOutsideLabelElements(e, 
+            '.video_form--video_load_btn', 
+            '.video_form--input--video')
+        }}
       >Выберите видео
-      <button
-        type='button'
+      <div
         className='video_form--video_load_btn btn'
-        onClick={e => e.currentTarget.parentElement?.click()}
       >
         {video ? 'Изменить' : 'Выбрать'} видео
-      </button>
+      </div>
       <video 
         width="320" 
         height="180" 
@@ -218,7 +227,7 @@ export default function VideoForm(props: {
         Your browser does not support the video tag.
       </video>
       <input 
-        className="video_form--input-file"
+        className="video_form--input--video"
         name="video"
         id="video"
         type="file" 

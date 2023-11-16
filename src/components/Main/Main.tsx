@@ -28,6 +28,9 @@ function Main() {
     state.layout.currentPath)
   const dispatch = useDispatch()
 
+  const queries = window.location.search.substring(1).split("&")[0].split('=')
+  const query = queries[queries.length - 1].replace('%20', ' ')
+
   useEffect(() => {
     dispatch(setUserMenu({'value': false}))
     if (!isLogged && localStorage.getItem('user')) {
@@ -42,12 +45,16 @@ function Main() {
         <Route path="/v/*" element={<VideoViewer key={location.pathname}  />} />
         <Route path="/c/:creatorName/*" element={<CreatorPage key={location.pathname}  />} />
         <Route path="" element={<VideosPanel key={location.pathname} axiosGetter={getAllVideos} />} />
-        <Route path="results/*" element={<VideosPanel key={location.pathname} 
-          axiosGetter={(page?: number) => {
-            const queries = window.location.search.substring(1).split("&")[0].split('=')
-            const query = queries[queries.length - 1].replace('%20', ' ')
-            return getSearchVideo(query, page)
-          }} />} />
+        <Route path="results/*" element={
+          <>
+          <p><b>Результаты поиска "{query}"</b></p>
+          <VideosPanel 
+            key={location.pathname}
+            axiosGetter={(page?: number) => getSearchVideo(query, page)} 
+          />
+          </>
+          } 
+        />
         <Route 
           path="/subscriptions" 
           element={isLogged 

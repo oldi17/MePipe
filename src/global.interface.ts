@@ -27,10 +27,7 @@ export interface Creator {
 	contacts: string;
 	description: string;
 	subscribers: number;
-}
-
-export interface CreatorAuthed extends Creator {
-	issubscribed: boolean;
+	issubscribed?: boolean;
 }
 
 export interface CreatorMe extends Creator {
@@ -39,14 +36,6 @@ export interface CreatorMe extends Creator {
 
 export interface CreatorWithUname extends Creator {
 	username: number;
-}
-
-export interface CreatorAuthedWithUname extends CreatorAuthed {
-	username: number;
-}
-
-export function isCreatorAuthed(creator: Creator): creator is CreatorAuthed {
-	return 'issubscribed' in creator
 }
 
 export interface CreatorReg {

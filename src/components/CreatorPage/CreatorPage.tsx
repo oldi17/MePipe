@@ -1,14 +1,15 @@
 import { Route, Routes, useParams } from 'react-router-dom'
 import './CreatorPage.css'
 import { useEffect, useState } from 'react'
-import { CreatorAuthed } from '../../global.interface'
+import { Creator } from '../../global.interface'
 import { getCreatorVideo, getCreatorWithUsername, subCreator, unsubCreator } from '../../services/user.service'
 import { MEDIA_CBG_URL, MEDIA_CPFP_URL } from '../../settings'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store'
 import VideosPanel from '../VideosPanel/VideosPanel'
 import { Link } from 'react-router-dom'
 import CreatorAbout from './components/CreatorAbout/CreatorAbout'
+import { setSignFormView, setSignFormVisible } from '../../features/layout/layoutSlice'
 
 export default function CreatorPage() {
   const params = useParams()
@@ -17,7 +18,14 @@ export default function CreatorPage() {
     (state: RootState) => state.auth.isLogged
   )
   
-  const [creator, setCreator] = useState<CreatorAuthed>()
+  const [creator, setCreator] = useState<Creator>()
+
+  const dispatch = useDispatch()
+
+  function handleSignInClick() {
+		dispatch(setSignFormView({value: 'login'}))
+		dispatch(setSignFormVisible({value: true}))
+	}
 
   useEffect(() => {
     if (!params.creatorName) return
@@ -28,7 +36,11 @@ export default function CreatorPage() {
   }, [])
 
   function handleSubscribe() {
-    if (!creator || !isLogged) {
+    if (!creator) {
+      return
+    }
+    if (!isLogged) {
+      handleSignInClick()
       return
     }
     if (creator.issubscribed) {
@@ -62,14 +74,13 @@ export default function CreatorPage() {
           <p
             className=''
           >Подписчики: {creator.subscribers}</p>
-          {isLogged && 
-            <input
-              className={'cp--sub_btn' + (creator.issubscribed ? '' : ' btn')}
-              type='button'
-              value={creator.issubscribed ? 'Вы подписаны' : 'Подписаться'}
-              onClick={handleSubscribe}
-            />
-          }
+          
+          <input
+            className={'cp--sub_btn' + (creator.issubscribed ? '' : ' btn')}
+            type='button'
+            value={creator.issubscribed ? 'Вы подписаны' : 'Подписаться'}
+            onClick={handleSubscribe}
+          />
         </div>
       </div>
       <div

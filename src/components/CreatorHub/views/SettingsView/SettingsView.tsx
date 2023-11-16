@@ -3,6 +3,7 @@ import { CreatorMe, CreatorMod } from "../../../../global.interface"
 import './SettingsView.css'
 import { modifyCreator, regCreator } from "../../../../services/user.service"
 import { MEDIA_CBG_URL, MEDIA_CPFP_URL } from "../../../../settings";
+import preventClickOutsideLabelElements from "../../../../lib/preventClickOutsideLabelElements";
 
 export default function SettingsView(props:{
   creator: CreatorMe|undefined;
@@ -116,7 +117,7 @@ export default function SettingsView(props:{
       <label 
         className="ch--settings--label"
         htmlFor="contacts"
-      >Введите контактные данные канала
+      >Введите способы связи с вами
       <textarea
         className="ch--settings--input_contacts"
         name="contacts"
@@ -131,6 +132,11 @@ export default function SettingsView(props:{
       <label 
         className="ch--settings--label"
         htmlFor="pfp"
+        onClick={e => {
+          preventClickOutsideLabelElements(e, 
+            '.ch--settings--img_pfp', 
+            '.ch--settings--input_pfp')
+        }}
       >Выберите изображение профиля канала (1 x 1)
       <img 
         className="ch--settings--img_pfp"
@@ -150,6 +156,11 @@ export default function SettingsView(props:{
       <label 
         className="ch--settings--label"
         htmlFor="logo"
+        onClick={e => {
+          preventClickOutsideLabelElements(e, 
+            '.ch--settings--img_bg', 
+            '.ch--settings--input_bg')
+        }}
       >Выберите фоновое изображение канала (6 x 1)
       <img 
         className="ch--settings--img_bg"

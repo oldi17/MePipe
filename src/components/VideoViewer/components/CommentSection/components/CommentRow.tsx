@@ -18,13 +18,17 @@ export default function CommentRow(props: {
   function handleChange() {
       setNewContent(props.comment.content)
       setTimeout(() => {
-        const el = document.querySelector('.comment_row--changer--text_input')
-        adjustTextArea(el as HTMLTextAreaElement)
+        const el = document.querySelector('.comment_row--changer--text_input') as HTMLTextAreaElement
+        const end = el.value.length
+        el.setSelectionRange(end, end)
+        el.focus()
+        adjustTextArea(el)
       })
   }
 
   function handleSave() {
     if(newContent != props.comment.content) {
+      console.log(newContent, props.comment.content)
       props.handleChange(newContent?.replace('\r', '\n'))
       setNewContent(undefined)
     } else {
@@ -69,7 +73,7 @@ export default function CommentRow(props: {
           {props.comment.content}
         </ReadMore>
         <div className='comment_row--buttons'>
-          {props.isLogged && 
+          
           <div className='comment_row--buttons--likes'>
             <button 
               type='button'
@@ -89,7 +93,7 @@ export default function CommentRow(props: {
             <p className='comment_row--buttons--likes--dislike_count'>
               {props.comment.dislikes}  
             </p> 
-          </div>}
+          </div>
           {props.isOwn && 
           <>
           <button
@@ -119,7 +123,15 @@ export default function CommentRow(props: {
             id="new_content"
             value={newContent || ''}
             onChange={e => setNewContent(e.target.value)}
-            onKeyUp={e => adjustTextArea(e.currentTarget)}
+            onKeyUp={e => {
+              adjustTextArea(e.currentTarget)
+            }}
+            onKeyDown={e => {
+              if (e.key == 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                handleSave()
+              }
+            }}
             minLength={1}
             maxLength={255}
             rows={1}

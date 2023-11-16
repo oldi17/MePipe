@@ -3,9 +3,10 @@ import './CommentSection.css'
 import { Comment, Video } from "../../../../global.interface";
 import { createComment, dislikeComment, getAllComments, getVideoCommentsCount, likeComment, modifyComment, removeComment, unlikeComment } from "../../../../services/user.service";
 import CommentRow from "./components/CommentRow";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import usePaginate from "../../../../hooks/usePaginate";
+import { setSignFormView, setSignFormVisible } from "../../../../features/layout/layoutSlice";
 
 function CommentSection(props: {
   classNames: string[];
@@ -29,12 +30,25 @@ function CommentSection(props: {
     'comments'
   )
 
+  const dispatch = useDispatch()
+
+  function handleSignInClick() {
+		dispatch(setSignFormView({value: 'login'}))
+		dispatch(setSignFormVisible({value: true}))
+	}
+
   const commentRows = comments.map(c => 
     <CommentRow 
       comment={c} 
       key={c.id} 
       handleChange={(newContent: string) => changeComment(c.id, newContent)}
-      handleLike={(like: 'like' | 'dislike') => handleLike(like, c.id)}
+      handleLike={(like: 'like' | 'dislike') => {
+        if (!isLogged) {
+          handleSignInClick()
+          return
+        }
+        handleLike(like, c.id)
+      }}
       handleRemove={() => handleRemove(c.id)}
       isOwn={user.username === c.user_username}
       isLogged={isLogged}  
@@ -62,9 +76,8 @@ function CommentSection(props: {
   }
 
   function sendComment() {
-    handleFocus(false)
     const localNewComment = newComment
-    setNewComment('')
+    clearTextArea()
     createComment(props.video.url, localNewComment)
     .then(res => {
       setComments(prev => ([
@@ -78,6 +91,13 @@ function CommentSection(props: {
   function adjustTextArea(el: HTMLTextAreaElement) {
     el.style.height = "1px"
     el.style.height = (el.scrollHeight) + "px"
+  }
+
+  function clearTextArea() {
+    setNewComment('')
+    const el = document.querySelector('.cs--new--text_input') as HTMLTextAreaElement
+    el.style.height = "25px"
+    handleFocus(false)
   }
 
   function handleFocus(isFocused: boolean) {
@@ -147,7 +167,15 @@ function CommentSection(props: {
           placeholder="Введите комментарий"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          onKeyUp={e => adjustTextArea(e.currentTarget)}
+          onKeyUp={e => {
+            adjustTextArea(e.currentTarget)
+          }}
+          onKeyDown={e => {
+            if (e.key == 'Enter' && !e.shiftKey) {
+              e.preventDefault()
+              sendComment()
+            }
+          }}
           onFocus={() => handleFocus(true)}
           rows={1}
           maxLength={255}
@@ -157,12 +185,7 @@ function CommentSection(props: {
           <button 
             className="cs--new--btn_cancel btn"
             type="button"
-            onClick={() => {
-              setNewComment('')
-              const el = document.querySelector('.cs--new--text_input') as HTMLTextAreaElement
-              el.style.height = "25px"
-              handleFocus(false)
-            }}
+            onClick={clearTextArea}
           >
             Отмена
           </button>

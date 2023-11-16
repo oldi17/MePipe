@@ -13,6 +13,7 @@
   overflow: hidden;
   border: 0;
   border-bottom: 2px solid rgb(179, 179, 179);
+  height: 25px;
 }
 
 .cs--new--text_input:focus {

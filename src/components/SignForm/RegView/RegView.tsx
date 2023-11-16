@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import preventClickOutsideLabelElements from '../../../lib/preventClickOutsideLabelElements';
 
 export default function RegView(props: {
   username: string;
@@ -75,10 +76,9 @@ export default function RegView(props: {
         className="form--view--label"
         htmlFor="logo"
         onClick={e => {
-          if (e.target != document.querySelector('.form--view--pfp')
-            && e.target != document.querySelector('.form--view--input-file')) {
-            e.preventDefault()
-          }
+          preventClickOutsideLabelElements(e, 
+            '.form--view--pfp', 
+            '.form--view--input-file')
         }}
       >Выберите изображение профиля
       <img className="form--view--pfp" src={pfpSrc} />
