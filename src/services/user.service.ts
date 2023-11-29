@@ -9,7 +9,7 @@ export async function modifyUser(user: UserPatch = {}) {
     (key, value) => 
     formData.append(key, value)
   )
-  return await axios.patch(AUTH_URL + 'modify/', formData, {
+  return await axios.patch(AUTH_URL + 'user/', formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     }
