@@ -111,8 +111,8 @@ export interface Comment {
 }
 
 export interface PaginatorValues {
-	count: number;
-	numpages: number;
+	curr_page: number;
+	max_page: number;
 	firstlink: string;
 	nextlink: string;
 	prevlink: string;

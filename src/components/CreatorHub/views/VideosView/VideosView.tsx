@@ -12,8 +12,8 @@ export default function VideosView(props:{
 }) {
   const [videos, setVideos] = useState<VideoWithCommentsCount[] | []>([])
   const [paginator, setPaginator] = useState<PaginatorValues>({
-    count: 0,
-    numpages: 0,
+    curr_page: 0,
+    max_page: 0,
     firstlink: '',
     nextlink: '',
     prevlink: '',
@@ -34,8 +34,8 @@ export default function VideosView(props:{
 
   function setPaginatorFromData(data: VideosResponse) {
     setPaginator({
-      count: data.count,
-      numpages: data.numpages,
+      curr_page: data.curr_page,
+      max_page: data.max_page,
       firstlink: BACKEND_URL_WITHOUT_SLASH + data.firstlink,
       lastlink: BACKEND_URL_WITHOUT_SLASH + data.lastlink,
       nextlink: BACKEND_URL_WITHOUT_SLASH + data.nextlink,
@@ -65,7 +65,7 @@ export default function VideosView(props:{
 
   useEffect(() => {
     if(!videoFormIsVisible) {
-      getVideos(getQuery, paginator.firstlink.replace(/[0-9]+$/, paginator.count.toString()))
+      getVideos(getQuery, paginator.firstlink.replace(/[0-9]+$/, paginator.curr_page.toString()))
     }
   }, [videoFormIsVisible])
 
@@ -117,8 +117,8 @@ export default function VideosView(props:{
       }} />
     }
     <Paginator 
-      count={paginator.count} 
-      max={paginator.numpages}
+      count={paginator.curr_page} 
+      max={paginator.max_page}
       handleFirst={() => getVideos(getQuery, paginator.firstlink)}
       handlePrev={() => getVideos(getQuery, paginator.prevlink)}
       handleNext={() => getVideos(getQuery, paginator.nextlink)}
